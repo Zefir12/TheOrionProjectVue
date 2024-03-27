@@ -30,7 +30,9 @@ const newFoodStore = useNewFoodStore();
                             <IconButton @click="newFoodStore.addNewServing"></IconButton>
                         </div>
                         <div class="inner-wrap">
-                            <button @click="newFoodStore.removeServing(serving)" v-for="serving in newFoodStore.servings">{{ serving.name + " - " + serving.value + "g" }}</button>
+                            <button @click="newFoodStore.removeServing(serving)" v-for="serving in newFoodStore.servings">
+                                {{ serving.name + " - " + serving.value + "g" }}
+                            </button>
                         </div>
                     </div>
                 </template>
@@ -60,11 +62,11 @@ const newFoodStore = useNewFoodStore();
                 <template #content>
                     <div class="inner-stack">
                         <div class="inner-group">
-                            <small>Nutri Score</small>
+                            <a href="https://danone.pl/nutri-score/" target="_blank" rel="noopener noreferrer">Nutri Score</a>
                             <Rating v-model="newFoodStore.nutriScore" />
                         </div>
                         <div class="inner-group">
-                            <small>Nova Score</small>
+                            <a href="https://world.openfoodfacts.org/nova" target="_blank" rel="noopener noreferrer">Nova Score</a>
                             <Rating :stars="4" v-model="newFoodStore.novaScore" />
                         </div>
                     </div>
@@ -94,7 +96,6 @@ const newFoodStore = useNewFoodStore();
 }
 
 .inner-wrap {
-
 }
 
 .inner-stack {

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import Button from "primevue/button";
 import { Booleanish } from "primevue/ts-helpers";
-const props = defineProps<{ name: String; disabled?: Booleanish }>();
+const props = defineProps<{ name?: string; disabled?: Booleanish }>();
 defineEmits(["click"]);
 </script>
 
 <template>
-    <Button class="my-button" :disabled="props.disabled" text @click="$emit('click')">{{ name }}</Button>
+    <Button class="my-button" :disabled="props.disabled" text @click="$emit('click')">{{ name ?? 'Button' }}</Button>
 </template>
 
 <style scoped>
@@ -16,16 +16,14 @@ defineEmits(["click"]);
     font-weight: 600;
     line-height: 1;
     text-align: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: auto;
     cursor: pointer;
     border-radius: 4px;
     font-size: calc(0.875rem * 1);
-    padding-top: 10px;
-    padding-bottom: 10px;
     transition: 20ms;
     transition-timing-function: linear;
-
+    min-height: 2.25rem;
     justify-content: center;
     padding: 10px;
 }
