@@ -14,7 +14,8 @@ defineProps<{height?: string}>()
     overflow-y: auto;
     flex-wrap: nowrap;
     height: 70vh;
-
+    border-color: yellowgreen;
+    border-radius: 1px;
 }
 
 </style>

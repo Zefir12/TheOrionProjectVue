@@ -96,6 +96,4 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
         addNewFoodToDatabase,
     };
 });
-function useStore() {
-    throw new Error("Function not implemented.");
-}
+

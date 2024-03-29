@@ -26,7 +26,7 @@ async function loginSubmit() {
                     <Password v-model="store.password" :feedback="false" />
                     <label>Password</label>
                 </FloatLabel>
-                <StyledButton @click="loginSubmit" class="button" name="Login"/>
+                <StyledButton class="login-button" @click="loginSubmit" name="Login"/>
             </div>
         </template>
     </Card>
@@ -36,13 +36,18 @@ async function loginSubmit() {
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 12rem;
 }
 
 .container-item {
-    margin: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
-.button {
-    margin: 14px;
+.login-button {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: 10.8rem;
 }
 </style>

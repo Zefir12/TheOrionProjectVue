@@ -1,31 +1,48 @@
 <script setup lang="ts">
 import Button from "primevue/button";
 import { Booleanish } from "primevue/ts-helpers";
-const props = defineProps<{ name?: string; disabled?: Booleanish }>();
+const props = defineProps<{ name?: string; disabled?: Booleanish, width?: string | undefined }>();
 defineEmits(["click"]);
 </script>
 
 <template>
-    <Button class="my-button" :disabled="props.disabled" text @click="$emit('click')">{{ name ?? 'Button' }}</Button>
+    <Button :style="{ width: width}" class="my-button" :disabled="props.disabled" text @click="$emit('click')">
+        <div class="my-button-text-container">
+            {{ name ?? "Button" }}
+        </div>
+    </Button>
 </template>
 
 <style scoped>
+.my-button-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
 .my-button {
-    background: rgba(132, 94, 247, 0.15);
-    color: #d0bfff;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 18px;
+    padding-right: 18px;
+    background: #7950f226;
+    color: #b197fc;
     font-weight: 600;
     line-height: 1;
     text-align: center;
     /* overflow: hidden; */
-    width: auto;
+    width: 100%;
     cursor: pointer;
     border-radius: 4px;
-    font-size: calc(0.875rem * 1);
+    font-size: var(--zefir-font-size-sm);
     transition: 20ms;
     transition-timing-function: linear;
     min-height: 2.25rem;
     justify-content: center;
-    padding: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
 }
 
 .my-button:disabled {

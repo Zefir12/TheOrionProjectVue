@@ -2,23 +2,15 @@
 import { useRouter } from "vue-router";
 import { useLoginStore } from "../login/store/loginStore";
 import { useSidebarStore } from "./sidebarStore";
-import Button from "primevue/button";
 import StyledButton from "../global/StyledButton.vue";
-import { IconX } from "@tabler/icons-vue";
+import { IconMenu2 } from "@tabler/icons-vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const sidebarStore = useSidebarStore();
 
 const loginStore = useLoginStore();
 
-function goToDashboard() {
-    router.push({ name: "dashboard" });
-}
-
-function goToFood() {
-    router.push({ name: "food" });
-}
 
 async function logoutUser() {
     await loginStore.logutUser();
@@ -28,28 +20,49 @@ async function logoutUser() {
 <template>
     <div class="sidebar" :class="{ 'sidebar-hidden': !sidebarStore.sidebarVisible }">
         <div class="sidebar-head" :class="{ 'sidebar-head-closed': !sidebarStore.sidebarVisible }">
-            <div v-if="sidebarStore.sidebarVisible">MENU</div>
-            <Button text raised @click="sidebarStore.toggleVisible()" severity="secondary"><IconX size="22" stroke-width="2" color="#7048e8"/> </Button>
-            
+            <div class="menu-text" v-if="sidebarStore.sidebarVisible">MENU</div>
+            <div class="close-sidebar-buton" @click="sidebarStore.toggleVisible()">
+                <IconMenu2 size="34" stroke-width="1.25"/>
+            </div>
         </div>
         <div class="sidebar-content">
-            <StyledButton :disabled="!loginStore.userLogged" @click="goToDashboard" name="Dashboard"/>
-            <StyledButton :disabled="!loginStore.userLogged" @click="goToFood" name="Food"/>
-            <StyledButton class="logout_buton" :disabled="!loginStore.userLogged" @click="logoutUser" name="Logout"/>
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'dashboard' });" name="Dashboard" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'food' })" name="Food" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'weight' })" name="Weight" />
+            <StyledButton class="logout_buton" :disabled="!loginStore.userLogged" @click="logoutUser" name="Logout" />
         </div>
     </div>
 </template>
 
 <style scoped>
+.menu-text {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    color: #c9c9c9;
+}
+
+.close-sidebar-buton {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    height: 34px;
+    overflow: hidden;
+    color: rgb(103, 65, 217);
+}
+
+.close-sidebar-buton:hover {
+    cursor: pointer;
+}
+
 .logout_buton {
     margin-top: auto;
 }
 
 .sidebar {
     z-index: 1000;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    padding: 5px;
     position: fixed;
     left: 0;
     top: 0;
@@ -63,7 +76,7 @@ async function logoutUser() {
 }
 .sidebar-content {
     display: flex;
-    margin: 15px;
+    padding: 12px;
     gap: 5px;
     flex-direction: column;
     height: 100%;
@@ -73,10 +86,10 @@ async function logoutUser() {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 15px;
-    margin-top: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
     align-items: center;
-    height: 50px;
+    height: 48px;
     font-weight: bold;
 }
 .sidebar-head-closed {

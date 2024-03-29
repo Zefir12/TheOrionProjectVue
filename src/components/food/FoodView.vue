@@ -29,7 +29,7 @@ import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
             <template #header>
                 <div class="tab-head">
                     <IconSettings size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">Ioni Bowcher</span>
+                    <span class="font-bold white-space-nowrap">Settings</span>
                 </div>
             </template>
         </TabPanel>

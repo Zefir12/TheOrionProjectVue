@@ -30,9 +30,11 @@ const newFoodStore = useNewFoodStore();
                             <IconButton @click="newFoodStore.addNewServing"></IconButton>
                         </div>
                         <div class="inner-wrap">
-                            <button @click="newFoodStore.removeServing(serving)" v-for="serving in newFoodStore.servings">
-                                {{ serving.name + " - " + serving.value + "g" }}
-                            </button>
+                            <StyledButton
+                                :name="serving.name + ' - ' + serving.value + 'g'"
+                                @click="newFoodStore.removeServing(serving)"
+                                v-for="serving in newFoodStore.servings"
+                            />
                         </div>
                     </div>
                 </template>
@@ -96,6 +98,9 @@ const newFoodStore = useNewFoodStore();
 }
 
 .inner-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .inner-stack {

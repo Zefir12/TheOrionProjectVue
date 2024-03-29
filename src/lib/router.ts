@@ -3,13 +3,15 @@ import LoginView from '../components/login/LoginView.vue'
 import { getUserLogged } from './localStorage/settings'
 import DashboardView from '../components/dashboard/DashboardView.vue'
 import FoodView from '../components/food/FoodView.vue'
+import WeightView from '../components/weight/WeightView.vue'
 
 
 
 const routes = [
   { name: 'dashboard', path: '/', component: DashboardView },
   { name: 'login', path: '/login', component: LoginView },
-  { name: 'food', path: '/food', component: FoodView}
+  { name: 'food', path: '/food', component: FoodView},
+  { name: 'weight', path: '/weight', component: WeightView}
 ]
 
 

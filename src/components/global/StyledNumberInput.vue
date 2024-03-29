@@ -2,8 +2,8 @@
 import InputNumber from "primevue/inputnumber";
 import { Nullable } from "primevue/ts-helpers";
 
-const props = defineProps<{ label: String }>();
-const model = defineModel({ required: true, default: 0 });
+const props = defineProps<{ label?: String }>();
+const model = defineModel({ required: false, default: 0 });
 </script>
 <template>
     <div class="styled-number-input-container">
