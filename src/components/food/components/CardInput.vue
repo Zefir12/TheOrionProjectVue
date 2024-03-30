@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import InputText from "primevue/inputtext";
-import { Nullable } from "primevue/ts-helpers";
 const model = defineModel<string>()
 defineProps(["label"]);
 </script>
