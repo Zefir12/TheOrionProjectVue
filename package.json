@@ -1,26 +1,31 @@
 {
-  "name": "theorionprojectvue2",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.39.8",
-    "@tabler/icons-vue": "^3.1.0",
-    "chart.js": "^4.4.2",
-    "pinia": "^2.1.7",
-    "primevue": "^3.50.0",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vue-tsc": "^2.0.6"
-  }
+    "name": "theorionprojectvue2",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+        "format": "prettier .  --write"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.39.8",
+        "@tabler/icons-vue": "^3.1.0",
+        "chart.js": "^4.4.2",
+        "pinia": "^2.1.7",
+        "primevue": "^3.50.0",
+        "vue": "^3.4.21",
+        "vue-router": "^4.3.0"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^5.0.4",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-vue": "^9.24.0",
+        "typescript": "^5.2.2",
+        "vite": "^5.2.0",
+        "vue-tsc": "^2.0.6"
+    }
 }
