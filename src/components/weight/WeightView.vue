@@ -12,10 +12,8 @@ import { getAllDatesInRange, getMinMaxDates } from "../../lib/zefir/dates";
 
 const weightStore = useWeightStore();
 
-
-
-const x = ref([] as (null|number)[])
-const y = ref([] as string[])
+const x = ref([] as (null | number)[]);
+const y = ref([] as string[]);
 
 onMounted(async () => {
     chartData.value = await setChartData();
@@ -24,8 +22,6 @@ onMounted(async () => {
 
 const chartData = ref();
 const chartOptions = ref();
-
-
 
 function curateData(data: Tables<"weight">[]) {
     const { minDate, maxDate } = getMinMaxDates(data);
@@ -56,7 +52,7 @@ const setChartData = async () => {
     // const x: (number | null)[] = [];
     // const y: string[] = [];
     // const weight = await getAllWeight();
-    const weight = await getAllWeightBetween(new Date("1023-06-01"), new Date(Date.now()));
+    const weight = await getAllWeightBetween(new Date("2023-06-01"), new Date(Date.now()));
     if (!weight) {
         throw new Error();
     }
@@ -104,7 +100,7 @@ const setChartOptions = () => {
         aspectRatio: 0.6,
         animation: {
             duration: 0, // Transition duration in milliseconds
-            easing: 'easeInOutQuart', // Easing function
+            easing: "easeInOutQuart", // Easing function
         },
         plugins: {
             legend: {

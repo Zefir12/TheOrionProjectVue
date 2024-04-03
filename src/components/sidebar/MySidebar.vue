@@ -11,7 +11,6 @@ const sidebarStore = useSidebarStore();
 
 const loginStore = useLoginStore();
 
-
 async function logoutUser() {
     await loginStore.logutUser();
 }
@@ -22,14 +21,15 @@ async function logoutUser() {
         <div class="sidebar-head" :class="{ 'sidebar-head-closed': !sidebarStore.sidebarVisible }">
             <div class="menu-text" v-if="sidebarStore.sidebarVisible">MENU</div>
             <div class="close-sidebar-buton" @click="sidebarStore.toggleVisible()">
-                <IconMenu2 size="34" stroke-width="1.25"/>
+                <IconMenu2 size="34" stroke-width="1.25" />
             </div>
         </div>
         <div class="sidebar-content">
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'dashboard' });" name="Dashboard" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'dashboard' })" name="Dashboard" />
             <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'food' })" name="Food" />
             <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'weight' })" name="Weight" />
-            <StyledButton class="logout_buton" :disabled="!loginStore.userLogged" @click="logoutUser" name="Logout" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'bloodpreassure' })" name="Blood Preassure" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="logoutUser" class="logout_buton" name="Logout" />
         </div>
     </div>
 </template>
