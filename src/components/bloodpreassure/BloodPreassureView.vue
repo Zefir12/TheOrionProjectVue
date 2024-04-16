@@ -14,7 +14,7 @@ const bloodPreassureStore = useBloodPreassureStore();
             <Stack height="100%">
                 <Group justify="center">
                     <StyledNumberInput :disabled="true" />
-                    <StyledButton disabled="true" name="Add" width="auto" />
+                    <StyledButton :disabled="true" name="Add" width="auto" />
                 </Group>
                 <div class="zefir-chart-container">
                     <Chart class="zefir-chart" type="line" :data="bloodPreassureStore.chartData" :options="bloodPreassureStore.chartOptions" />
