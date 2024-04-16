@@ -28,6 +28,9 @@ const items = ref([] as Tables<"food_types">[]);
 
 onMounted(async () => {
     const { data, error } = await supabase.from("food_types").select("*").returns<Tables<"food_types">[]>();
+    if (error) {
+        console.log(error);
+    }
     data?.forEach((item) => {
         items.value.push(item);
     });

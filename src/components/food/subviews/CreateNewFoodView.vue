@@ -16,7 +16,7 @@ const newFoodStore = useNewFoodStore();
                     <div class="content-stack">
                         <CardInput v-model="newFoodStore.name" label="Name" />
                         <StyledNumberInput v-model="newFoodStore.waterPercentage" label="Water Percentage" />
-                        <StyledButton @click="newFoodStore.addNewFoodToDatabase" name="Add" />
+                        <StyledButton name="Add" @click="newFoodStore.addNewFoodToDatabase" />
                     </div>
                 </template>
             </Card>
@@ -31,9 +31,9 @@ const newFoodStore = useNewFoodStore();
                         </div>
                         <div class="inner-wrap">
                             <StyledButton
+                                v-for="serving in newFoodStore.servings"
                                 :name="serving.name + ' - ' + serving.value + 'g'"
                                 @click="newFoodStore.removeServing(serving)"
-                                v-for="serving in newFoodStore.servings"
                             />
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const newFoodStore = useNewFoodStore();
                         </div>
                         <div class="inner-group">
                             <a href="https://world.openfoodfacts.org/nova" target="_blank" rel="noopener noreferrer">Nova Score</a>
-                            <Rating :stars="4" v-model="newFoodStore.novaScore" />
+                            <Rating v-model="newFoodStore.novaScore" :stars="4" />
                         </div>
                     </div>
                 </template>

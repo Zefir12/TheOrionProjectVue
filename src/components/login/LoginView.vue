@@ -26,7 +26,7 @@ async function loginSubmit() {
                     <Password v-model="store.password" :feedback="false" />
                     <label>Password</label>
                 </FloatLabel>
-                <StyledButton class="login-button" @click="loginSubmit" name="Login"/>
+                <StyledButton class="login-button" name="Login" @click="loginSubmit"/>
             </div>
         </template>
     </Card>

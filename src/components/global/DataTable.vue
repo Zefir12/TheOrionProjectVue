@@ -24,8 +24,6 @@ defineProps<{ headers: HeaderItem[]; items: any[] }>();
 </script>
 
 <style scoped>
-.zefir-table-body {
-}
 .zefir-table {
     border-collapse: collapse;
     width: 100%;

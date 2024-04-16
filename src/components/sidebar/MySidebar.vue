@@ -19,18 +19,18 @@ async function logoutUser() {
 <template>
     <div class="sidebar" :class="{ 'sidebar-hidden': !sidebarStore.sidebarVisible }">
         <div class="sidebar-head" :class="{ 'sidebar-head-closed': !sidebarStore.sidebarVisible }">
-            <div class="menu-text" v-if="sidebarStore.sidebarVisible">MENU</div>
+            <div v-if="sidebarStore.sidebarVisible" class="menu-text">MENU</div>
             <div class="close-sidebar-buton" @click="sidebarStore.toggleVisible()">
                 <IconMenu2 size="34" stroke-width="1.25" />
             </div>
         </div>
         <div class="sidebar-content">
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'dashboard' })" name="Dashboard" />
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'food' })" name="Food" />
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'weight' })" name="Weight" />
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'bloodpreassure' })" name="Blood Preassure" />
-            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'foodData' })" name="Food Data" />
-            <StyledButton :disabled="!loginStore.userLogged" @click="logoutUser" class="logout_buton" name="Logout" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Dashboard" @click="router.push({ name: 'dashboard' })" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Food" @click="router.push({ name: 'food' })" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Weight" @click="router.push({ name: 'weight' })" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Blood Preassure" @click="router.push({ name: 'bloodpreassure' })" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Food Data" @click="router.push({ name: 'foodData' })" />
+            <StyledButton :disabled="!loginStore.userLogged" class="logout_buton" name="Logout" @click="logoutUser" />
         </div>
     </div>
 </template>

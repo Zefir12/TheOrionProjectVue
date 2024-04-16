@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Button from "primevue/button";
-import { Booleanish } from "primevue/ts-helpers";
+type Booleanish = boolean | "false" | true;
 const props = defineProps<{ name?: string; disabled?: Booleanish; width?: string | undefined }>();
 defineEmits(["click"]);
 </script>
