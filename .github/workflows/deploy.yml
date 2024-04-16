@@ -34,9 +34,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: 18
-                  cache: "npm"
+                  cache: "pnpm"
             - name: Install dependencies
-              run: npm install
+              run: pnpm install
             - name: Find and Replace Password - Using Secrets
               env:
                   SUPA_URL: ${{ secrets.SUPA_URL }}
@@ -46,7 +46,7 @@ jobs:
                   find . -name '.env' -type f -exec sed -i "s/#{SUPA_URL}#/${SUPA_URL//\//\\/}/g" {} \;
                   find . -name '.env' -type f -exec sed -i "s/#{SUPA_KEY}#/${SUPA_KEY//\//\\/}/g" {} \;
             - name: Build
-              run: npm run build && cp ./dist/index.html ./dist/404.html
+              run: pnpm run build && cp ./dist/index.html ./dist/404.html
             - name: Setup Pages
               uses: actions/configure-pages@v3
             - name: Upload artifact
