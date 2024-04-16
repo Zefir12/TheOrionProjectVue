@@ -41,3 +41,7 @@ export function getAllDatesInRange(minDate: Date, maxDate: Date): Date[] {
 
     return dates;
 }
+
+export function dateStringToNiceString(date: string) {
+    return date.split("T")[0];
+}

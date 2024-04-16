@@ -29,6 +29,7 @@ async function logoutUser() {
             <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'food' })" name="Food" />
             <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'weight' })" name="Weight" />
             <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'bloodpreassure' })" name="Blood Preassure" />
+            <StyledButton :disabled="!loginStore.userLogged" @click="router.push({ name: 'foodData' })" name="Food Data" />
             <StyledButton :disabled="!loginStore.userLogged" @click="logoutUser" class="logout_buton" name="Logout" />
         </div>
     </div>

@@ -1,25 +1,30 @@
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import LoginView from "../components/login/LoginView.vue";
-import { getUserLogged } from "./localStorage/settings";
+import { getUserLogged, setPage } from "./localStorage/settings";
 import DashboardView from "../components/dashboard/DashboardView.vue";
 import FoodView from "../components/food/FoodView.vue";
 import WeightView from "../components/weight/WeightView.vue";
 import BloodPreassureView from "../components/bloodpreassure/BloodPreassureView.vue";
+import FoodDataView from "../components/foodData/FoodDataView.vue";
 
 const routes = [
-    { name: "dashboard", path: "/", component: DashboardView },
+    //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },
+    { name: "dashboard", path: "/dashboard", component: DashboardView },
     { name: "login", path: "/login", component: LoginView },
     { name: "food", path: "/food", component: FoodView },
     { name: "weight", path: "/weight", component: WeightView },
     { name: "bloodpreassure", path: "/bloodpreassure", component: BloodPreassureView },
+    { name: "foodData", path: "/fooddata", component: FoodDataView },
 ];
 
-export const router = createRouter({
-    history: createMemoryHistory(),
+const router = createRouter({
+    //history: createMemoryHistory(),
+    history: createWebHashHistory(),
     routes,
 });
 
 router.beforeEach(async (to) => {
+    setPage(to.path);
     if (
         !getUserLogged() &&
         // ❗️ Avoid an infinite redirect
@@ -28,3 +33,5 @@ router.beforeEach(async (to) => {
         return { name: "login" };
     }
 });
+
+export { router };

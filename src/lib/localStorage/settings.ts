@@ -24,3 +24,15 @@ export const getSidebarVisible = (): boolean => {
 export const setSidebarVisible = (value: boolean): void => {
     setItem("sidebarVisible", value);
 };
+
+export const getPage = (): string | null => {
+    const data = getItem("page");
+    if (data) return JSON.parse(data);
+    else {
+        return null;
+    }
+};
+
+export const setPage = (value: string): void => {
+    setItem("page", value);
+};
