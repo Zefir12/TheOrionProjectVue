@@ -42,8 +42,8 @@ jobs:
               run: pnpm install
             - name: Find and Replace Password - Using Secrets
               env:
-                  SUPA_URL: ${{ secrets.SUPA_URL }} // eslint-disable-line
-                  SUPA_KEY: ${{ secrets.SUPA_KEY }} // eslint-disable-line
+                  SUPA_URL: ${{ secrets.SUPA_URL }}
+                  SUPA_KEY: ${{ secrets.SUPA_KEY }}
               run: |
                   echo "Replacing #{SUPA_URL}# with $SUPA_URL";
                   find . -name '.env' -type f -exec sed -i "s/#{SUPA_URL}#/${SUPA_URL//\//\\/}/g" {} \;
