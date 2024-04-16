@@ -8,14 +8,13 @@ import { useLoginStore } from "./store/loginStore";
 
 const store = useLoginStore();
 
-
 async function loginSubmit() {
     await store.loginUser();
 }
 </script>
 
 <template>
-    <Card>
+    <Card class="t">
         <template #content>
             <div class="container">
                 <FloatLabel class="container-item">
@@ -26,13 +25,17 @@ async function loginSubmit() {
                     <Password v-model="store.password" :feedback="false" />
                     <label>Password</label>
                 </FloatLabel>
-                <StyledButton class="login-button" name="Login" @click="loginSubmit"/>
+                <StyledButton class="login-button" name="Login" @click="loginSubmit" />
             </div>
         </template>
     </Card>
 </template>
 
 <style scoped>
+.t {
+    width: 15rem;
+    margin: auto;
+}
 .container {
     display: flex;
     flex-direction: column;
