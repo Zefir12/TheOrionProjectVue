@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { useLoginStore } from "../login/store/loginStore";
+import { useLoginStore } from "../../pages/login/store/loginStore";
 import { useSidebarStore } from "./sidebarStore";
 import StyledButton from "../global/StyledButton.vue";
 import { IconMenu2 } from "@tabler/icons-vue";
@@ -37,7 +37,16 @@ async function logoutUser() {
 
 <style scoped>
 .menu-text {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
     color: #c9c9c9;
 }
 
@@ -97,3 +106,4 @@ async function logoutUser() {
     flex-direction: row-reverse;
 }
 </style>
+../../pages/login/store/loginStore

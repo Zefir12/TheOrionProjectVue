@@ -54,3 +54,4 @@ async function loginSubmit() {
     width: 10.8rem;
 }
 </style>
+../components/login/store/loginStore

@@ -84,9 +84,9 @@ const setChartData = async () => {
                 spanGaps: true,
                 borderColor: "#b197fc",
                 backgroundColor: "#00000070",
-                tension: 0.4,
-            },
-        ],
+                tension: 0.4
+            }
+        ]
     };
 };
 const setChartOptions = () => {
@@ -100,33 +100,33 @@ const setChartOptions = () => {
         aspectRatio: 0.6,
         animation: {
             duration: 0, // Transition duration in milliseconds
-            easing: "easeInOutQuart", // Easing function
+            easing: "easeInOutQuart" // Easing function
         },
         plugins: {
             legend: {
                 labels: {
-                    color: textColor,
-                },
-            },
+                    color: textColor
+                }
+            }
         },
         scales: {
             x: {
                 ticks: {
-                    color: textColorSecondary,
+                    color: textColorSecondary
                 },
                 grid: {
-                    color: surfaceBorder,
-                },
+                    color: surfaceBorder
+                }
             },
             y: {
                 ticks: {
-                    color: textColorSecondary,
+                    color: textColorSecondary
                 },
                 grid: {
-                    color: surfaceBorder,
-                },
-            },
-        },
+                    color: surfaceBorder
+                }
+            }
+        }
     };
 };
 </script>
@@ -172,3 +172,4 @@ const setChartOptions = () => {
     height: 90%;
 }
 </style>
+../../components/weight/store/weightStore
