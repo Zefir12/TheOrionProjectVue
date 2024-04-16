@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import StyledNumberInput from "../global/StyledNumberInput.vue";
-import StyledButton from "../global/StyledButton.vue";
-import Group from "../global/containers/Group.vue";
-import Stack from "../global/containers/Stack.vue";
+import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
+import StyledButton from "@/components/global/StyledButton.vue";
+import Group from "@/components/global/containers/Group.vue";
+import Stack from "@/components/global/containers/Stack.vue";
 import { onMounted, ref } from "vue";
 import Chart from "primevue/chart";
 import { useWeightStore } from "./store/weightStore";

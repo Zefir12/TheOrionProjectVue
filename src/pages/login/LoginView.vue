@@ -3,7 +3,7 @@ import Card from "primevue/card";
 import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import FloatLabel from "primevue/floatlabel";
-import StyledButton from "../global/StyledButton.vue";
+import StyledButton from "@/components/global/StyledButton.vue";
 import { useLoginStore } from "./store/loginStore";
 
 const store = useLoginStore();
