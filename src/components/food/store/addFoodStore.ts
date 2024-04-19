@@ -1,15 +1,17 @@
 import { defineStore } from "pinia";
-import { onMounted, watch } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { supabase } from "../../../lib/supabase/supabase/supabase";
 import { useToast } from "primevue/usetoast";
-import { Tables } from "../../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
+import { Tables, TablesInsert } from "../../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { ref } from "vue";
+import { addFood } from "@/lib/supabase/services/supabaseFoodService";
+export type FoodInsertItemCombined = TablesInsert<"food"> & Tables<"food_types">;
 
 export const useAddFoodStore = defineStore("addFoodStore", () => {
     const toast = useToast();
 
-    const foodTypes = ref([] as Tables<"food_types">[]);
-    const selectedFoodTypes = ref([] as Tables<"food_types">[]);
+    const foodTypes = ref([] as FoodInsertItemCombined[]);
+    const selectedFoodTypes = ref([] as FoodInsertItemCombined[]);
     const time = ref(new Date(Date.now()));
     const query = ref("");
 
@@ -17,6 +19,32 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
         foodTypes.value.push(...selectedFoodTypes.value);
         selectedFoodTypes.value = [];
         sortFoods();
+    }
+
+    const combinedVariables = computed(() => {
+        return `${time.value}_${selectedFoodTypes.value.length}`;
+    });
+
+    watch(
+        combinedVariables,
+        () => {
+            selectedFoodTypes.value.forEach((item) => {
+                item.time_of_intake = time.value.toISOString();
+            });
+        },
+        { immediate: true }
+    );
+
+    async function addToDatabase() {
+        const foodsToAdd = [] as TablesInsert<"food">[];
+        selectedFoodTypes.value.forEach((item) => {
+            foodsToAdd.push({
+                food_amount: item.food_amount,
+                food_id: item.id,
+                time_of_intake: item.time_of_intake
+            });
+        });
+        await addFood(foodsToAdd);
     }
 
     function sortFoods() {
@@ -62,10 +90,10 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
         if (error) {
             toast.add({ severity: "error", summary: "Error", detail: JSON.stringify(error) });
         } else {
-            foodTypes.value = data;
+            foodTypes.value = data as FoodInsertItemCombined[];
             sortFoods();
         }
     });
 
-    return { foodTypes, selectedFoodTypes, time, query, selectItem, deselectItem, clearFoods };
+    return { foodTypes, selectedFoodTypes, time, query, selectItem, deselectItem, clearFoods, addToDatabase };
 });

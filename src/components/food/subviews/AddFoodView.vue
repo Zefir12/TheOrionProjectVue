@@ -7,6 +7,7 @@ import ScrollableStack from "../../global/containers/ScrollableStack.vue";
 import Calendar from "primevue/calendar";
 import { useAddFoodStore } from "../store/addFoodStore";
 import FoodTypeCard from "../components/FoodTypeCard.vue";
+import FoodItem from "../components/FoodItem.vue";
 
 const addFoodStore = useAddFoodStore();
 </script>
@@ -17,16 +18,12 @@ const addFoodStore = useAddFoodStore();
         </Stack>
         <Stack gap="xs" align="stretch">
             <Group>
-                <StyledButton name="Add to Database" />
+                <StyledButton @click="addFoodStore.addToDatabase()" name="Add to Database" />
                 <StyledButton width="10rem" name="Clear" @click="addFoodStore.clearFoods" />
             </Group>
 
             <ScrollableStack height="80vh">
-                <StyledButton
-                    v-for="foodtype in addFoodStore.selectedFoodTypes"
-                    :name="foodtype.name?.toString()"
-                    @click="addFoodStore.deselectItem(foodtype)"
-                />
+                <FoodItem v-for="foodtype in addFoodStore.selectedFoodTypes" :food-item="foodtype" :name="foodtype.name?.toString()" @submit="addFoodStore.deselectItem(foodtype)" />
             </ScrollableStack>
         </Stack>
         <Stack gap="xs" align="flex-start">
