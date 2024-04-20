@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import LoginView from "../pages/login/LoginView.vue";
-import { getUserLogged, setPage } from "./localStorage/settings";
-import DashboardView from "../components/dashboard/DashboardView.vue";
-import FoodView from "../components/food/FoodView.vue";
+import { getUserLogged, setPage } from "../lib/localStorage/settings";
+import DashboardView from "../pages/dashboard/DashboardView.vue";
+import FoodView from "../pages/food/FoodView.vue";
 import WeightView from "../pages/weight/WeightView.vue";
-import BloodPreassureView from "../components/bloodpreassure/BloodPreassureView.vue";
-import FoodDataView from "../components/foodData/FoodDataView.vue";
+import BloodPreassureView from "../pages/bloodpreassure/BloodPreassureView.vue";
+import FoodDataView from "@/pages/foodData/FoodDataView.vue";
 
 const routes = [
     //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },

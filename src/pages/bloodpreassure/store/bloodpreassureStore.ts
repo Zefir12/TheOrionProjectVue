@@ -25,7 +25,7 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
                     spanGaps: true,
                     fill: false,
                     borderColor: "#b197fc",
-                    tension: 0.4,
+                    tension: 0.4
                 },
                 {
                     label: "Systolic",
@@ -34,7 +34,7 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
                     spanGaps: true,
                     borderColor: "#b197fc",
                     backgroundColor: "#00000070",
-                    tension: 0.4,
+                    tension: 0.4
                 },
                 {
                     label: "Systolic Normal",
@@ -43,7 +43,7 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
                     fill: false,
                     pointStyle: false,
                     borderColor: "#444",
-                    tension: 0.4,
+                    tension: 0.4
                 },
                 {
                     label: "Diastolic Normal",
@@ -52,9 +52,9 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
                     pointStyle: false,
                     fill: false,
                     borderColor: "#444",
-                    tension: 0.4,
-                },
-            ],
+                    tension: 0.4
+                }
+            ]
         };
     };
     const setChartOptions = () => {
@@ -68,35 +68,35 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
             aspectRatio: 0.6,
             animation: {
                 duration: 0, // Transition duration in milliseconds
-                easing: "easeInOutQuart", // Easing function
+                easing: "easeInOutQuart" // Easing function
             },
             plugins: {
                 legend: {
                     labels: {
-                        color: textColor,
-                    },
-                },
+                        color: textColor
+                    }
+                }
             },
             scales: {
                 x: {
                     ticks: {
-                        color: textColorSecondary,
+                        color: textColorSecondary
                     },
                     grid: {
-                        color: surfaceBorder,
-                    },
+                        color: surfaceBorder
+                    }
                 },
                 y: {
                     suggestedMin: 0,
                     suggestedMax: 200,
                     ticks: {
-                        color: textColorSecondary,
+                        color: textColorSecondary
                     },
                     grid: {
-                        color: surfaceBorder,
-                    },
-                },
-            },
+                        color: surfaceBorder
+                    }
+                }
+            }
         };
     };
 

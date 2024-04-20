@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Group from "../../global/containers/Group.vue";
-import Stack from "../../global/containers/Stack.vue";
-import StyledButton from "../../global/StyledButton.vue";
-import CardInput from "../components/CardInput.vue";
-import ScrollableStack from "../../global/containers/ScrollableStack.vue";
+import Group from "@/components/global/containers/Group.vue";
+import Stack from "@/components/global/containers/Stack.vue";
+import StyledButton from "@/components/global/StyledButton.vue";
+import CardInput from "@/components/food/CardInput.vue";
+import ScrollableStack from "@/components/global/containers/ScrollableStack.vue";
 import Calendar from "primevue/calendar";
-import { useAddFoodStore } from "../store/addFoodStore";
-import FoodTypeCard from "../components/FoodTypeCard.vue";
-import FoodItem from "../components/FoodItem.vue";
+import { useAddFoodStore } from "../../../pages/food/store/addFoodStore";
+import FoodTypeCard from "@/components/food/FoodTypeCard.vue";
+import FoodItem from "@/components/food/FoodItem.vue";
 
 const addFoodStore = useAddFoodStore();
 </script>

@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import DataTable from "../global/DataTable.vue";
+import DataTable from "@/components/global/DataTable.vue";
 import { supabase } from "../../lib/supabase/supabase/supabase";
 import { Tables } from "../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 
@@ -22,7 +22,7 @@ const headers = [
     { key: "carbs", name: "Carbs" },
     { key: "protein", name: "Proteins" },
     { key: "fat", name: "Fats" },
-    { key: "kcal", name: "Kcals" },
+    { key: "kcal", name: "Kcals" }
 ];
 const items = ref([] as Tables<"food_types">[]);
 

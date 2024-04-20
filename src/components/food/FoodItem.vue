@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import Select from "@/components/global/Select.vue";
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
-import { FoodInsertItemCombined } from "../store/addFoodStore";
+import { FoodInsertItemCombined } from "../../pages/food/store/addFoodStore";
 import { onMounted } from "vue";
 import { SelectOption } from "@/components/global/Select.vue";
 import { ref } from "vue";

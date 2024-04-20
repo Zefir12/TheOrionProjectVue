@@ -3,7 +3,7 @@ import "./style.css";
 import App from "./App.vue";
 import ToastService from "primevue/toastservice";
 import { createPinia } from "pinia";
-import { router } from "./lib/router";
+import { router } from "./router/router";
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-dark-purple/theme.css";
 

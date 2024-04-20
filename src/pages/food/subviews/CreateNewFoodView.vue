@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import Card from "primevue/card";
-import CardInput from "../components/CardInput.vue";
-import StyledButton from "../../global/StyledButton.vue";
-import StyledNumberInput from "../../global/StyledNumberInput.vue";
-import { useNewFoodStore } from "../store/newFoodStore";
+import CardInput from "@/components/food/CardInput.vue";
+import StyledButton from "@/components/global/StyledButton.vue";
+import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
+import { useNewFoodStore } from "../../../pages/food/store/newFoodStore";
 import Rating from "primevue/rating";
-import IconButton from "../../global/IconButton.vue";
+import IconButton from "@/components/global/IconButton.vue";
 const newFoodStore = useNewFoodStore();
 </script>
 <template>
@@ -30,11 +30,7 @@ const newFoodStore = useNewFoodStore();
                             <IconButton @click="newFoodStore.addNewServing"></IconButton>
                         </div>
                         <div class="inner-wrap">
-                            <StyledButton
-                                v-for="serving in newFoodStore.servings"
-                                :name="serving.name + ' - ' + serving.value + 'g'"
-                                @click="newFoodStore.removeServing(serving)"
-                            />
+                            <StyledButton v-for="serving in newFoodStore.servings" :name="serving.name + ' - ' + serving.value + 'g'" @click="newFoodStore.removeServing(serving)" />
                         </div>
                     </div>
                 </template>
