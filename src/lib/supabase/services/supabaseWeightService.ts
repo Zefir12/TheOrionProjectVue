@@ -12,7 +12,7 @@ export async function getAllWeight() {
 
 export async function addNewWeightToDb(weight: number) {
     const { error } = await supabase.from("weight").insert({
-        weight: weight,
+        weight: weight
     });
     if (error) console.log(error);
 }

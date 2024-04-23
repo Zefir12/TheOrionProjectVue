@@ -42,7 +42,16 @@ defineEmits(["click"]);
     transition-timing-function: linear;
     min-height: 2.25rem;
     justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
 }
 
 .my-button:disabled {

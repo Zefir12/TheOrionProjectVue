@@ -21,13 +21,17 @@ export function addDays(date: Date, days: number): Date {
     return result;
 }
 
+export function getTodayWithOffset(offset: number): Date {
+    let today = new Date();
+    return addDays(today, offset);
+}
+
 export function getMidnight(data: Date) {
-    const midnight = new Date(data);
-    midnight.setHours(0);
-    midnight.setMinutes(0);
-    midnight.setSeconds(0);
-    midnight.setMilliseconds(0);
-    return midnight;
+    data.setHours(0);
+    data.setMinutes(0);
+    data.setSeconds(0);
+    data.setMilliseconds(0);
+    return data;
 }
 
 export function getAllDatesInRange(minDate: Date, maxDate: Date): Date[] {
