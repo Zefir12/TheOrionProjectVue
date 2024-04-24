@@ -2,6 +2,7 @@
     <div class="container">
         <div class="inner-container">
             <FoodInfoChart :proteins="dashboardStore.proteins" :fats="dashboardStore.fats" :carbohydrates="dashboardStore.carbohydrates" />
+            {{ dashboardStore.kcal }}
             <button v-for="item in dashboardStore.foodData">{{ item.food_types.name }}</button>
         </div>
     </div>

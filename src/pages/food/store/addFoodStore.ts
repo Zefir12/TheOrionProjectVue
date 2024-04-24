@@ -5,6 +5,8 @@ import { useToast } from "primevue/usetoast";
 import { Tables, TablesInsert } from "../../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { ref } from "vue";
 import { addFood } from "@/lib/supabase/services/supabaseFoodService";
+import { v4 as uuidv4 } from "uuid";
+
 export type FoodInsertItemCombined = TablesInsert<"food"> & Tables<"food_types">;
 
 export const useAddFoodStore = defineStore("addFoodStore", () => {
@@ -21,6 +23,10 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
         sortFoods();
     }
 
+    const showSuccess = () => {
+        toast.add({ severity: "success", summary: "Succes", detail: "Succesfully added food", life: 3000 });
+    };
+
     const combinedVariables = computed(() => {
         return `${time.value}_${selectedFoodTypes.value.length}`;
     });
@@ -36,15 +42,19 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
     );
 
     async function addToDatabase() {
+        const uuid = uuidv4();
         const foodsToAdd = [] as TablesInsert<"food">[];
         selectedFoodTypes.value.forEach((item) => {
             foodsToAdd.push({
                 food_amount: item.food_amount,
                 food_id: item.id,
-                time_of_intake: item.time_of_intake
+                time_of_intake: item.time_of_intake,
+                meal_id: uuid
             });
         });
         await addFood(foodsToAdd);
+        clearFoods();
+        showSuccess();
     }
 
     function sortFoods() {
@@ -85,6 +95,10 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
     }
 
     onMounted(async () => {
+        await fetchFoodTypesData();
+    });
+
+    async function fetchFoodTypesData() {
         const { data, error } = await supabase.from("food_types").select("*").returns<Tables<"food_types">[]>();
 
         if (error) {
@@ -93,7 +107,7 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
             foodTypes.value = data as FoodInsertItemCombined[];
             sortFoods();
         }
-    });
+    }
 
-    return { foodTypes, selectedFoodTypes, time, query, selectItem, deselectItem, clearFoods, addToDatabase };
+    return { foodTypes, selectedFoodTypes, time, query, selectItem, deselectItem, clearFoods, addToDatabase, fetchFoodTypesData };
 });

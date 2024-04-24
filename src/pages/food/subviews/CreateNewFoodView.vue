@@ -6,7 +6,13 @@ import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { useNewFoodStore } from "../../../pages/food/store/newFoodStore";
 import Rating from "primevue/rating";
 import IconButton from "@/components/global/IconButton.vue";
+import { useAddFoodStore } from "../store/addFoodStore";
 const newFoodStore = useNewFoodStore();
+const addFoodStore = useAddFoodStore();
+
+function addNewFoodToDatabase() {
+    newFoodStore.addNewFoodToDatabase(addFoodStore.fetchFoodTypesData);
+}
 </script>
 <template>
     <div class="group">
@@ -16,7 +22,7 @@ const newFoodStore = useNewFoodStore();
                     <div class="content-stack">
                         <CardInput v-model="newFoodStore.name" label="Name" />
                         <StyledNumberInput v-model="newFoodStore.waterPercentage" label="Water Percentage" />
-                        <StyledButton name="Add" @click="newFoodStore.addNewFoodToDatabase" />
+                        <StyledButton name="Add" @click="addNewFoodToDatabase" />
                     </div>
                 </template>
             </Card>

@@ -5,9 +5,9 @@ export async function getFoodsWithData(startDate: Date, endDate: Date) {
     const { error, data } = await supabase
         .from("food")
         .select("food_amount, time_of_intake, food_types(*)")
-        .gt("created_at", startDate.toLocaleDateString())
-        .lt("created_at", endDate.toLocaleDateString())
-        .order("created_at", { ascending: false });
+        .gt("time_of_intake", startDate.toLocaleDateString())
+        .lt("time_of_intake", endDate.toLocaleDateString())
+        .order("time_of_intake", { ascending: false });
     if (error) {
         console.log(error);
         throw new Error();

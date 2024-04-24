@@ -48,6 +48,13 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         });
         return totalCarbs;
     });
+    const kcal = computed(() => {
+        let totalKcal = 0;
+        foodData.value.forEach((food) => {
+            totalKcal += food.food_types.kcal;
+        });
+        return totalKcal;
+    });
 
     onMounted(() => {
         changeDay(0);
@@ -60,6 +67,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         foodData,
         proteins,
         carbohydrates,
-        fats
+        fats,
+        kcal
     };
 });

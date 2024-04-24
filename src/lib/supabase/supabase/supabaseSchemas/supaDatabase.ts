@@ -128,16 +128,19 @@ export type Database = {
                     created_at: string;
                     id: number;
                     price: number | null;
+                    seller_id: number | null;
                 };
                 Insert: {
                     created_at?: string;
                     id?: number;
                     price?: number | null;
+                    seller_id?: number | null;
                 };
                 Update: {
                     created_at?: string;
                     id?: number;
                     price?: number | null;
+                    seller_id?: number | null;
                 };
                 Relationships: [];
             };
@@ -147,6 +150,7 @@ export type Database = {
                     food_amount: number;
                     food_id: number;
                     id: number;
+                    meal_id: string | null;
                     time_of_intake: string | null;
                     user_id: string | null;
                 };
@@ -155,6 +159,7 @@ export type Database = {
                     food_amount: number;
                     food_id: number;
                     id?: number;
+                    meal_id?: string | null;
                     time_of_intake?: string | null;
                     user_id?: string | null;
                 };
@@ -163,6 +168,7 @@ export type Database = {
                     food_amount?: number;
                     food_id?: number;
                     id?: number;
+                    meal_id?: string | null;
                     time_of_intake?: string | null;
                     user_id?: string | null;
                 };

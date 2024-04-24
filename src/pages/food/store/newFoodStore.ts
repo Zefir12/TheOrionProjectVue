@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { supabase } from "../../../lib/supabase/supabase/supabase";
 
-import { useToast } from 'primevue/usetoast';
+import { useToast } from "primevue/usetoast";
 
 interface Serving {
     value: number;
@@ -32,7 +32,7 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
 
     const servings = ref([
         { name: "Standard", value: 100 },
-        { name: "Gram", value: 1 },
+        { name: "Gram", value: 1 }
     ] as Serving[]);
 
     const showSuccess = () => {
@@ -43,7 +43,7 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
         tost.add({ severity: "error", summary: "Error", detail: error });
     };
 
-    async function addNewFoodToDatabase() {
+    async function addNewFoodToDatabase(callback: () => void) {
         const { error } = await supabase.from("food_types").insert({
             carbs: carbs.value,
             fat: fats.value,
@@ -58,12 +58,13 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
             water_percentage: waterPercentage.value,
             portion_weigth: 100,
             nova_score: novaScore.value,
-            nutri_score: nutriScore.value,
+            nutri_score: nutriScore.value
         });
         if (error) {
             showError(JSON.stringify(error));
         } else {
             showSuccess();
+            await callback();
         }
     }
 
@@ -93,7 +94,6 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
         waterPercentage,
         addNewServing,
         removeServing,
-        addNewFoodToDatabase,
+        addNewFoodToDatabase
     };
 });
-
