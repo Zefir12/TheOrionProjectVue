@@ -4,7 +4,6 @@ This project is a fitness data tracking and visualization website developed usin
 [View page](https://zefir12.github.io/TheOrionProjectVue/#/)
 
 ## Tech Stack
-
 -   [`Supabase`](https://supabase.com/) - backend service with database
 -   [`Vue 3`](https://vuejs.org/) - frontend
 -   [`Pinia`](https://pinia.vuejs.org/) - store
@@ -12,12 +11,11 @@ This project is a fitness data tracking and visualization website developed usin
 
 ## Setting project up
 -   [Install Node.js](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
--   [Install PNPM](https://pnpm.io/installation) ```npm install -g pnpm```
--   Install dependencies - ```pnpm install```
+-   ```npm install -g pnpm``` - [Install PNPM](https://pnpm.io/installation) 
+-   ```pnpm install``` - Install dependencies
 
 
 ## Running
-
 -   ```pnpm dev``` - run project
 -   ```pnpm test``` - run tests
 
