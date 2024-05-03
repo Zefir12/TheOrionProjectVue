@@ -27,7 +27,7 @@ This project is a fitness data tracking and visualization website developed usin
 -   [`@mantine/modals`](https://mantine.dev/x/modals) – centralized modals manager
 
 ## Contributors
-
+[![aa1.png](https://i.postimg.cc/zvQbT9yM/aa1.png)](https://postimg.cc/n9vhJSYY)
 <a href="https://github.com/mantinedev/mantine/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=mantinedev/mantine" />
 </a>
