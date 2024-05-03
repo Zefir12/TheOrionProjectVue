@@ -5,6 +5,9 @@
                 <template #protein="prop">
                     <div class="item-div">{{ prop.slotItem }}</div>
                 </template>
+                <template #name="prop">
+                    <a class="url" @click="console.log(prop.slotItem)">{{ prop.slotItem }}</a>
+                </template>
             </DataTable>
         </div>
     </div>
@@ -21,13 +24,13 @@ const headers = [
     { key: "name", name: "Name" },
     { key: "carbs", name: "Carbs" },
     { key: "protein", name: "Proteins" },
-    { key: "fat", name: "Fats" },
+    { key: "portion_weigth", name: "Portion Weigth" },
     { key: "kcal", name: "Kcals" }
 ];
 const items = ref([] as Tables<"food_types">[]);
 
 onMounted(async () => {
-    const { data, error } = await supabase.from("food_types").select("*").returns<Tables<"food_types">[]>();
+    const { data, error } = await supabase.from("food_types").select("*").order("portion_weigth", { ascending: false }).returns<Tables<"food_types">[]>();
     if (error) {
         console.log(error);
     }
@@ -55,7 +58,13 @@ onMounted(async () => {
 .item-div {
     height: 40px;
     width: 100%;
-    /* padding: 10px; */
-    background-color: rgba(0, 0, 0, 0.205);
+    padding: 10px;
+    /* background-color: rgba(0, 0, 0, 0.205); */
+}
+
+.url {
+    cursor: pointer;
+    font-weight: 500;
+    color: rgba(169, 103, 255, 0.562);
 }
 </style>

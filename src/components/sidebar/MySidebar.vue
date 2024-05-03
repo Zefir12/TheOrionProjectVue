@@ -30,7 +30,8 @@ async function logoutUser() {
             <StyledButton :disabled="!loginStore.userLogged" name="Weight" @click="router.push({ name: 'weight' })" />
             <StyledButton :disabled="!loginStore.userLogged" name="Blood Preassure" @click="router.push({ name: 'bloodpreassure' })" />
             <StyledButton :disabled="!loginStore.userLogged" name="Food Data" @click="router.push({ name: 'foodData' })" />
-            <StyledButton :disabled="!loginStore.userLogged" class="logout_buton" name="Logout" @click="logoutUser" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Bought Items" @click="router.push({ name: 'boughtItems' })" />
+            <StyledButton :disabled="!loginStore.userLogged" name="Logout" @click="logoutUser" class="logout_buton" />
         </div>
     </div>
 </template>
@@ -106,4 +107,4 @@ async function logoutUser() {
     flex-direction: row-reverse;
 }
 </style>
-../../pages/login/store/loginStore
+
