@@ -11,9 +11,9 @@ This project is a fitness data tracking and visualization website developed usin
 -   [Follow on Twitter](https://twitter.com/mantinedev)
 -   [Join Discord community](https://discord.gg/wbH82zuWMN)
 
-## More Stuff
+## Tech Stack
 
--   `@mantine/hooks` – collection of 50+ hooks for state and UI management
+-   [`@lol`](https://supabase.com/) - Supabase
 -   `@mantine/core` – core components library – 100+ components
 -   [`@mantine/form`](https://mantine.dev/form/use-form) – forms management library
 -   [`@mantine/charts`](https://mantine.dev/charts/getting-started/) – recharts based charts library
