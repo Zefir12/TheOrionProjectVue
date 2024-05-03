@@ -1,6 +1,7 @@
 # About
 
 This project is a fitness data tracking and visualization website developed using Vue.js and Supabase.
+http://localhost:3999/TheOrionProjectVue/#/
 
 ## Running
 
