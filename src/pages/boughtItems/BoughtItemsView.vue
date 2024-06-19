@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBoughtItemsStore } from "./store/boughtItemsStore";
+//import { useBoughtItemsStore } from "./store/boughtItemsStore";
 import Stack from "@/components/global/containers/Stack.vue";
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { i18n } from "@/lib/localization/i18n";
