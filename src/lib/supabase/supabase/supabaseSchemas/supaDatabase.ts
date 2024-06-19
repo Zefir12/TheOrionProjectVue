@@ -125,22 +125,63 @@ export type Database = {
             };
             bought_items: {
                 Row: {
+                    bought_item_id: number | null;
                     created_at: string;
+                    expiration_date: string | null;
+                    finished_date: string | null;
                     id: number;
-                    price: number | null;
-                    seller_id: number | null;
                 };
                 Insert: {
+                    bought_item_id?: number | null;
                     created_at?: string;
+                    expiration_date?: string | null;
+                    finished_date?: string | null;
                     id?: number;
-                    price?: number | null;
-                    seller_id?: number | null;
                 };
                 Update: {
+                    bought_item_id?: number | null;
+                    created_at?: string;
+                    expiration_date?: string | null;
+                    finished_date?: string | null;
+                    id?: number;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "bought_items_bought_item_id_fkey";
+                        columns: ["bought_item_id"];
+                        isOneToOne: false;
+                        referencedRelation: "bought_items_types";
+                        referencedColumns: ["id"];
+                    }
+                ];
+            };
+            bought_items_types: {
+                Row: {
+                    content_amount: number | null;
+                    created_at: string;
+                    id: number;
+                    name: string | null;
+                    price: number | null;
+                    seller_id: number | null;
+                    tags: string | null;
+                };
+                Insert: {
+                    content_amount?: number | null;
                     created_at?: string;
                     id?: number;
+                    name?: string | null;
                     price?: number | null;
                     seller_id?: number | null;
+                    tags?: string | null;
+                };
+                Update: {
+                    content_amount?: number | null;
+                    created_at?: string;
+                    id?: number;
+                    name?: string | null;
+                    price?: number | null;
+                    seller_id?: number | null;
+                    tags?: string | null;
                 };
                 Relationships: [];
             };
