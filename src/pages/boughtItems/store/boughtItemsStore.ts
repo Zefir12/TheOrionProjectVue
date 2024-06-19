@@ -22,6 +22,9 @@ export const useBoughtItemsStore = defineStore("BoughtItemsStore", () => {
         };
         await addItemType(item);
         const { error } = await supabase.from("bought_items_types").insert(item);
+        if (error) {
+            console.log(error);
+        }
     };
 
     return {

@@ -13,5 +13,5 @@ import Stack from "@/components/global/containers/Stack.vue";
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { i18n } from "@/lib/localization/i18n";
 
-const boughtItemsStore = useBoughtItemsStore();
+//const boughtItemsStore = useBoughtItemsStore();
 </script>
