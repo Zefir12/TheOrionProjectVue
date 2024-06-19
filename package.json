@@ -11,6 +11,7 @@
         "lint2": "eslint src -c .ts,.vue",
         "format": "prettier .  --write",
         "test": "vitest",
+        "translate": "node src\\lib\\localization\\parsers.cjs",
         "coverage": "vitest run --coverage"
     },
     "dependencies": {
@@ -22,6 +23,7 @@
         "primevue": "^3.50.0",
         "uuid": "^9.0.1",
         "vue": "^3.4.21",
+        "vue-i18n": "^9.13.1",
         "vue-router": "^4.3.0"
     },
     "devDependencies": {

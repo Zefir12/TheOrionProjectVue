@@ -1,0 +1,27 @@
+{
+    "FoodView": {
+        "createNewFood": "새로운 음식 만들기",
+        "poggies": {
+            "test": "테스트1"
+        },
+        "settings": "설정",
+        "addFood": "음식 추가"
+    },
+    "common": {
+        "test": "시험"
+    },
+    "MySidebar": {
+        "dashboard": "계기반",
+        "menu": "메뉴",
+        "bloodPreassure": "혈압",
+        "boughtItems": "구매한 품목",
+        "food": "음식",
+        "foodData": "식품 데이터",
+        "logout": "로그 아웃",
+        "weight": "무게"
+    },
+    "AddFoodView": {
+        "addToDatabase": "데이터베이스에 추가",
+        "clear": "분명한"
+    }
+}

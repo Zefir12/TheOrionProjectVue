@@ -8,6 +8,7 @@ import Calendar from "primevue/calendar";
 import { useAddFoodStore } from "../../../pages/food/store/addFoodStore";
 import FoodTypeCard from "@/components/food/FoodTypeCard.vue";
 import FoodItem from "@/components/food/FoodItem.vue";
+import { i18n } from "@/lib/localization/i18n";
 
 const addFoodStore = useAddFoodStore();
 </script>
@@ -18,8 +19,8 @@ const addFoodStore = useAddFoodStore();
         </Stack>
         <Stack gap="xs" align="stretch">
             <Group>
-                <StyledButton @click="addFoodStore.addToDatabase()" name="Add to Database" />
-                <StyledButton width="10rem" name="Clear" @click="addFoodStore.clearFoods" />
+                <StyledButton @click="addFoodStore.addToDatabase()" :name="i18n.t('AddFoodView.addToDatabase')" />
+                <StyledButton width="10rem" :name="i18n.t('AddFoodView.clear')" @click="addFoodStore.clearFoods" />
             </Group>
 
             <ScrollableStack height="80vh">

@@ -11,7 +11,7 @@ import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
             <template #header>
                 <div class="tab-head">
                     <IconFridge size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">Add Food</span>
+                    <span class="font-bold white-space-nowrap">{{ $t("FoodView.addFood") }}</span>
                 </div>
             </template>
             <AddFoodView />
@@ -20,7 +20,7 @@ import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
             <template #header>
                 <div class="tab-head">
                     <IconChefHat size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">Create New Food</span>
+                    <span class="font-bold white-space-nowrap">{{ $t("FoodView.createNewFood") }}</span>
                 </div>
             </template>
             <CreateNewFoodView />
@@ -29,7 +29,7 @@ import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
             <template #header>
                 <div class="tab-head">
                     <IconSettings size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">Settings</span>
+                    <span class="font-bold white-space-nowrap">{{ $t("FoodView.settings") }}</span>
                 </div>
             </template>
         </TabPanel>

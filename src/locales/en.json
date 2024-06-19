@@ -1,0 +1,27 @@
+{
+    "common": {
+        "test": "test"
+    },
+    "FoodView": {
+        "createNewFood": "Create New Food",
+        "addFood": "Add Food",
+        "settings": "Settings",
+        "poggies": {
+            "test": "test1"
+        }
+    },
+    "MySidebar": {
+        "dashboard": "Dashboard",
+        "menu": "Menu",
+        "food": "Food",
+        "weight": "Weight",
+        "bloodPreassure": "Blood Preassure",
+        "foodData": "Food Data",
+        "boughtItems": "Bought Items",
+        "logout": "Logout"
+    },
+    "AddFoodView": {
+        "addToDatabase": "Add to Database",
+        "clear": "Clear"
+    }
+}

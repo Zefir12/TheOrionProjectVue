@@ -1,0 +1,27 @@
+{
+  "FoodView": {
+    "createNewFood": "Stwórz nowe jedzenie",
+    "poggies": {
+      "test": "test1"
+    },
+    "settings": "Ustawienia",
+    "addFood": "Dodaj jedzenie"
+  },
+  "common": {
+    "test": "test"
+  },
+  "MySidebar": {
+    "dashboard": "Panel",
+    "menu": "Menu",
+    "bloodPreassure": "Ciśnienie krwi",
+    "boughtItems": "Kupione przedmioty",
+    "food": "Żywność",
+    "foodData": "Dane dotyczące żywności",
+    "logout": "Wyloguj",
+    "weight": "Waga"
+  },
+  "AddFoodView": {
+    "addToDatabase": "Dodaj do bazy danych",
+    "clear": "Wyczyść"
+  }
+}
