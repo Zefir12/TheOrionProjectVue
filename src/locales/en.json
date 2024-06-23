@@ -1,27 +1,42 @@
 {
-    "common": {
-        "test": "test"
-    },
-    "FoodView": {
-        "createNewFood": "Create New Food",
-        "addFood": "Add Food",
-        "settings": "Settings",
-        "poggies": {
-            "test": "test1"
-        }
-    },
-    "MySidebar": {
-        "dashboard": "Dashboard",
-        "menu": "Menu",
-        "food": "Food",
-        "weight": "Weight",
-        "bloodPreassure": "Blood Preassure",
-        "foodData": "Food Data",
-        "boughtItems": "Bought Items",
-        "logout": "Logout"
-    },
-    "AddFoodView": {
-        "addToDatabase": "Add to Database",
-        "clear": "Clear"
+  "common": {
+    "test": "test",
+    "name": "Name",
+    "tags": "Tags",
+    "submit": "Submit"
+  },
+  "FoodView": {
+    "createNewFood": "Create New Food",
+    "addFood": "Add Food",
+    "settings": "Settings",
+    "poggies": {
+      "test": "test1"
     }
+  },
+  "MySidebar": {
+    "dashboard": "Dashboard",
+    "menu": "Menu",
+    "food": "Food",
+    "weight": "Weight",
+    "bloodPreassure": "Blood Preassure",
+    "foodData": "Food Data",
+    "boughtItems": "Bought Items",
+    "logout": "Logout"
+  },
+  "AddFoodView": {
+    "addToDatabase": "Add to Database",
+    "clear": "Clear"
+  },
+  "BoughtItemsView": {
+    "amount": "Content Amount",
+    "addTemplate": "Add Template",
+    "addItem": "Add Item"
+  },
+  "AddBoughtItem": {
+    "selectSeller": "Select seller",
+    "selectTemplate": "Select Template",
+    "price": "Price",
+    "expirationDate": "Expiration Date",
+    "purchaseDate": "Purchase Date"
+  }
 }

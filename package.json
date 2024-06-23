@@ -17,6 +17,7 @@
     "dependencies": {
         "@supabase/supabase-js": "^2.39.8",
         "@tabler/icons-vue": "^3.1.0",
+        "@vuepic/vue-datepicker": "^8.8.0",
         "chart.js": "^4.4.2",
         "globals": "^15.0.0",
         "pinia": "^2.1.7",

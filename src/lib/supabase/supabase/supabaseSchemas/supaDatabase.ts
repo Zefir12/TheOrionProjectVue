@@ -125,25 +125,34 @@ export type Database = {
             };
             bought_items: {
                 Row: {
+                    bought_date: string | null;
                     bought_item_id: number | null;
                     created_at: string;
                     expiration_date: string | null;
                     finished_date: string | null;
                     id: number;
+                    item_seller: number | null;
+                    price: number | null;
                 };
                 Insert: {
+                    bought_date?: string | null;
                     bought_item_id?: number | null;
                     created_at?: string;
                     expiration_date?: string | null;
                     finished_date?: string | null;
                     id?: number;
+                    item_seller?: number | null;
+                    price?: number | null;
                 };
                 Update: {
+                    bought_date?: string | null;
                     bought_item_id?: number | null;
                     created_at?: string;
                     expiration_date?: string | null;
                     finished_date?: string | null;
                     id?: number;
+                    item_seller?: number | null;
+                    price?: number | null;
                 };
                 Relationships: [
                     {
@@ -151,6 +160,13 @@ export type Database = {
                         columns: ["bought_item_id"];
                         isOneToOne: false;
                         referencedRelation: "bought_items_types";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "bought_items_item_seller_fkey";
+                        columns: ["item_seller"];
+                        isOneToOne: false;
+                        referencedRelation: "item_sellers";
                         referencedColumns: ["id"];
                     }
                 ];
@@ -161,8 +177,6 @@ export type Database = {
                     created_at: string;
                     id: number;
                     name: string | null;
-                    price: number | null;
-                    seller_id: number | null;
                     tags: string | null;
                 };
                 Insert: {
@@ -170,8 +184,6 @@ export type Database = {
                     created_at?: string;
                     id?: number;
                     name?: string | null;
-                    price?: number | null;
-                    seller_id?: number | null;
                     tags?: string | null;
                 };
                 Update: {
@@ -179,8 +191,6 @@ export type Database = {
                     created_at?: string;
                     id?: number;
                     name?: string | null;
-                    price?: number | null;
-                    seller_id?: number | null;
                     tags?: string | null;
                 };
                 Relationships: [];
@@ -391,24 +401,21 @@ export type Database = {
                 };
                 Relationships: [];
             };
-            hygiene: {
+            item_sellers: {
                 Row: {
-                    action_name: string | null;
-                    created_at: string | null;
+                    created_at: string;
                     id: number;
-                    time_of_action: string | null;
+                    name: string | null;
                 };
                 Insert: {
-                    action_name?: string | null;
-                    created_at?: string | null;
+                    created_at?: string;
                     id?: number;
-                    time_of_action?: string | null;
+                    name?: string | null;
                 };
                 Update: {
-                    action_name?: string | null;
-                    created_at?: string | null;
+                    created_at?: string;
                     id?: number;
-                    time_of_action?: string | null;
+                    name?: string | null;
                 };
                 Relationships: [];
             };

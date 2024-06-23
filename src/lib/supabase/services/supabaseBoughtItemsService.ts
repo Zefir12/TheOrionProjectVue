@@ -6,8 +6,5 @@ export async function getItems() {
 }
 
 export async function addItemType(item: TablesInsert<"bought_items_types">) {
-    const { error } = await supabase.from("bought_items_types").insert(item);
-    if (error) {
-        throw new Error();
-    }
+    return await supabase.from("bought_items_types").insert(item);
 }

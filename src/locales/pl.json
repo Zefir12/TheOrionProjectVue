@@ -8,7 +8,10 @@
     "addFood": "Dodaj jedzenie"
   },
   "common": {
-    "test": "test"
+    "test": "test",
+    "name": "",
+    "tags": "",
+    "submit": ""
   },
   "MySidebar": {
     "dashboard": "Panel",
@@ -23,5 +26,17 @@
   "AddFoodView": {
     "addToDatabase": "Dodaj do bazy danych",
     "clear": "Wyczyść"
+  },
+  "BoughtItemsView": {
+    "amount": "",
+    "addTemplate": "",
+    "addItem": ""
+  },
+  "AddBoughtItem": {
+    "selectSeller": "",
+    "selectTemplate": "",
+    "price": "",
+    "expirationDate": "",
+    "purchaseDate": ""
   }
 }

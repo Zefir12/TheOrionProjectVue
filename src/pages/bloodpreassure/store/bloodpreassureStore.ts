@@ -101,7 +101,7 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
     };
 
     onMounted(async () => {
-        const minDate = new Date(addDays(new Date(Date.now()), -60));
+        const minDate = new Date(addDays(new Date(Date.now()), -90));
         const maxDate = new Date(Date.now());
         bloodPreassures.value = await getBloodPreassuresBetween(minDate, maxDate);
         const dates = getAllDatesInRange(minDate, maxDate);

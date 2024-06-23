@@ -52,7 +52,7 @@ const setChartData = async () => {
     // const x: (number | null)[] = [];
     // const y: string[] = [];
     // const weight = await getAllWeight();
-    const weight = await getAllWeightBetween(new Date("2023-06-01"), new Date(Date.now()));
+    const weight = await getAllWeightBetween(new Date("2023-01-01"), new Date(Date.now()));
     if (!weight) {
         throw new Error();
     }
@@ -172,4 +172,3 @@ const setChartOptions = () => {
     height: 90%;
 }
 </style>
-../../components/weight/store/weightStore
