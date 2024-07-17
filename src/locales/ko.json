@@ -11,7 +11,8 @@
     "test": "시험",
     "name": "",
     "tags": "",
-    "submit": ""
+    "submit": "",
+    "add": ""
   },
   "MySidebar": {
     "dashboard": "계기반",
@@ -37,6 +38,7 @@
     "selectTemplate": "",
     "price": "",
     "expirationDate": "",
-    "purchaseDate": ""
+    "purchaseDate": "",
+    "newItem": ""
   }
 }

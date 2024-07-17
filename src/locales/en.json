@@ -3,7 +3,8 @@
     "test": "test",
     "name": "Name",
     "tags": "Tags",
-    "submit": "Submit"
+    "submit": "Submit",
+    "add": "Add"
   },
   "FoodView": {
     "createNewFood": "Create New Food",
@@ -37,6 +38,7 @@
     "selectTemplate": "Select Template",
     "price": "Price",
     "expirationDate": "Expiration Date",
-    "purchaseDate": "Purchase Date"
+    "purchaseDate": "Purchase Date",
+    "newItem": "New Item"
   }
 }

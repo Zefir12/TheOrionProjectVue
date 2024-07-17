@@ -1,16 +1,30 @@
 <template>
     <div class="container">
-        <Card class="card">
-            <template #content>
-                <Stack>
-                    <Select :label="i18n.t('AddBoughtItem.selectSeller')" :width="'200px'" :options="[{ name: 'seller', value: 'seller' }]" />
-                    <Select :label="i18n.t('AddBoughtItem.selectTemplate')" :width="'200px'" :options="[]" />
-                    <StyledNumberInput :label="i18n.t('AddBoughtItem.price')" />
-                    <DatePicker :label="i18n.t('AddBoughtItem.expirationDate')" />
-                    <DatePicker :label="i18n.t('AddBoughtItem.purchaseDate')" />
-                </Stack>
-            </template>
-        </Card>
+        <Stack class="column" align="stretch">
+            <Card>
+                <template #content></template>
+            </Card>
+        </Stack>
+        <Stack class="column" align="stretch">
+            <DatePicker :label="i18n.t('AddBoughtItem.purchaseDate')" v-model="boughtStore.purchaseDate" />
+            <Select :label="i18n.t('AddBoughtItem.selectSeller')" :options="boughtStore.itemSellers" v-model="boughtStore.selectedItemSeller" />
+            <Card class="card">
+                <template #title>{{ i18n.t("AddBoughtItem.newItem") }}</template>
+                <template #content>
+                    <Stack gap="0.5rem">
+                        <Select :label="i18n.t('AddBoughtItem.selectTemplate')" :options="boughtStore.itemTemplates" />
+                        <StyledNumberInput :label="i18n.t('AddBoughtItem.price')" />
+                        <DatePicker :label="i18n.t('AddBoughtItem.expirationDate')" v-model="boughtStore.expirationDate" />
+                        <StyledButton :name="i18n.t('common.add')" />
+                    </Stack>
+                </template>
+            </Card>
+        </Stack>
+        <Stack class="column" align="stretch">
+            <Card>
+                <template #content></template>
+            </Card>
+        </Stack>
     </div>
 </template>
 <script setup lang="ts">
@@ -20,6 +34,10 @@ import { i18n } from "@/lib/localization/i18n";
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import Stack from "@/components/global/containers/Stack.vue";
 import DatePicker from "@/components/global/DatePicker.vue";
+import StyledButton from "@/components/global/StyledButton.vue";
+import { useBoughtItemsStore } from "../store/boughtItemsStore";
+
+const boughtStore = useBoughtItemsStore();
 </script>
 
 <style scoped>
@@ -29,10 +47,14 @@ import DatePicker from "@/components/global/DatePicker.vue";
     justify-content: center;
     width: 100%;
     height: 100%;
+    gap: 10px;
 }
 
 .card {
-    width: 300px;
     height: 400px;
+}
+
+.column {
+    width: 300px;
 }
 </style>

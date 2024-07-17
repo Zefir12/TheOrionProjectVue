@@ -11,7 +11,8 @@
     "test": "test",
     "name": "",
     "tags": "",
-    "submit": ""
+    "submit": "",
+    "add": ""
   },
   "MySidebar": {
     "dashboard": "Panel",
@@ -37,6 +38,7 @@
     "selectTemplate": "",
     "price": "",
     "expirationDate": "",
-    "purchaseDate": ""
+    "purchaseDate": "",
+    "newItem": ""
   }
 }

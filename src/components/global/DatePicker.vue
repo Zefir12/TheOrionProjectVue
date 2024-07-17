@@ -1,16 +1,21 @@
 <template>
     <div class="styled-number-input-container">
         <small class="small-label">{{ props.label }}</small>
-        <VueDatePicker v-model="date" time-picker-inline :action-row="{ showNow: true }" dark />
+        <VueDatePicker v-model="model" time-picker-inline :action-row="{ showNow: true }" dark />
     </div>
 </template>
 
 <script setup lang="ts">
+/*
+https://vue3datepicker.com/customization/theming/
+https://vue3datepicker.com/slots/content/
+*/
+
 import VueDatePicker from "@vuepic/vue-datepicker";
 import { ref } from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 
-const date = ref(new Date(Date.now()));
+const model = defineModel();
 const props = defineProps<{
     label?: string;
 }>();
