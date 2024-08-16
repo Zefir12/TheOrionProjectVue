@@ -22,7 +22,8 @@
     "food": "Żywność",
     "foodData": "Dane dotyczące żywności",
     "logout": "Wyloguj",
-    "weight": "Waga"
+    "weight": "Waga",
+    "test": ""
   },
   "AddFoodView": {
     "addToDatabase": "Dodaj do bazy danych",

@@ -7,6 +7,7 @@ import { router } from "./router/router";
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-dark-purple/theme.css";
 import i18n from "./lib/localization/i18n";
+import "@vue-flow/core/dist/style.css";
 
 const pinia = createPinia();
 const app = createApp(App);

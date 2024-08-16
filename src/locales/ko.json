@@ -22,7 +22,8 @@
     "food": "음식",
     "foodData": "식품 데이터",
     "logout": "로그 아웃",
-    "weight": "무게"
+    "weight": "무게",
+    "test": ""
   },
   "AddFoodView": {
     "addToDatabase": "데이터베이스에 추가",
