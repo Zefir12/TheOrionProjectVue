@@ -6,8 +6,7 @@ import { Tables, TablesInsert } from "../../../lib/supabase/supabase/supabaseSch
 import { ref } from "vue";
 import { addFood } from "@/lib/supabase/services/supabaseFoodService";
 import { v4 as uuidv4 } from "uuid";
-
-export type FoodInsertItemCombined = TablesInsert<"food"> & Tables<"food_types">;
+import { FoodInsertItemCombined } from "@/lib/models/Food";
 
 export const useAddFoodStore = defineStore("addFoodStore", () => {
     const toast = useToast();

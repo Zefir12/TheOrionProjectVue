@@ -21,6 +21,13 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
     const fibre = ref(0);
     const salt = ref(0);
 
+    const tags = ref({
+        brand: "",
+        flavour: "",
+        shop: "",
+        type: ""
+    });
+
     const name = ref("");
     const waterPercentage = ref(0);
 
@@ -43,7 +50,34 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
         tost.add({ severity: "error", summary: "Error", detail: error });
     };
 
-    async function addNewFoodToDatabase(callback: () => void) {
+    const clear = () => {
+        fats.value = 0;
+        saturatedFats.value = 0;
+        carbs.value = 0;
+        sugar.value = 0;
+        kcal.value = 0;
+        protein.value = 0;
+        fibre.value = 0;
+        salt.value = 0;
+        tags.value = {
+            brand: "",
+            flavour: "",
+            shop: "",
+            type: ""
+        };
+        servings.value = [
+            { name: "Standard", value: 100 },
+            { name: "Gram", value: 1 }
+        ];
+        name.value = "";
+        waterPercentage.value = 0;
+        nutriScore.value = undefined;
+        novaScore.value = undefined;
+        temporaryServingValue.value = 0;
+        temporaryServingName.value = "";
+    };
+
+    async function addNewFoodToDatabase() {
         const { error } = await supabase.from("food_types").insert({
             carbs: carbs.value,
             fat: fats.value,
@@ -58,13 +92,14 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
             water_percentage: waterPercentage.value,
             portion_weigth: 100,
             nova_score: novaScore.value,
-            nutri_score: nutriScore.value
+            nutri_score: nutriScore.value,
+            tags: JSON.stringify(tags.value)
         });
         if (error) {
             showError(JSON.stringify(error));
         } else {
             showSuccess();
-            await callback();
+            clear();
         }
     }
 
@@ -92,6 +127,7 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
         temporaryServingName,
         name,
         waterPercentage,
+        tags,
         addNewServing,
         removeServing,
         addNewFoodToDatabase

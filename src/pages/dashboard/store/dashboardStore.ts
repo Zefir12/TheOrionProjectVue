@@ -23,35 +23,36 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         nextDay.setDate(day.value.getDate() + 1);
         nextDay = getMidnight(nextDay);
 
-        const data = (await getFoodsWithData(day.value, nextDay)) as FoodItem[];
-        foodData.value = data;
+        const data = await getFoodsWithData(day.value, nextDay);
+        foodData.value = data as FoodItem[];
     };
 
     const proteins = computed(() => {
         let totalProtein = 0;
         foodData.value.forEach((food) => {
-            totalProtein += food.food_types.protein;
+            totalProtein += food.food_types.protein * (food.food_amount / 100);
         });
         return totalProtein;
     });
     const fats = computed(() => {
         let totalFats = 0;
         foodData.value.forEach((food) => {
-            totalFats += food.food_types.fat;
+            totalFats += food.food_types.fat * (food.food_amount / 100);
         });
         return totalFats;
     });
     const carbohydrates = computed(() => {
         let totalCarbs = 0;
         foodData.value.forEach((food) => {
-            totalCarbs += food.food_types.carbs;
+            totalCarbs += food.food_types.carbs * (food.food_amount / 100);
         });
         return totalCarbs;
     });
     const kcal = computed(() => {
         let totalKcal = 0;
         foodData.value.forEach((food) => {
-            totalKcal += food.food_types.kcal;
+            console.log(food.food_types.name, food.food_types.kcal * (food.food_amount / 100));
+            totalKcal += food.food_types.kcal * (food.food_amount / 100);
         });
         return totalKcal;
     });

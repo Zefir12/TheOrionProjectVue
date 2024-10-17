@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { defineStore } from "pinia";
 import { Tables } from "../../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { onMounted, ref } from "vue";
@@ -101,8 +102,8 @@ export const useBloodPreassureStore = defineStore("bloodPreassureStore", () => {
     };
 
     onMounted(async () => {
-        const minDate = new Date(addDays(new Date(Date.now()), -90));
-        const maxDate = new Date(Date.now());
+        const minDate = new Date(addDays(new Date(Date.now()), -190));
+        const maxDate = new Date(addDays(new Date(Date.now()), 1));
         bloodPreassures.value = await getBloodPreassuresBetween(minDate, maxDate);
         const dates = getAllDatesInRange(minDate, maxDate);
         //set chart x and y

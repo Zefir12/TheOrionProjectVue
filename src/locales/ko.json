@@ -5,7 +5,10 @@
       "test": "테스트1"
     },
     "settings": "설정",
-    "addFood": "음식 추가"
+    "addFood": "음식 추가",
+    "createCombo": "",
+    "Meal": "",
+    "food": ""
   },
   "common": {
     "test": "시험",

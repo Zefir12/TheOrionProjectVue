@@ -12,7 +12,10 @@
     "settings": "Settings",
     "poggies": {
       "test": "test1"
-    }
+    },
+    "createCombo": "Create Meal",
+    "Meal": "Meal",
+    "food": "Food"
   },
   "MySidebar": {
     "dashboard": "Dashboard",

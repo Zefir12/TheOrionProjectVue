@@ -64,7 +64,7 @@ onMounted(() => {});
 }
 .right-side {
     height: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .x-button {
     height: 3rem;

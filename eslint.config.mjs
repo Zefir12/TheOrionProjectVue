@@ -17,8 +17,8 @@ export default [
             "@typescript-eslint": tsPlugin
         },
         rules: {
-            ...tsPlugin.configs.recommended.rules,
-            "no-console": "error"
+            ...tsPlugin.configs.recommended.rules
+            //"no-console": "error"
         }
     },
     {

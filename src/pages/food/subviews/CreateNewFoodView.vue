@@ -6,13 +6,16 @@ import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { useNewFoodStore } from "../../../pages/food/store/newFoodStore";
 import Rating from "primevue/rating";
 import IconButton from "@/components/global/IconButton.vue";
-import { useAddFoodStore } from "../store/addFoodStore";
-const newFoodStore = useNewFoodStore();
-const addFoodStore = useAddFoodStore();
+import StyledTextInput from "@/components/global/StyledTextInput.vue";
+import { useAddFoodBulkStore } from "../store/addFoodBulkStore";
 
-function addNewFoodToDatabase() {
-    newFoodStore.addNewFoodToDatabase(addFoodStore.fetchFoodTypesData);
-}
+const newFoodStore = useNewFoodStore();
+const addBulkFoodStore = useAddFoodBulkStore();
+
+const addNewFoodToDatabase = async () => {
+    await newFoodStore.addNewFoodToDatabase();
+    await addBulkFoodStore.fetchFoodTypesData();
+};
 </script>
 <template>
     <div class="group">
@@ -22,7 +25,15 @@ function addNewFoodToDatabase() {
                     <div class="content-stack">
                         <CardInput v-model="newFoodStore.name" label="Name" />
                         <StyledNumberInput v-model="newFoodStore.waterPercentage" label="Water Percentage" />
-                        <StyledButton name="Add" @click="addNewFoodToDatabase" />
+                        <div class="small-group">
+                            <StyledTextInput v-model="newFoodStore.tags.brand" label="Marka" />
+                            <StyledTextInput v-model="newFoodStore.tags.flavour" label="Smak" />
+                        </div>
+                        <div class="small-group">
+                            <StyledTextInput v-model="newFoodStore.tags.type" label="Rodzaj" />
+                            <StyledTextInput v-model="newFoodStore.tags.shop" label="Sklep" />
+                        </div>
+                        <StyledButton name="Add" @click="addNewFoodToDatabase()" />
                     </div>
                 </template>
             </Card>

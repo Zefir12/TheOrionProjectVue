@@ -1,7 +1,7 @@
 <template>
     <div class="custom-select">
-        <small class="small-label">{{ props.label }}</small>
-        <select class="my-input select" :style="{ width: props.width }" v-model="model">
+        <small v-if="props.label" class="small-label">{{ props.label }}</small>
+        <select class="my-input select" :style="{ width: props.width, height: props.height }" v-model="model">
             <option v-for="option in props.options" :value="option">{{ option.name }}</option>
         </select>
     </div>
@@ -10,12 +10,13 @@
 <script setup lang="ts">
 export interface SelectOption {
     name: string;
-    value: unknown;
+    value: number;
 }
 
 const props = defineProps<{
     label?: string;
     width?: string;
+    height?: string;
     options: SelectOption[];
 }>();
 const model = defineModel();
@@ -85,7 +86,7 @@ select {
 }
 
 .my-input {
-    height: 1.875rem;
+    height: 100%;
     width: 100%;
 }
 </style>
