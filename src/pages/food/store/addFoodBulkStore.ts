@@ -8,8 +8,11 @@ import { onBeforeMount, ref, watch } from "vue";
 //import { v4 as uuidv4 } from "uuid";
 import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
 import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
+import { useQuery } from "@tanstack/vue-query";
+import { useDictionaryStore } from "@/stores/dictionaryStore";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
+    const store = useDictionaryStore();
     const toast = useToast();
     const foodTypes = ref<FoodInsertItemCombined[]>([]);
     const selectedFoodItems = ref<ShelfFoodItem[]>([]);
@@ -76,6 +79,13 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
                 meals.value = data;
             }
         }
+    };
+
+    const fetchFoodTypesTenstack = () => {
+        return useQuery({
+            queryKey: ["foodTypes"],
+            queryFn: fetchFoodTypesData
+        });
     };
 
     async function fetchFoodTypesData() {
@@ -210,6 +220,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         addToDatabase,
         changeItemShelf,
         checkForAlreadyAdded,
-        fetchFoodTypesData
+        fetchFoodTypesData,
+        fetchFoodTypesTenstack
     };
 });

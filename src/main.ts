@@ -8,10 +8,12 @@ import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-dark-purple/theme.css";
 import i18n from "./lib/localization/i18n";
 import "@vue-flow/core/dist/style.css";
+import { VueQueryPlugin } from "@tanstack/vue-query";
 
 const pinia = createPinia();
 const app = createApp(App);
 
+app.use(VueQueryPlugin);
 app.use(ToastService);
 app.use(router);
 app.use(pinia);
