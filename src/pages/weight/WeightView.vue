@@ -52,7 +52,9 @@ const setChartData = async () => {
     // const x: (number | null)[] = [];
     // const y: string[] = [];
     // const weight = await getAllWeight();
-    const weight = await getAllWeightBetween(new Date("2023-01-01"), new Date(Date.now()));
+    const tomorrow = new Date(Date.now());
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const weight = await getAllWeightBetween(new Date("2023-01-01"), tomorrow);
     if (!weight) {
         throw new Error();
     }

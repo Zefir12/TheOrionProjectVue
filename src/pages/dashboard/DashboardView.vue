@@ -21,8 +21,13 @@ import FoodInfoView from "./subviews/FoodInfoView.vue";
 import SleepInfoView from "./subviews/SleepInfoView.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { useDashboardStore } from "./store/dashboardStore";
+import { onMounted } from "vue";
 
 const dashboardStore = useDashboardStore();
+
+onMounted(async () => {
+    await dashboardStore.fetchData();
+});
 </script>
 
 <style scoped>

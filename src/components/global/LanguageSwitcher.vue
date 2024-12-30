@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+//import { i18n } from "@/lib/localization/i18n";
 import { availableLanguages } from "@/lib/localization/i18n";
 
 const { locale } = useI18n();
@@ -14,5 +15,6 @@ const selectedLanguage = ref(locale.value);
 
 watch(selectedLanguage, (newLanguage) => {
     locale.value = newLanguage;
+    //i18n.locale.value = newLanguage as "en" | "pl" | "ko";
 });
 </script>

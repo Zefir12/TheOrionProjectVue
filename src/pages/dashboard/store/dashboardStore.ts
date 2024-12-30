@@ -1,5 +1,5 @@
 import { getFoodsWithData } from "@/lib/supabase/services/supabaseFoodService";
-import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabase";
+import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { getMidnight, getTodayWithOffset } from "@/lib/zefir/dates";
 import { defineStore } from "pinia";
 import { computed, onMounted, ref } from "vue";
@@ -15,16 +15,20 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const foodData = ref([] as FoodItem[]);
     const day = ref(getMidnight(getTodayWithOffset(currentDay.value)));
 
-    const changeDay = async (offset: number) => {
-        currentDay.value += offset;
-        day.value = getMidnight(getTodayWithOffset(currentDay.value));
-
+    const fetchData = async () => {
         let nextDay = new Date();
         nextDay.setDate(day.value.getDate() + 1);
         nextDay = getMidnight(nextDay);
 
         const data = await getFoodsWithData(day.value, nextDay);
         foodData.value = data as FoodItem[];
+    };
+
+    const changeDay = async (offset: number) => {
+        currentDay.value += offset;
+        day.value = getMidnight(getTodayWithOffset(currentDay.value));
+
+        await fetchData();
     };
 
     const proteins = computed(() => {
@@ -54,16 +58,13 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
             console.log(food.food_types.name, food.food_types.kcal * (food.food_amount / 100));
             totalKcal += food.food_types.kcal * (food.food_amount / 100);
         });
-        return totalKcal;
-    });
-
-    onMounted(() => {
-        changeDay(0);
+        return Math.round(totalKcal * 100) / 100;
     });
 
     return {
         currentDay,
         changeDay,
+        fetchData,
         day,
         foodData,
         proteins,
