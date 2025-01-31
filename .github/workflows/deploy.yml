@@ -52,7 +52,7 @@ jobs:
               run: pnpm run build && cp ./dist/index.html ./dist/404.html
             - name: Create CNAME file
               run: |
-                  echo "www.example.com" > ./dist/CNAME
+                  echo "www.zefirlabs.net" > ./dist/CNAME
             - name: Setup Pages
               uses: actions/configure-pages@v3
             - name: Upload artifact
