@@ -13,7 +13,7 @@ export default defineConfig({
         }
     },
     plugins: [vue()],
-    base: "/TheOrionProjectVue/",
+    base: "/",
     preview: {
         port: 3999
     },
