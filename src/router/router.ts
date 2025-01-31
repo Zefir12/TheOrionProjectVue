@@ -8,6 +8,7 @@ import BloodPreassureView from "../pages/bloodpreassure/BloodPreassureView.vue";
 import FoodDataView from "@/pages/foodData/FoodDataView.vue";
 import BoughtItemsView from "@/pages/boughtItems/BoughtItemsView.vue";
 import TestPage from "@/pages/test/TestPage.vue";
+import TestPage2 from "@/pages/test2/TestPage2.vue";
 
 const routes = [
     //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },
@@ -18,7 +19,8 @@ const routes = [
     { name: "bloodpreassure", path: "/bloodpreassure", component: BloodPreassureView },
     { name: "foodData", path: "/fooddata", component: FoodDataView },
     { name: "boughtItems", path: "/boughtItems", component: BoughtItemsView },
-    { name: "test", path: "/test", component: TestPage }
+    { name: "test", path: "/test", component: TestPage },
+    { name: "test2", path: "/test2", component: TestPage2 }
 ];
 
 const router = createRouter({

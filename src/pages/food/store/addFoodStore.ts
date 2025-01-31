@@ -7,10 +7,11 @@ import { ref } from "vue";
 import { addFood } from "@/lib/supabase/services/supabaseFoodService";
 import { v4 as uuidv4 } from "uuid";
 import { FoodInsertItemCombined } from "@/lib/models/Food";
+import { useDictionaryStore } from "@/stores/dictionaryStore";
 
 export const useAddFoodStore = defineStore("addFoodStore", () => {
     const toast = useToast();
-
+    const dictionaryStore = useDictionaryStore();
     const foodTypes = ref([] as FoodInsertItemCombined[]);
     const selectedFoodTypes = ref([] as FoodInsertItemCombined[]);
     const time = ref(new Date(Date.now()));
@@ -93,8 +94,14 @@ export const useAddFoodStore = defineStore("addFoodStore", () => {
         }
     }
 
+    const createFoodListFromFoodTypes = async () => {
+        const i = await dictionaryStore.getFoodTypes();
+        foodTypes.value = i as unknown as FoodInsertItemCombined[];
+    };
+
     onMounted(async () => {
-        await fetchFoodTypesData();
+        await createFoodListFromFoodTypes();
+        //await fetchFoodTypesData();
     });
 
     async function fetchFoodTypesData() {

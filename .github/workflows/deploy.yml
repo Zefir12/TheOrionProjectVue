@@ -50,6 +50,9 @@ jobs:
                   find . -name '.env' -type f -exec sed -i "s/#{SUPA_KEY}#/${SUPA_KEY//\//\\/}/g" {} \;
             - name: Build
               run: pnpm run build && cp ./dist/index.html ./dist/404.html
+            - name: Create CNAME file
+              run: |
+                  echo "www.example.com" > ./dist/CNAME
             - name: Setup Pages
               uses: actions/configure-pages@v3
             - name: Upload artifact

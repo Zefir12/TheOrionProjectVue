@@ -1,4 +1,6 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+//export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+
+import { Json } from "@/lib/types/json";
 
 export type Database = {
     graphql_public: {
@@ -270,18 +272,21 @@ export type Database = {
                     created_at: string;
                     id: number;
                     name: string | null;
+                    user_id: string | null;
                 };
                 Insert: {
                     content: Json;
                     created_at?: string;
                     id?: number;
                     name?: string | null;
+                    user_id?: string | null;
                 };
                 Update: {
                     content?: Json;
                     created_at?: string;
                     id?: number;
                     name?: string | null;
+                    user_id?: string | null;
                 };
                 Relationships: [];
             };

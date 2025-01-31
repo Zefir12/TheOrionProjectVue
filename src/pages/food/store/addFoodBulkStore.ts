@@ -8,11 +8,10 @@ import { onBeforeMount, ref, watch } from "vue";
 //import { v4 as uuidv4 } from "uuid";
 import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
 import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
-import { useQuery } from "@tanstack/vue-query";
 import { useDictionaryStore } from "@/stores/dictionaryStore";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
-    const store = useDictionaryStore();
+    const dictionaryStore = useDictionaryStore();
     const toast = useToast();
     const foodTypes = ref<FoodInsertItemCombined[]>([]);
     const selectedFoodItems = ref<ShelfFoodItem[]>([]);
@@ -24,9 +23,19 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
 
     onBeforeMount(async () => {
         timeShelfs.value = await loadTimeShelfs();
-        await fetchFoodTypesData();
+        await createFoodListFromFoodTypes();
         await fetchMeals();
     });
+
+    const createFoodListFromFoodTypes = async () => {
+        const types = await dictionaryStore.getFoodTypes();
+
+        types.forEach((item) => {
+            foodTypes.value.push(item as unknown as FoodInsertItemCombined);
+        });
+
+        foodTypes.value = i as unknown as FoodInsertItemCombined[];
+    };
 
     const loadTimeShelfs = async () => {
         const shelfs = [
@@ -80,24 +89,6 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
             }
         }
     };
-
-    const fetchFoodTypesTenstack = () => {
-        return useQuery({
-            queryKey: ["foodTypes"],
-            queryFn: fetchFoodTypesData
-        });
-    };
-
-    async function fetchFoodTypesData() {
-        const { data, error } = await supabase.from("food_types").select("*").returns<Tables<"food_types">[]>();
-
-        if (error) {
-            toast.add({ severity: "error", summary: "Error", detail: JSON.stringify(error) });
-        } else {
-            foodTypes.value = data as unknown as FoodInsertItemCombined[];
-            sortFoods();
-        }
-    }
 
     const changeItemShelf = (id: number, shelfId: string) => {
         const item = selectedFoodItems.value.find((i) => i.id == id);
@@ -173,7 +164,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         return items;
     };
 
-    function selectItem(item: Tables<"food_types">) {
+    function selectItem(item: FoodInsertItemCombined) {
         const food = { ...item, shelfId: currentTimeShelfId.value, multiplier: 1, option: { name: "Standard", value: 100 }, food_id: item.id } as unknown as ShelfFoodItem;
         selectedFoodItems.value.push(food);
     }
@@ -219,8 +210,6 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         getItemsInCurrentShelf,
         addToDatabase,
         changeItemShelf,
-        checkForAlreadyAdded,
-        fetchFoodTypesData,
-        fetchFoodTypesTenstack
+        checkForAlreadyAdded
     };
 });

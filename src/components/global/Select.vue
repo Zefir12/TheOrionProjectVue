@@ -2,7 +2,7 @@
     <div class="custom-select">
         <small v-if="props.label" class="small-label">{{ props.label }}</small>
         <select class="my-input select" :style="{ width: props.width, height: props.height }" v-model="model">
-            <option v-for="option in props.options" :value="option">{{ option.name }}</option>
+            <option v-for="option in props.options" :value="option.value">{{ option.name }}</option>
         </select>
     </div>
 </template>
