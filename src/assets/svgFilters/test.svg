@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="squiggly-2">
+    <feTurbulence id="turbulence3" baseFrequency="0.02" numOctaves="3" result="noise" seed="2" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+    <feOffset  dx="-2" dy="-2" />
+  </filter>
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+    <feBlend in="SourceGraphic" in2="goo" />
+  </filter>
+  <filter id="fancy-goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+    <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+  </filter>
+  <filter id="teal-lightgreen" x="-10%" y="-10%" width="120%" height="120%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="1 0 0 0 0
+              1 0 0 0 0
+              1 0 0 0 0
+              0 0 0 1 0" in="SourceGraphic" result="colormatrix"/>
+    <feComponentTransfer in="colormatrix" result="componentTransfer">
+          <feFuncR type="table" tableValues="0.03 0.8"/>
+      <feFuncG type="table" tableValues="0.57 1"/>
+      <feFuncB type="table" tableValues="0.49 0.53"/>
+      <feFuncA type="table" tableValues="0 1"/>
+      </feComponentTransfer>
+    <feBlend mode="soft-light" in="componentTransfer" in2="SourceGraphic" result="blend"/>
+  </filter>
+  <filter id="blur-opacity-filter">
+    <!-- Blur effect -->
+    <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blurred" />
+
+    <!-- Reduce opacity of blurred image -->
+    <feComponentTransfer in="blurred" result="transparent-blurred">
+      <feFuncA type="linear" slope="0.4" />
+    </feComponentTransfer>
+
+    <!-- Merge original and transparent blurred -->
+    <feMerge>
+      <feMergeNode in="transparent-blurred" />
+      <feMergeNode in="SourceGraphic" />
+    </feMerge>
+  </filter>
+  <filter id="remove-white">
+  <feFlood flood-color="#1a1a1d" result="flood" />
+  <feComposite operator="out" in="flood" in2="SourceGraphic" />
+  </filter>
+</svg>
+
+<!-- https://css-tricks.com/gooey-effect/ -->
+<!-- https://blog.logrocket.com/complete-guide-using-css-filters-svgs/#filter-primitives // giga dobre rzeczy o filtrach svg -->
+
+<!-- https://codepen.io/leimapapa/pen/QWQKVvQ lava lamp -->
+<!-- https://loading.io/spinner/lava-lamp/-gooey-bubble-lava-lamp-float-boiling-water-fire -->
+<!-- https://yoksel.github.io/svg-gradient-map/#/ -->

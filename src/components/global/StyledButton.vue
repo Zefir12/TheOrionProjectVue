@@ -3,14 +3,16 @@
         <div v-if="!loading" class="my-button-text-container">
             {{ name ?? "Button" }}
         </div>
-        <div v-else>
-            {{ "lol" }}
+        <div class="loader-container" v-else>
+            <LoaderDots color="#b197fc" />
         </div>
     </Button>
 </template>
 
 <script setup lang="ts">
 import Button from "primevue/button";
+
+import LoaderDots from "./loaders/LoaderDots.vue";
 
 interface Props {
     name?: string;
@@ -23,6 +25,13 @@ defineEmits(["click"]);
 </script>
 
 <style scoped>
+.loader-container {
+    width: 100%;
+    max-height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .my-button-text-container {
     display: flex;
     flex-direction: column;
