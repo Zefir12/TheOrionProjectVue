@@ -1,17 +1,26 @@
-<script setup lang="ts">
-import Button from "primevue/button";
-type Booleanish = boolean | "false" | true;
-const props = defineProps<{ name?: string; disabled?: Booleanish; width?: string | undefined }>();
-defineEmits(["click"]);
-</script>
-
 <template>
     <Button :style="{ width: width }" class="my-button" :disabled="props.disabled" text @click="$emit('click')">
-        <div class="my-button-text-container">
+        <div v-if="!loading" class="my-button-text-container">
             {{ name ?? "Button" }}
+        </div>
+        <div v-else>
+            {{ "lol" }}
         </div>
     </Button>
 </template>
+
+<script setup lang="ts">
+import Button from "primevue/button";
+
+interface Props {
+    name?: string;
+    disabled?: boolean;
+    width?: string | undefined;
+    loading?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {});
+defineEmits(["click"]);
+</script>
 
 <style scoped>
 .my-button-text-container {
