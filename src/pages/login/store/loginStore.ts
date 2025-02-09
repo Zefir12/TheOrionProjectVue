@@ -14,7 +14,6 @@ export const useLoginStore = defineStore("login", () => {
 
     const user = ref();
     const session = ref();
-    console.log("Current NODE_ENV:", process.env.NODE_ENV);
 
     async function loginUser() {
         loading.value = true;
@@ -49,7 +48,7 @@ export const useLoginStore = defineStore("login", () => {
     });
 
     const googleLogin = async () => {
-        const redirectUrl = process.env.NODE_ENV != "development" ? "https://zefirlabs.net/dashboard" : "http://localhost:3999/dashboard";
+        const redirectUrl = process.env.NODE_ENV != "development" ? "https://zefirlabs.net" : "http://localhost:3999";
         const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
