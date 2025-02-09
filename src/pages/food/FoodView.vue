@@ -2,22 +2,12 @@
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
 import { IconChefHat, IconFridge, IconSettings } from "@tabler/icons-vue";
-import AddFoodView from "./subviews/AddFoodView.vue";
 import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
 import AddFoodBulkView from "./subviews/AddFoodBulkView.vue";
 import CreateFoodComboView from "./subviews/CreateFoodComboView.vue";
 </script>
 <template>
     <TabView lazy :active-index="1" class="tabview">
-        <TabPanel>
-            <template #header>
-                <div class="tab-head">
-                    <IconFridge size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">{{ $t("FoodView.addFood") }}</span>
-                </div>
-            </template>
-            <AddFoodView />
-        </TabPanel>
         <TabPanel>
             <template #header>
                 <div class="tab-head">

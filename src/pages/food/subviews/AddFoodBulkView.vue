@@ -4,31 +4,30 @@ import Stack from "@/components/global/containers/Stack.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import CardInput from "@/components/food/CardInput.vue";
 import ScrollableStack from "@/components/global/containers/ScrollableStack.vue";
-import FoodTypeCard from "@/components/food/FoodTypeCard.vue";
+import MealOrFoodSearchCard from "@/components/food/MealOrFoodSearchCard.vue";
 import { i18n } from "@/lib/localization/i18n";
 import Select from "@/components/global/Select.vue";
 import { ref } from "vue";
 import { useAddFoodBulkStore } from "../store/addFoodBulkStore";
 import TimeShelfItem from "@/components/food/TimeShelfItem.vue";
 import TimeShelfCard from "@/components/food/TimeShelfCard.vue";
-import { ShelfFoodItem, TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
+import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
 import Calendar from "primevue/calendar";
 import BulkFoodItem from "@/components/food/BulkFoodItem.vue";
-import TabView from "primevue/tabview";
-import TabPanel from "primevue/tabpanel";
-import { IconAddressBook } from "@tabler/icons-vue";
+import { FoodAsItemToAdd, MealAsItemToAdd } from "@/lib/models/Food";
+import MealItem from "@/components/food/MealItem.vue";
 
 const addFoodBulkStore = useAddFoodBulkStore();
 const selectedTimingstemplate = ref(null);
 
-const dragStart = (event: DragEvent, item: ShelfFoodItem) => {
+const dragStart = (event: DragEvent, item: FoodAsItemToAdd | MealAsItemToAdd) => {
     event.dataTransfer?.setData("item", JSON.stringify(item));
 };
 
 const drop = (event: DragEvent, timeShelf: TimeShelf) => {
     if (event.dataTransfer) {
         const item = JSON.parse(event.dataTransfer.getData("item"));
-        addFoodBulkStore.changeItemShelf(item.id, timeShelf.id);
+        addFoodBulkStore.changeItemShelf(item.internalId, item.type, timeShelf.id);
     }
 };
 </script>
@@ -36,7 +35,6 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
     <Group ml="10rem" mr="10rem">
         <Stack align="stretch">
             <Group :gap="'xs'">
-                <!-- select -->
                 <Select :style="{ height: '2.25rem', width: '100%' }" v-model="selectedTimingstemplate" :options="[{ name: 'pog', value: 100 }]" />
                 <StyledButton :style="{ width: '3rem' }" @click="" :name="'+'" />
             </Group>
@@ -63,50 +61,24 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
                 <StyledButton width="10rem" :name="i18n.t('AddFoodView.clear')" @click="addFoodBulkStore.clearFoods" />
             </Group>
 
-            <ScrollableStack height="80vh">
-                <BulkFoodItem v-for="foodtype in addFoodBulkStore.getItemsInCurrentShelf()" :food-item="foodtype" :name="foodtype.name?.toString()" @submit="addFoodBulkStore.deselectItem(foodtype)" />
+            <ScrollableStack gap="xs" height="80vh">
+                <div v-for="item in addFoodBulkStore.getItemsInCurrentShelf()">
+                    <BulkFoodItem v-if="item.type == 'food'" :food-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
+                    <MealItem v-if="item.type == 'meal'" :meal-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
+                </div>
             </ScrollableStack>
         </Stack>
         <Stack gap="xs" align="flex-start">
-            <TabView>
-                <TabPanel>
-                    <template #header>
-                        <div class="tab-head">
-                            <IconAddressBook size="24" stroke-width="2" />
-                            <span class="font-bold white-space-nowrap">{{ $t("FoodView.food") }}</span>
-                        </div>
-                    </template>
-                    <CardInput v-model="addFoodBulkStore.query" />
-                    <div class="zefir-foodtypes-container">
-                        <FoodTypeCard
-                            v-for="foodtype in addFoodBulkStore.foodTypes"
-                            :key="foodtype.id"
-                            :disabled="addFoodBulkStore.checkForAlreadyAdded(foodtype.id)"
-                            :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
-                            :name="foodtype.name?.toString()"
-                            @click="addFoodBulkStore.selectItem(foodtype)"
-                        />
-                    </div>
-                </TabPanel>
-                <TabPanel>
-                    <template #header>
-                        <div class="tab-head">
-                            <IconAddressBook size="24" stroke-width="2" />
-                            <span class="font-bold white-space-nowrap">{{ $t("FoodView.Meal") }}</span>
-                        </div>
-                    </template>
-                    <div class="zefir-foodtypes-container">
-                        <FoodTypeCard
-                            v-for="foodtype in addFoodBulkStore.foodTypes"
-                            :key="foodtype.id"
-                            :disabled="addFoodBulkStore.checkForAlreadyAdded(foodtype.id)"
-                            :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
-                            :name="foodtype.name?.toString()"
-                            @click="addFoodBulkStore.selectItem(foodtype)"
-                        />
-                    </div>
-                </TabPanel>
-            </TabView>
+            <CardInput v-model="addFoodBulkStore.query" />
+            <div class="zefir-foodtypes-container">
+                <MealOrFoodSearchCard
+                    v-for="foodtype in addFoodBulkStore.getItemsForQueryList()"
+                    :key="foodtype.id"
+                    :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
+                    :name="foodtype.name?.toString()"
+                    @click="addFoodBulkStore.selectItem(foodtype)"
+                />
+            </div>
         </Stack>
     </Group>
 </template>

@@ -8,12 +8,13 @@ import { Tables, TablesInsert } from "@/lib/supabase/supabase/supabaseSchemas/su
 import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
 import { addFoodCombo } from "@/lib/supabase/services/supabaseFoodService";
 import { useToast } from "primevue/usetoast";
+import { Serving } from "@/lib/models/Food";
 
 export const useCreateFoodComboStore = defineStore("createFoodComboStore", () => {
     const query = ref("");
     const name = ref("");
     const toast = useToast();
-    const foodTypes = ref<FoodInsertItemCombined[]>([]);
+    const foodTypes = ref<(FoodInsertItemCombined & { servings: string })[]>([]);
     const selectedFoodItems = ref<ShelfFoodItem[]>([]);
 
     onBeforeMount(async () => {
@@ -26,7 +27,7 @@ export const useCreateFoodComboStore = defineStore("createFoodComboStore", () =>
         if (error) {
             console.log(error);
         } else {
-            foodTypes.value = data as unknown as FoodInsertItemCombined[];
+            foodTypes.value = data as unknown as (FoodInsertItemCombined & { servings: string })[];
             sortFoods();
         }
     }
@@ -75,8 +76,18 @@ export const useCreateFoodComboStore = defineStore("createFoodComboStore", () =>
         return selectedFoodItems.value.some((i) => i.id == id);
     };
 
-    function selectItem(item: FoodInsertItemCombined) {
-        const food = { ...item, multiplier: 1, option: { name: "Standard", value: 100 }, food_id: item.id } as unknown as ShelfFoodItem;
+    function unstringify(data: string | null): Serving[] {
+        if (data) {
+            return JSON.parse(data);
+        }
+        return [
+            { name: "Standard", value: 100 },
+            { name: "Gram", value: 1 }
+        ];
+    }
+
+    function selectItem(item: FoodInsertItemCombined & { servings: string }) {
+        const food = { ...item, multiplier: 1, option: { name: "Standard", value: 100 }, food_id: item.id, servings: unstringify(item.servings) } as unknown as ShelfFoodItem;
         selectedFoodItems.value.push(food);
     }
 

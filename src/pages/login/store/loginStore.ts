@@ -1,38 +1,76 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
-import { signInWithEmail, signoutUser } from "../../../lib/supabase/services/supabaseLoginService";
-import { getUserLogged, setUserLogged } from "../../../lib/localStorage/settings";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "primevue/usetoast";
+import { supabase } from "@/lib/supabase/supabase/supabase";
+import { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 export const useLoginStore = defineStore("login", () => {
     const email = ref("");
     const password = ref("");
-    const userLogged = ref(getUserLogged());
     const router = useRouter();
     const toast = useToast();
     const loading = ref(false);
 
+    const user = ref();
+    const session = ref();
+
     async function loginUser() {
         loading.value = true;
-        const success = await signInWithEmail(email.value, password.value);
-        if (success) {
-            setUserLogged(true);
-            userLogged.value = true;
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email.value,
+            password: password.value
+        });
+
+        if (data.session) {
             router.push({ name: "dashboard" });
         } else {
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            toast.add({ severity: "error", summary: "Error", detail: "Nie udało ci sie, beka", life: 1500 });
+            toast.add({
+                severity: "error",
+                summary: "Error",
+                detail: "Login failed, beka z ciebie.",
+                life: 1500
+            });
+        }
+        if (error) {
+            console.log(error);
         }
         loading.value = false;
     }
 
     async function logutUser() {
-        await signoutUser();
-        setUserLogged(false);
-        userLogged.value = false;
-        router.push({ name: "login" });
+        await supabase.auth.signOut();
     }
 
-    return { email, password, userLogged, loading, loginUser, logutUser };
+    const userLogged = computed(() => {
+        return !!session.value?.user;
+    });
+
+    const googleLogin = async () => {
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                queryParams: {
+                    access_type: "offline",
+                    prompt: "consent"
+                }
+            }
+        });
+
+        if (error) console.error("Login failed:", error);
+    };
+
+    onMounted(() => {
+        supabase.auth.onAuthStateChange((event: AuthChangeEvent, esession: Session | null) => {
+            if (event === "SIGNED_OUT") {
+                user.value = null;
+                router.push({ name: "login" });
+            }
+            user.value = esession?.user || null;
+            session.value = esession;
+        });
+    });
+
+    return { email, password, userLogged, loading, loginUser, logutUser, googleLogin, session, user };
 });

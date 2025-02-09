@@ -41,3 +41,34 @@ export type MealItem = {
     food: FoodInsertItemCombined;
     food_type: FoodType;
 };
+
+export interface MealOrFoodItem {
+    id: number;
+    name: string;
+    type: "food" | "meal";
+}
+
+export interface Serving {
+    value: number;
+    name: string;
+}
+
+export interface FoodAsItemToAdd {
+    id: number;
+    internalId: number;
+    name: string;
+    option: Serving;
+    shelfId: string;
+    multiplier: number;
+    servings: Serving[];
+    type: "food";
+}
+
+export interface MealAsItemToAdd {
+    id: number;
+    internalId: number;
+    name: string;
+    shelfId: string;
+    type: "meal";
+    foods: FoodAsItemToAdd[];
+}

@@ -1,7 +1,7 @@
 <template>
     <div class="zefir-main-card">
         <div class="right-side">
-            <Select v-model="foodItem.option" :options="unstringify(foodItem.servings)" class="zefir-select"></Select>
+            <Select v-model="foodItem.option.value" :options="foodItem.servings" class="zefir-select"></Select>
         </div>
         <div class="content-center"><StyledNumberInput :style="{ maxWidth: '4rem' }" v-model="foodItem.multiplier"></StyledNumberInput></div>
         <div class="content-center">{{ props.name }}</div>
@@ -10,26 +10,16 @@
 </template>
 
 <script setup lang="ts">
-import Select, { SelectOption } from "@/components/global/Select.vue";
+import Select from "@/components/global/Select.vue";
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
+import { FoodAsItemToAdd } from "@/lib/models/Food";
 import { onMounted } from "vue";
-import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
 
 const emit = defineEmits(["submit"]);
 const props = defineProps<{
     name?: string;
-    foodItem: ShelfFoodItem;
+    foodItem: FoodAsItemToAdd;
 }>();
-
-function unstringify(data: string | null): SelectOption[] {
-    if (data) {
-        return JSON.parse(data);
-    }
-    return [
-        { name: "Standard", value: 100 },
-        { name: "Gram", value: 1 }
-    ];
-}
 
 onMounted(() => {});
 </script>

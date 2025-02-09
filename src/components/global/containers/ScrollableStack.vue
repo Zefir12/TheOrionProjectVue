@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import Stack from './Stack.vue';
+import Stack from "./Stack.vue";
 
-defineProps<{height?: string}>()
+defineProps<{ height?: string; gap?: string }>();
 </script>
 
 <template>
-    <Stack :height="height" justify="flex-start" class="z-scrollablestack-container" gap="0"><slot></slot></Stack>
-
+    <Stack :height="height" justify="flex-start" class="z-scrollablestack-container" :gap="gap"><slot></slot></Stack>
 </template>
 
 <style scoped>
@@ -17,5 +16,4 @@ defineProps<{height?: string}>()
     border-color: yellowgreen;
     border-radius: 1px;
 }
-
 </style>

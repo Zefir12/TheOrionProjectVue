@@ -26,6 +26,7 @@ async function loginSubmit() {
                     <label>Password</label>
                 </FloatLabel>
                 <StyledButton :loading="store.loading" class="login-button" name="Login" @click="loginSubmit" />
+                <StyledButton class="login-button" name="Gogiel" @click="store.googleLogin" />
             </div>
         </template>
     </Card>
@@ -54,4 +55,3 @@ async function loginSubmit() {
     width: 10.8rem;
 }
 </style>
-../components/login/store/loginStore

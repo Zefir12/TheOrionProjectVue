@@ -7,15 +7,6 @@ const getItem = (name: string): string | null => {
     return localStorage.getItem(name);
 };
 
-export const getUserLogged = (): boolean => {
-    const data = getItem("userLogged");
-    return data === "true";
-};
-
-export const setUserLogged = (value: boolean): void => {
-    setItem("userLogged", value);
-};
-
 export const getSidebarVisible = (): boolean => {
     const data = getItem("sidebarVisible");
     return data === "true";
@@ -31,8 +22,4 @@ export const getPage = (): string | null => {
     else {
         return null;
     }
-};
-
-export const setPage = (value: string): void => {
-    setItem("page", value);
 };
