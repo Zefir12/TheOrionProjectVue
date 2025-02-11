@@ -26,7 +26,7 @@ async function loginSubmit() {
                     <label>{{ i18n.t("common.password") }}</label>
                 </FloatLabel>
                 <StyledButton :loading="store.loading" class="login-button" :name="i18n.t('common.login')" @click="loginSubmit" />
-                <img class="google" src="../../assets/logos/google_logo.svg" alt="logo" @click="store.googleLogin" />
+                <img class="google" src="@/assets/logos/google_logo.svg" alt="logo" @click="store.googleLogin" />
             </div>
         </template>
     </Card>
