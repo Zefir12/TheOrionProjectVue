@@ -6,6 +6,7 @@ import FloatLabel from "primevue/floatlabel";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { useLoginStore } from "./store/loginStore";
 import { i18n } from "@/lib/localization/i18n";
+import GoogleLogo from "@/assets/logos/google_logo.svg";
 const store = useLoginStore();
 
 async function loginSubmit() {
@@ -26,7 +27,7 @@ async function loginSubmit() {
                     <label>{{ i18n.t("common.password") }}</label>
                 </FloatLabel>
                 <StyledButton :loading="store.loading" class="login-button" :name="i18n.t('common.login')" @click="loginSubmit" />
-                <img class="google" src="@/assets/logos/google_logo.svg" alt="logo" @click="store.googleLogin" />
+                <GoogleLogo class="google" alt="logo" @click="store.googleLogin" />
             </div>
         </template>
     </Card>
