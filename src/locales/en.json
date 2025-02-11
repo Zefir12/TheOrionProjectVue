@@ -1,48 +1,53 @@
 {
-  "common": {
-    "test": "test",
-    "name": "Name",
-    "tags": "Tags",
-    "submit": "Submit",
-    "add": "Add"
-  },
-  "FoodView": {
-    "createNewFood": "Create New Food",
-    "addFood": "Add Food",
-    "settings": "Settings",
-    "poggies": {
-      "test": "test1"
+    "common": {
+        "test": "test",
+        "name": "Name",
+        "tags": "Tags",
+        "submit": "Submit",
+        "add": "Add",
+        "login": "Login",
+        "password": "Password",
+        "email": "Email"
     },
-    "createCombo": "Create Meal",
-    "Meal": "Meal",
-    "food": "Food"
-  },
-  "MySidebar": {
-    "dashboard": "Dashboard",
-    "menu": "Menu",
-    "food": "Food",
-    "weight": "Weight",
-    "bloodPreassure": "Blood Preassure",
-    "foodData": "Food Data",
-    "boughtItems": "Bought Items",
-    "logout": "Logout",
-    "test": "Test"
-  },
-  "AddFoodView": {
-    "addToDatabase": "Add to Database",
-    "clear": "Clear"
-  },
-  "BoughtItemsView": {
-    "amount": "Content Amount",
-    "addTemplate": "Add Template",
-    "addItem": "Add Item"
-  },
-  "AddBoughtItem": {
-    "selectSeller": "Select seller",
-    "selectTemplate": "Select Template",
-    "price": "Price",
-    "expirationDate": "Expiration Date",
-    "purchaseDate": "Purchase Date",
-    "newItem": "New Item"
-  }
+    "FoodView": {
+        "createNewFood": "Create New Food",
+        "addFood": "Add Food",
+        "settings": "Settings",
+        "poggies": {
+            "test": "test1"
+        },
+        "createCombo": "Create Meal",
+        "Meal": "Meal",
+        "food": "Food"
+    },
+    "MySidebar": {
+        "dashboard": "Dashboard",
+        "menu": "Menu",
+        "food": "Food",
+        "weight": "Weight",
+        "bloodPreassure": "Blood Preassure",
+        "foodData": "Food Data",
+        "boughtItems": "Bought Items",
+        "logout": "Logout",
+        "test": "Test",
+        "fitbit": "Fitbit",
+        "test2": "Test2"
+    },
+    "AddFoodView": {
+        "addToDatabase": "Add to Database",
+        "clear": "Clear"
+    },
+    "BoughtItemsView": {
+        "amount": "Content Amount",
+        "addTemplate": "Add Template",
+        "addItem": "Add Item"
+    },
+    "AddBoughtItem": {
+        "selectSeller": "Select seller",
+        "selectTemplate": "Select Template",
+        "price": "Price",
+        "expirationDate": "Expiration Date",
+        "purchaseDate": "Purchase Date",
+        "newItem": "New Item"
+    }
 }

@@ -6,16 +6,19 @@
     },
     "settings": "Ustawienia",
     "addFood": "Dodaj jedzenie",
-    "createCombo": "",
-    "Meal": "",
-    "food": ""
+    "createCombo": "Stwórz posiłek",
+    "Meal": "Posiłek",
+    "food": "Żywność"
   },
   "common": {
     "test": "test",
-    "name": "",
-    "tags": "",
-    "submit": "",
-    "add": ""
+    "name": "Nazwa",
+    "tags": "Tagi",
+    "submit": "Składać",
+    "add": "Dodać",
+    "email": "E-mail",
+    "login": "Login",
+    "password": "Hasło"
   },
   "MySidebar": {
     "dashboard": "Panel",
@@ -26,23 +29,25 @@
     "foodData": "Dane dotyczące żywności",
     "logout": "Wyloguj",
     "weight": "Waga",
-    "test": ""
+    "test": "Test",
+    "fitbit": "Fitbit",
+    "test2": "Test2"
   },
   "AddFoodView": {
     "addToDatabase": "Dodaj do bazy danych",
     "clear": "Wyczyść"
   },
   "BoughtItemsView": {
-    "amount": "",
-    "addTemplate": "",
-    "addItem": ""
+    "amount": "Kwota zawartości",
+    "addTemplate": "Dodaj szablon",
+    "addItem": "Dodaj element"
   },
   "AddBoughtItem": {
-    "selectSeller": "",
-    "selectTemplate": "",
-    "price": "",
-    "expirationDate": "",
-    "purchaseDate": "",
-    "newItem": ""
+    "selectSeller": "Wybierz sprzedawcę",
+    "selectTemplate": "Wybierz szablon",
+    "price": "Cena",
+    "expirationDate": "Data ważności",
+    "purchaseDate": "Data zakupu",
+    "newItem": "Nowy element"
   }
 }

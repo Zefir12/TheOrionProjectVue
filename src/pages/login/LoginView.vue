@@ -5,7 +5,7 @@ import Password from "primevue/password";
 import FloatLabel from "primevue/floatlabel";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { useLoginStore } from "./store/loginStore";
-
+import { i18n } from "@/lib/localization/i18n";
 const store = useLoginStore();
 
 async function loginSubmit() {
@@ -19,14 +19,14 @@ async function loginSubmit() {
             <div class="container">
                 <FloatLabel class="container-item">
                     <InputText v-model="store.email" />
-                    <label>Email</label>
+                    <label>{{ i18n.t("common.email") }}</label>
                 </FloatLabel>
                 <FloatLabel class="container-item">
                     <Password v-model="store.password" :feedback="false" />
-                    <label>Password</label>
+                    <label>{{ i18n.t("common.password") }}</label>
                 </FloatLabel>
-                <StyledButton :loading="store.loading" class="login-button" name="Login" @click="loginSubmit" />
-                <StyledButton class="login-button" name="Gogiel" @click="store.googleLogin" />
+                <StyledButton :loading="store.loading" class="login-button" :name="i18n.t('common.login')" @click="loginSubmit" />
+                <img class="google" src="../../assets/logos/google_logo.svg" alt="logo" @click="store.googleLogin" />
             </div>
         </template>
     </Card>
@@ -47,6 +47,14 @@ async function loginSubmit() {
 .container-item {
     margin-top: 12px;
     margin-bottom: 12px;
+}
+
+.google {
+    height: 44px;
+}
+
+.google:hover {
+    cursor: pointer;
 }
 
 .login-button {

@@ -1,48 +1,53 @@
 {
-  "FoodView": {
-    "createNewFood": "새로운 음식 만들기",
-    "poggies": {
-      "test": "테스트1"
+    "FoodView": {
+        "createNewFood": "새로운 음식 만들기",
+        "poggies": {
+            "test": "테스트1"
+        },
+        "settings": "설정",
+        "addFood": "음식 추가",
+        "createCombo": "식사를 만드십시오",
+        "Meal": "식사",
+        "food": "음식"
     },
-    "settings": "설정",
-    "addFood": "음식 추가",
-    "createCombo": "",
-    "Meal": "",
-    "food": ""
-  },
-  "common": {
-    "test": "시험",
-    "name": "",
-    "tags": "",
-    "submit": "",
-    "add": ""
-  },
-  "MySidebar": {
-    "dashboard": "계기반",
-    "menu": "메뉴",
-    "bloodPreassure": "혈압",
-    "boughtItems": "구매한 품목",
-    "food": "음식",
-    "foodData": "식품 데이터",
-    "logout": "로그 아웃",
-    "weight": "무게",
-    "test": ""
-  },
-  "AddFoodView": {
-    "addToDatabase": "데이터베이스에 추가",
-    "clear": "분명한"
-  },
-  "BoughtItemsView": {
-    "amount": "",
-    "addTemplate": "",
-    "addItem": ""
-  },
-  "AddBoughtItem": {
-    "selectSeller": "",
-    "selectTemplate": "",
-    "price": "",
-    "expirationDate": "",
-    "purchaseDate": "",
-    "newItem": ""
-  }
+    "common": {
+        "test": "시험",
+        "name": "이름",
+        "tags": "태그",
+        "submit": "제출하다",
+        "add": "추가하다",
+        "email": "이메일",
+        "login": "로그인",
+        "password": "비밀번호"
+    },
+    "MySidebar": {
+        "dashboard": "계기반",
+        "menu": "메뉴",
+        "bloodPreassure": "혈압",
+        "boughtItems": "구매한 품목",
+        "food": "음식",
+        "foodData": "식품 데이터",
+        "logout": "로그 아웃",
+        "weight": "무게",
+        "test": "시험",
+        "fitbit": "피트 비트",
+        "test2": "시험 2"
+    },
+    "AddFoodView": {
+        "addToDatabase": "데이터베이스에 추가",
+        "clear": "분명한"
+    },
+    "BoughtItemsView": {
+        "amount": "내용 금액",
+        "addTemplate": "템플릿을 추가하십시오",
+        "addItem": "항목 추가"
+    },
+    "AddBoughtItem": {
+        "selectSeller": "판매자를 선택하십시오",
+        "selectTemplate": "템플릿을 선택하십시오",
+        "price": "가격",
+        "expirationDate": "만료일",
+        "purchaseDate": "구매 날짜",
+        "newItem": "새 항목"
+    }
 }
