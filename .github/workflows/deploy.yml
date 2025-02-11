@@ -44,6 +44,8 @@ jobs:
               env:
                   SUPA_URL: ${{ secrets.SUPA_URL }}
                   SUPA_KEY: ${{ secrets.SUPA_KEY }}
+                  FITBIT_CLIENT_ID: ${{ secrets.FITBIT_CLIENT_ID }}
+                  FITBIT_SECRET: ${{ secrets.FITBIT_SECRET }}
               run: |
                   echo "Replacing #{SUPA_URL}# with $SUPA_URL";
                   find . -name '.env' -type f -exec sed -i "s/#{SUPA_URL}#/${SUPA_URL//\//\\/}/g" {} \;
