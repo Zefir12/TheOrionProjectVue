@@ -216,18 +216,18 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
             const meal = mealTypes.value.find((m) => m.id == item.id);
             if (!meal) return;
             const foods = meal.content as { id: number; amount: number; option: number }[];
-            const foodDatas = foods.map((f) => {
-                const food = foodTypes.value.find((f) => f.id == f.id);
+            const foodDatas = foods.map((fi) => {
+                const food = foodTypes.value.find((f) => f.id == fi.id);
                 if (!food) return;
                 const servings = unstringify(food.servings);
-                const serving = servings.find((s) => s.value == f.option);
+                const serving = servings.find((s) => s.value == fi.option);
                 return {
                     id: food.id,
                     internalId: 0,
                     name: food.name as string,
                     option: serving as Serving,
                     shelfId: currentTimeShelfId.value,
-                    multiplier: f.amount,
+                    multiplier: fi.amount,
                     type: "food",
                     servings: servings
                 } as FoodAsItemToAdd;

@@ -1,14 +1,15 @@
 <template>
     <div class="container">
         <div class="data-table-container">
-            <DataTable :headers="headers" :items="items">
+            <!-- <DataTable :headers="headers" :items="items">
                 <template #protein="prop">
                     <div class="item-div">{{ prop.slotItem }}</div>
                 </template>
                 <template #name="prop">
                     <a class="url" @click="console.log(prop.slotItem)">{{ prop.slotItem }}</a>
                 </template>
-            </DataTable>
+            </DataTable> -->
+            <FoodDataTable />
         </div>
     </div>
 </template>
@@ -18,6 +19,7 @@ import { onMounted, ref } from "vue";
 import DataTable from "@/components/global/DataTable.vue";
 import { supabase } from "../../lib/supabase/supabase/supabase";
 import { Tables } from "../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
+import FoodDataTable from "./subviews/FoodDataTable.vue";
 
 const headers = [
     { key: "id", name: "Id" },
