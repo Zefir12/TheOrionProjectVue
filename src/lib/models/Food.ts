@@ -54,6 +54,7 @@ export interface Serving {
 }
 
 export interface FoodAsItemToAdd {
+    trueId?: number;
     id: number;
     internalId: number;
     name: string;

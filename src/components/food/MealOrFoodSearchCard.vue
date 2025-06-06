@@ -2,12 +2,14 @@
     <div :class="disabled ? 'z-card-container-disabled' : 'z-card-container'" v-if="visible" :disabled="disabled" @click="if (!disabled) $emit('click');" :name="name">
         <div class="z-inside-container">
             <p>{{ name }}</p>
+            <p>{{ metadata }}</p>
+            <p>{{ type }}</p>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ name: string | undefined; visible?: boolean; disabled?: boolean; color?: string }>();
+const props = defineProps<{ name: string | undefined; visible?: boolean; disabled?: boolean; color?: string; metadata?: string; type?: string }>();
 defineEmits(["click"]);
 </script>
 

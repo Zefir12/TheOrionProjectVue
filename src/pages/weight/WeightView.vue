@@ -114,13 +114,25 @@ const setChartOptions = () => {
         scales: {
             x: {
                 ticks: {
-                    color: textColorSecondary
+                    color: textColorSecondary,
+                    maxTicksLimit: 16,
+                    callback: function (value: any, index: any, ticks: any): string {
+                        const label = y.value[value]; // y.value contains your date strings
+                        const date = new Date(label);
+
+                        // Format as "styczeń 2023" using Polish locale
+                        return date.toLocaleDateString("pl-PL", {
+                            month: "long",
+                            year: "numeric"
+                        });
+                    }
                 },
                 grid: {
                     color: surfaceBorder
                 }
             },
             y: {
+                beginAtZero: false,
                 ticks: {
                     color: textColorSecondary
                 },

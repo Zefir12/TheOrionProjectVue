@@ -1,8 +1,8 @@
 import { Tables, TablesInsert } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { defineStore } from "pinia";
 import { useToast } from "primevue/usetoast";
-import { addFood } from "@/lib/supabase/services/supabaseFoodService";
-import { onBeforeMount, ref } from "vue";
+import { addFood, deleteFoodsByIds, getFoodsForEditDispaly, getFoodsWithData, updateFood } from "@/lib/supabase/services/supabaseFoodService";
+import { onBeforeMount, ref, watch } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
 import { useDictionaryStore } from "@/stores/dictionaryStore";
@@ -23,6 +23,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
 
     const foodsToAdd = ref<FoodAsItemToAdd[]>([]);
     const mealsToAdd = ref<MealAsItemToAdd[]>([]);
+    const currentDayLoadedIds = ref<number[]>([]);
 
     const mealOrFoodItemList = ref<MealOrFoodItem[]>([]);
 
@@ -31,6 +32,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     onBeforeMount(async () => {
         timeShelfs.value = await loadTimeShelfs();
         await fetchMealsAndFoods();
+        await loadDay();
     });
 
     const loadTimeShelfs = async () => {
@@ -75,6 +77,47 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         return shelfs;
     };
 
+    const loadDay = async () => {
+        const data = await getFoodsForEditDispaly(time.value, new Date(new Date(time.value).getTime() + 24 * 60 * 60 * 1000));
+        for (const item of data) {
+            currentDayLoadedIds.value.push(item.id);
+            const foodItem = foodTypes.value.find((f) => f.id == item.food_id) as Tables<"food_types">;
+
+            const intakeDate = new Date(item.time_of_intake as string);
+            const intakeHours = intakeDate.getHours();
+            const intakeMinutes = intakeDate.getMinutes();
+            const intakeTotalMinutes = intakeHours * 60 + intakeMinutes;
+
+            // Find the shelf this intake time falls into
+            const matchedShelf = timeShelfs.value.find((shelf) => {
+                const [startH, startM] = shelf.startTime.split(":").map(Number);
+                const [endH, endM] = shelf.endTime.split(":").map(Number);
+                const startMinutes = startH * 60 + startM;
+                const endMinutes = endH * 60 + endM;
+                return intakeTotalMinutes >= startMinutes && intakeTotalMinutes <= endMinutes;
+            });
+
+            const shelfId = matchedShelf?.id || "1"; // fallback to default shelf if no match
+            const servings = unstringify(foodItem.servings);
+            foodsToAdd.value.push({
+                trueId: item.id,
+                id: item.food_id,
+                internalId: internalIdCounter.value,
+                name: foodItem.name as string,
+                option: servings ? (servings[1] as Serving) : { name: "Gram", value: 1 },
+                shelfId: shelfId,
+                multiplier: item.food_amount,
+                type: "food",
+                servings: servings
+            });
+            internalIdCounter.value++;
+        }
+    };
+    watch(time, () => {
+        clearFoods();
+        loadDay();
+    });
+
     const fetchMealsAndFoods = async () => {
         foodTypes.value = await dictionaryStore.getFoodTypes();
         mealTypes.value = await dictionaryStore.getMealTypes();
@@ -103,11 +146,15 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         return mealOrFoodItemList.value;
     };
 
+    const getFoodMetadata = (id: number): string => {
+        const food = foodTypes.value.find((f) => f.id == id);
+        return food?.tags as string;
+    };
+
     const helperTime = (startTime: string, endTime: string) => {
         const startHours = Number(startTime.split(":")[0]);
-        const endHours = Number(endTime.split(":")[0]);
+        const endHours = Number(endTime.split(":")[0]) + 1;
         const middleHours = Math.floor((startHours + endHours) / 2);
-
         return `${String(middleHours).padStart(2, "0")}:${"00"}`;
     };
 
@@ -131,36 +178,68 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     };
 
     async function addToDatabase() {
-        if (foodsToAdd.value.length != 0 || mealsToAdd.value.length != 0) {
-            const items = [] as TablesInsert<"food">[];
-            foodsToAdd.value.forEach((food) => {
-                items.push({
+        const itemsToInsert: TablesInsert<"food">[] = [];
+        const itemsToUpdate: { id: number; updates: Partial<TablesInsert<"food">> }[] = [];
+
+        // Process individual foods
+        foodsToAdd.value.forEach((food) => {
+            const intakeTime = new Date(time.value.toDateString() + " " + getTimeOfIntake(food.shelfId)).toISOString();
+            const commonData = {
+                food_amount: food.multiplier * food.option.value,
+                food_id: food.id,
+                intake_time_accuracy: getIntakeAccuracy(food.shelfId),
+                time_of_intake: intakeTime
+            };
+
+            if (food.trueId) {
+                itemsToUpdate.push({
+                    id: food.trueId,
+                    updates: commonData
+                });
+            } else {
+                itemsToInsert.push(commonData);
+            }
+        });
+
+        // Process meals (assuming meals are always new entries)
+        mealsToAdd.value.forEach((meal) => {
+            const uuid = uuidv4();
+            meal.foods.forEach((food) => {
+                itemsToInsert.push({
                     food_amount: food.multiplier * food.option.value,
                     food_id: food.id,
-                    intake_time_accuracy: getIntakeAccuracy(food.shelfId),
-                    time_of_intake: new Date(time.value.toDateString() + " " + getTimeOfIntake(food.shelfId)).toISOString()
+                    intake_time_accuracy: getIntakeAccuracy(meal.shelfId),
+                    time_of_intake: new Date(time.value.toDateString() + " " + getTimeOfIntake(meal.shelfId)).toISOString(),
+                    meal_id: uuid
                 });
             });
-            mealsToAdd.value.forEach((meal) => {
-                const uuid = uuidv4();
-                meal.foods.forEach((food) => {
-                    items.push({
-                        food_amount: food.multiplier * food.option.value,
-                        food_id: food.id,
-                        intake_time_accuracy: getIntakeAccuracy(meal.shelfId),
-                        time_of_intake: new Date(time.value.toDateString() + " " + getTimeOfIntake(meal.shelfId)).toISOString(),
-                        meal_id: uuid
-                    });
-                });
-            });
-            console.log(items);
-            await addFood(items);
-            clearFoods();
-            showSuccess();
+        });
+
+        console.log("Inserting:", itemsToInsert);
+        console.log("Updating:", itemsToUpdate);
+
+        // Perform inserts
+        await addFood(itemsToInsert);
+
+        // Perform updates
+        for (const item of itemsToUpdate) {
+            await updateFood(item.id, item.updates);
         }
+
+        // Get a list of all still-present trueIds (those that were edited or unchanged)
+        const remainingIds = foodsToAdd.value.filter((f) => f.trueId).map((f) => f.trueId);
+
+        // Find which IDs were removed
+        const deletedIds = currentDayLoadedIds.value.filter((id) => !remainingIds.includes(id));
+        console.log("Deletigng:", deletedIds);
+        await deleteFoodsByIds(deletedIds);
+        showSuccess();
+        clearFoods();
+        loadDay();
     }
 
     function clearFoods() {
+        currentDayLoadedIds.value = [];
         foodsToAdd.value = [];
         mealsToAdd.value = [];
     }
@@ -182,6 +261,43 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     const getItemsInCurrentShelf = (): (FoodAsItemToAdd | MealAsItemToAdd)[] => {
         const items = getItemsInShelf(currentTimeShelfId.value);
         return items;
+    };
+
+    const getTotalsInCurrentShelf = () => {
+        const items = getItemsInCurrentShelf();
+        let totalKcal = 0;
+        let totalCarbs = 0;
+        let totalProtein = 0;
+
+        items.forEach((item) => {
+            if (item.type === "meal") {
+                // item is MealAsItemToAdd, safe to access item.foods
+                item.foods.forEach((food) => {
+                    const nutrition = foodTypes.value.find((ft) => ft.id === food.id);
+                    if (nutrition) {
+                        const factor = food.multiplier * (food.option.value / 100);
+                        totalKcal += nutrition.kcal * factor;
+                        totalProtein += nutrition.protein * factor;
+                        totalCarbs += nutrition.carbs * factor;
+                    }
+                });
+            } else if (item.type === "food") {
+                // item is FoodAsItemToAdd
+                const nutrition = foodTypes.value.find((ft) => ft.id === item.id);
+                if (nutrition) {
+                    const factor = item.multiplier * (item.option.value / 100);
+                    totalKcal += nutrition.kcal * factor;
+                    totalProtein += nutrition.protein * factor;
+                    totalCarbs += nutrition.carbs * factor;
+                }
+            }
+        });
+
+        return {
+            totalKcal: Math.round(totalKcal * 10) / 10,
+            totalProtein: Math.round(totalProtein * 10) / 10,
+            totalCarbs: Math.round(totalCarbs * 10) / 10
+        };
     };
 
     function unstringify(data: string | null): SelectOption[] {
@@ -220,7 +336,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
                 const food = foodTypes.value.find((f) => f.id == fi.id);
                 if (!food) return;
                 const servings = unstringify(food.servings);
-                const serving = servings.find((s) => s.value == fi.option);
+                const serving = servings.find((s) => s.value == fi.option.value);
                 return {
                     id: food.id,
                     internalId: 0,
@@ -244,26 +360,6 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
             internalIdCounter.value++;
         }
     }
-
-    // const checkForAlreadyAdded = (id: number) => {
-    //     return selectedFoodItems.value.some((i) => i.id == id && i.shelfId == currentTimeShelfId.value);
-    // };
-
-    // function sortFoods() {
-    //     if (query.value !== "") {
-    //         foodTypes.value.sort((a, b) => {
-    //             const includesA = a.name?.toLowerCase().includes(query.value.toLowerCase());
-    //             const includesB = b.name?.toLowerCase().includes(query.value.toLowerCase());
-
-    //             // Sort based on whether the substring is included
-    //             if (includesA && !includesB) return -1;
-    //             if (!includesA && includesB) return 1;
-    //             return 0; // If both include or both don't include, maintain the order
-    //         });
-    //     } else {
-    //         foodTypes.value.sort((a, b) => a.id - b.id);
-    //     }
-    // }
 
     function deselectItem(item: FoodAsItemToAdd | MealAsItemToAdd) {
         if (item.type == "food") {
@@ -290,6 +386,8 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         clearFoods,
         deselectItem,
         getItemsInShelf,
+        getTotalsInCurrentShelf,
+        getFoodMetadata,
         getItemsInCurrentShelf,
         addToDatabase,
         changeItemShelf,

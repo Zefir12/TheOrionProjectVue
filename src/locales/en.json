@@ -34,7 +34,7 @@
         "test2": "Test2"
     },
     "AddFoodView": {
-        "addToDatabase": "Add to Database",
+        "addToDatabase": "Save changes",
         "clear": "Clear"
     },
     "BoughtItemsView": {

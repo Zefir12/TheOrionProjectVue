@@ -1,7 +1,7 @@
 <template>
     <div class="zefir-main-card">
         <div class="right-side">
-            <Select v-model="foodItem.option.value" :options="foodItem.servings" class="zefir-select"></Select>
+            <Select v-model="foodItem.option" :options="foodItem.servings" class="zefir-select"></Select>
         </div>
         <div class="content-center"><StyledNumberInput :style="{ maxWidth: '4rem' }" v-model="foodItem.multiplier"></StyledNumberInput></div>
         <div class="content-center">{{ props.name }}</div>

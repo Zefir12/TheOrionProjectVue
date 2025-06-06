@@ -7,7 +7,7 @@ import AddFoodBulkView from "./subviews/AddFoodBulkView.vue";
 import CreateFoodComboView from "./subviews/CreateFoodComboView.vue";
 </script>
 <template>
-    <TabView lazy :active-index="1" class="tabview">
+    <TabView lazy :active-index="0" class="tabview">
         <TabPanel>
             <template #header>
                 <div class="tab-head">

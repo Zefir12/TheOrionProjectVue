@@ -16,11 +16,13 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const day = ref(getMidnight(getTodayWithOffset(currentDay.value)));
 
     const fetchData = async () => {
-        let nextDay = new Date();
-        nextDay.setDate(day.value.getDate() + 1);
-        nextDay = getMidnight(nextDay);
+        const startDate = new Date(day.value); // Clone to avoid mutation
+        const nextDay = new Date(startDate);
+        nextDay.setDate(startDate.getDate() + 1);
 
-        const data = await getFoodsWithData(day.value, nextDay);
+        const midnightNextDay = getMidnight(nextDay);
+
+        const data = await getFoodsWithData(startDate, midnightNextDay);
         foodData.value = data as FoodItem[];
     };
 
@@ -55,7 +57,6 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const kcal = computed(() => {
         let totalKcal = 0;
         foodData.value.forEach((food) => {
-            console.log(food.food_types.name, food.food_types.kcal * (food.food_amount / 100));
             totalKcal += food.food_types.kcal * (food.food_amount / 100);
         });
         return Math.round(totalKcal * 100) / 100;

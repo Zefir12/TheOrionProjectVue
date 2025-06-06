@@ -57,8 +57,10 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
         <Stack gap="xs" align="stretch">
             <Calendar id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" />
             <Group>
+                {{ addFoodBulkStore.getTotalsInCurrentShelf() }}
+            </Group>
+            <Group>
                 <StyledButton @click="addFoodBulkStore.addToDatabase()" :name="i18n.t('AddFoodView.addToDatabase')" />
-                <StyledButton width="10rem" :name="i18n.t('AddFoodView.clear')" @click="addFoodBulkStore.clearFoods" />
             </Group>
 
             <ScrollableStack gap="xs" height="80vh">
@@ -76,6 +78,14 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
                     :key="foodtype.id"
                     :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
                     :name="foodtype.name?.toString()"
+                    :type="foodtype.type"
+                    :metadata="
+                        foodtype.type == 'food'
+                            ? addFoodBulkStore.getFoodMetadata(foodtype.id)
+                                ? Object.values(JSON.parse(addFoodBulkStore.getFoodMetadata(foodtype.id))).join(',')
+                                : undefined
+                            : undefined
+                    "
                     @click="addFoodBulkStore.selectItem(foodtype)"
                 />
             </div>

@@ -103,7 +103,6 @@ const loading = ref(true);
 
 onMounted(async () => {
     const { data } = await supabase.from("food_types").select("*");
-    console.log(data);
     foodTypes.value = changeDates(data as unknown as (Tables<"food_types"> & { date: Date | null })[]);
     loading.value = false;
 });
