@@ -92,7 +92,7 @@ import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { supabase } from "@/lib/supabase/supabase/supabase";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
-import DataTable from "primevue/dataTable";
+import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Slider from "primevue/slider";
 import DatePicker from "@/components/global/DatePicker.vue";
