@@ -1,7 +1,7 @@
 import { Tables, TablesInsert } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { defineStore } from "pinia";
 import { useToast } from "primevue/usetoast";
-import { addFood, deleteFoodsByIds, getFoodsForEditDispaly, getFoodsWithData, updateFood } from "@/lib/supabase/services/supabaseFoodService";
+import { addFood, deleteFoodsByIds, getFoodsForEditDispaly, updateFood } from "@/lib/supabase/services/supabaseFoodService";
 import { onBeforeMount, ref, watch } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
@@ -356,12 +356,12 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         if (item.type == "food") {
             const index = foodsToAdd.value.findIndex((i) => i.internalId === item.internalId);
             if (index != -1) {
-                foodsToAdd.value.splice(index, 1)[0];
+                foodsToAdd.value.splice(index, 1);
             }
         } else if (item.type == "meal") {
             const index = mealsToAdd.value.findIndex((i) => i.internalId === item.internalId);
             if (index != -1) {
-                mealsToAdd.value.splice(index, 1)[0];
+                mealsToAdd.value.splice(index, 1);
             }
         }
     }

@@ -74,8 +74,6 @@ export const useBoughtItemsStore = defineStore("BoughtItemsStore", () => {
         }
     };
 
-    const addNewItemToList = () => {};
-
     const clearItem = () => {
         name.value = "";
         amount.value = 0;

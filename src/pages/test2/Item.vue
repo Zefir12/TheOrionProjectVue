@@ -3,7 +3,7 @@
         <Select :style="{ width: '100px' }" v-model="itemModel.name" :options="itemModel.tags"></Select>
         <input v-model="itemModel.name" />
         {{ itemModel.name + " : " + itemModel.id }}
-        <button @click="$emit('delete', itemModel.id)">X</button>
+        <button @click="emit('delete', itemModel.id)">X</button>
     </div>
 </template>
 

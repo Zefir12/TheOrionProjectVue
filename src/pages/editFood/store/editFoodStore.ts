@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { onBeforeMount, reactive, ref, watch } from "vue";
+import { onBeforeMount, reactive, ref } from "vue";
 import { supabase } from "../../../lib/supabase/supabase/supabase";
 import { useToast } from "primevue/usetoast";
 import { FoodTypeInfo } from "@/components/food/CreateNewFoodComponent.vue";
@@ -10,6 +10,7 @@ import { FoodHelpers } from "@/common/helpers";
 
 export const useEditFoodStore = defineStore("editFoodStore", () => {
     const tost = useToast();
+    const id = ref<number | null>(null);
     const foodTypes = ref<(FoodInsertItemCombined & { servings: string })[]>([]);
     const query = ref("");
 
@@ -28,17 +29,17 @@ export const useEditFoodStore = defineStore("editFoodStore", () => {
 
     function selectItem(item: FoodInsertItemCombined & { servings: string }) {
         const food = { ...item, multiplier: 1, option: { name: "Standard", value: 100 }, food_id: item.id, servings: FoodHelpers.Unstringify(item.servings) } as unknown as ShelfFoodItem;
-        loadFoodFormList(food);
+        loadFoodFromList(food);
     }
 
-    const loadFoodFormList = async (food: ShelfFoodItem) => {
+    const loadFoodFromList = async (food: ShelfFoodItem) => {
         const { data, error } = await supabase.from("food_types").select("*").eq("id", food.id).single();
 
         if (error) {
             console.error("Error loading food:", error.message);
             return null;
         }
-
+        id.value = data.id;
         foodModel.fats = data.fat;
         foodModel.saturatedFats = data.fat_saturated;
         foodModel.carbs = data.carbs;
@@ -102,6 +103,7 @@ export const useEditFoodStore = defineStore("editFoodStore", () => {
     };
 
     const clear = () => {
+        id.value = null;
         foodModel.fats = 0;
         foodModel.saturatedFats = 0;
         foodModel.carbs = 0;
@@ -125,6 +127,36 @@ export const useEditFoodStore = defineStore("editFoodStore", () => {
         foodModel.nutriScore = undefined;
         foodModel.novaScore = undefined;
     };
+
+    async function updateFoodInDatabase() {
+        const { error } = await supabase
+            .from("food_types")
+            .update({
+                carbs: foodModel.carbs,
+                fat: foodModel.fats,
+                fat_saturated: foodModel.saturatedFats,
+                sugar: foodModel.sugar,
+                kcal: foodModel.kcal,
+                fibre: foodModel.fibre,
+                salt: foodModel.salt,
+                protein: foodModel.protein,
+                name: foodModel.name,
+                servings: JSON.stringify(foodModel.servings),
+                water_percentage: foodModel.waterPercentage,
+                portion_weigth: 100,
+                nova_score: foodModel.novaScore,
+                nutri_score: foodModel.nutriScore,
+                tags: JSON.stringify(foodModel.tags)
+            })
+            .eq("id", id.value as number);
+
+        if (error) {
+            showError(JSON.stringify(error));
+        } else {
+            showSuccess();
+            clear();
+        }
+    }
 
     async function addNewFoodToDatabase() {
         const { error } = await supabase.from("food_types").insert({
@@ -155,8 +187,11 @@ export const useEditFoodStore = defineStore("editFoodStore", () => {
     return {
         foodModel,
         addNewFoodToDatabase,
+        updateFoodInDatabase,
         foodTypes,
         query,
-        selectItem
+        selectItem,
+        id,
+        clear
     };
 });

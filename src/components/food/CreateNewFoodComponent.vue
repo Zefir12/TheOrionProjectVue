@@ -14,7 +14,6 @@
                             <StyledTextInput v-model="model.tags.type" label="Rodzaj" />
                             <StyledTextInput v-model="model.tags.shop" label="Sklep" />
                         </div>
-                        <StyledButton name="Add" @click="addNewFoodToDatabase()" />
                     </div>
                 </template>
             </Card>
@@ -85,7 +84,6 @@ import StyledTextInput from "@/components/global/StyledTextInput.vue";
 
 const model = defineModel<FoodTypeInfo>({ required: true });
 const temporaryServing = ref({} as Serving);
-const emit = defineEmits(["add-new-food"]);
 
 const removeServing = (serving: Serving) => {
     if (!model.value) return;
@@ -96,10 +94,6 @@ const addNewServing = () => {
     if (!model.value) return;
     model.value.servings.push({ name: temporaryServing.value.name, value: temporaryServing.value.value });
 };
-
-function addNewFoodToDatabase() {
-    emit("add-new-food", model.value);
-}
 
 export interface FoodTypeInfo {
     kcal: number;

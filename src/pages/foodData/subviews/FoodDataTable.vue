@@ -95,7 +95,6 @@ import InputText from "primevue/inputtext";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Slider from "primevue/slider";
-import DatePicker from "@/components/global/DatePicker.vue";
 
 const foodTypes = ref<any[]>();
 const filters = ref();
@@ -121,6 +120,7 @@ const initFilters = () => {
 };
 initFilters();
 
+// eslint-disable-next-line no-unused-vars
 const formatDate = (value: { toLocaleDateString: (arg0: string, arg1: { day: string; month: string; year: string }) => any }) => {
     return value.toLocaleDateString("en-GB", {
         day: "2-digit",

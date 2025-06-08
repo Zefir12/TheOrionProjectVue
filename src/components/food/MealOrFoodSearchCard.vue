@@ -1,5 +1,5 @@
 <template>
-    <div :class="disabled ? 'z-card-container-disabled' : 'z-card-container'" v-if="visible" :disabled="disabled" @click="if (!disabled) $emit('click');" :name="name">
+    <div :class="disabled ? 'z-card-container-disabled' : 'z-card-container'" v-if="visible" :disabled="props.disabled" @click="if (!disabled) $emit('click');" :name="name">
         <div class="z-inside-container">
             <p>{{ name }}</p>
             <p>{{ metadata }}</p>

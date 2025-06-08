@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import Button from "primevue/button";
 import { IconPlus } from "@tabler/icons-vue";
-
-
-
 </script>
 <template>
     <button class="my-button"><IconPlus stroke-width="2"></IconPlus></button>

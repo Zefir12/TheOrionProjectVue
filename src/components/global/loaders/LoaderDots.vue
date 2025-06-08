@@ -1,7 +1,7 @@
 <template><span class="loader"></span></template>
 
 <script setup lang="ts">
-const props = defineProps<{ color: string }>();
+defineProps<{ color: string }>();
 </script>
 
 <style setup>

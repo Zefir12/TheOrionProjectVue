@@ -3,7 +3,7 @@ import type { EdgeProps } from "@vue-flow/core";
 import { BezierEdge } from "@vue-flow/core";
 
 // props were passed from the slot using `v-bind="customEdgeProps"`
-const props = defineProps<EdgeProps<any>>();
+defineProps<EdgeProps<any>>();
 </script>
 
 <script lang="ts">

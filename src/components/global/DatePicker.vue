@@ -12,7 +12,6 @@ https://vue3datepicker.com/slots/content/
 */
 
 import VueDatePicker from "@vuepic/vue-datepicker";
-import { ref } from "vue";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 const model = defineModel();

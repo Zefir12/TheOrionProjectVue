@@ -116,7 +116,7 @@ const setChartOptions = () => {
                 ticks: {
                     color: textColorSecondary,
                     maxTicksLimit: 16,
-                    callback: function (value: any, index: any, ticks: any): string {
+                    callback: function (value: any): string {
                         const label = y.value[value]; // y.value contains your date strings
                         const date = new Date(label);
 

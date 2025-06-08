@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { defineStore } from "pinia";
 import { Tables } from "../../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { onMounted, ref } from "vue";

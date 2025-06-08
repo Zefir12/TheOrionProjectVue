@@ -2,7 +2,7 @@ import { getFoodsWithData } from "@/lib/supabase/services/supabaseFoodService";
 import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { getMidnight, getTodayWithOffset } from "@/lib/zefir/dates";
 import { defineStore } from "pinia";
-import { computed, onMounted, ref } from "vue";
+import { computed, ref } from "vue";
 
 export interface FoodItem {
     food_amount: number;

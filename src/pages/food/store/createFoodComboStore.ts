@@ -94,7 +94,7 @@ export const useCreateFoodComboStore = defineStore("createFoodComboStore", () =>
     function deselectItem(item: ShelfFoodItem) {
         const index = selectedFoodItems.value.findIndex((i) => i.id === item.id);
         if (index != -1) {
-            selectedFoodItems.value.splice(index, 1)[0];
+            selectedFoodItems.value.splice(index, 1);
         }
     }
 

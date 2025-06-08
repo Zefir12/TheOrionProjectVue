@@ -16,19 +16,18 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import DataTable from "@/components/global/DataTable.vue";
 import { supabase } from "../../lib/supabase/supabase/supabase";
 import { Tables } from "../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import FoodDataTable from "./subviews/FoodDataTable.vue";
 
-const headers = [
-    { key: "id", name: "Id" },
-    { key: "name", name: "Name" },
-    { key: "carbs", name: "Carbs" },
-    { key: "protein", name: "Proteins" },
-    { key: "portion_weigth", name: "Portion Weigth" },
-    { key: "kcal", name: "Kcals" }
-];
+// const headers = [
+//     { key: "id", name: "Id" },
+//     { key: "name", name: "Name" },
+//     { key: "carbs", name: "Carbs" },
+//     { key: "protein", name: "Proteins" },
+//     { key: "portion_weigth", name: "Portion Weigth" },
+//     { key: "kcal", name: "Kcals" }
+// ];
 const items = ref([] as Tables<"food_types">[]);
 
 onMounted(async () => {
