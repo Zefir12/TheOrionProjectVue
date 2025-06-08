@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import Card from "primevue/card";
-import CardInput from "@/components/food/CardInput.vue";
-import StyledButton from "@/components/global/StyledButton.vue";
-import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { useNewFoodStore } from "../../../pages/food/store/newFoodStore";
-import Rating from "primevue/rating";
-import IconButton from "@/components/global/IconButton.vue";
-import StyledTextInput from "@/components/global/StyledTextInput.vue";
 import { useAddFoodBulkStore } from "../store/addFoodBulkStore";
+import CreateNewFoodComponent from "@/components/food/CreateNewFoodComponent.vue";
 
 const newFoodStore = useNewFoodStore();
 const addBulkFoodStore = useAddFoodBulkStore();
 
 const addNewFoodToDatabase = async () => {
     await newFoodStore.addNewFoodToDatabase();
-    await addBulkFoodStore.fetchFoodTypesData();
+    //await addBulkFoodStore.fetchFoodTypesData();
 };
 </script>
 <template>
-    <div class="group">
+    <CreateNewFoodComponent @add-new-food="addNewFoodToDatabase" v-model="newFoodStore.foodModel" />
+    <!-- <div class="group">
         <div class="stack">
             <Card>
                 <template #content>
@@ -88,7 +83,7 @@ const addNewFoodToDatabase = async () => {
                 </template>
             </Card>
         </div>
-    </div>
+    </div> -->
 </template>
 <style scoped>
 .small-group {

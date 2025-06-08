@@ -27,6 +27,7 @@
         "weight": "Weight",
         "bloodPreassure": "Blood Preassure",
         "foodData": "Food Data",
+        "editFood": "Edit Food",
         "boughtItems": "Bought Items",
         "logout": "Logout",
         "test": "Test",

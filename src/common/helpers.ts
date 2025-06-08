@@ -1,3 +1,5 @@
+import { Serving } from "@/lib/models/Food";
+
 class Helpers {
     public static GnerateRandomToken(length = 44) {
         const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -23,6 +25,18 @@ class Helpers {
             .replace(/\+/g, "-") // Replace '+' with '-'
             .replace(/\//g, "_") // Replace '/' with '_'
             .replace(/=+$/, ""); // Remove padding '='
+    }
+}
+
+export class FoodHelpers {
+    public static Unstringify(data: string | null): Serving[] {
+        if (data) {
+            return JSON.parse(data);
+        }
+        return [
+            { name: "Standard", value: 100 },
+            { name: "Gram", value: 1 }
+        ];
     }
 }
 

@@ -6,6 +6,7 @@ import WeightView from "../pages/weight/WeightView.vue";
 import BloodPreassureView from "../pages/bloodpreassure/BloodPreassureView.vue";
 import FoodDataView from "@/pages/foodData/FoodDataView.vue";
 import BoughtItemsView from "@/pages/boughtItems/BoughtItemsView.vue";
+import EditFoodView from "@/pages/editFood/EditFoodView.vue";
 import TestPage from "@/pages/test/TestPage.vue";
 import TestPage2 from "@/pages/test2/TestPage2.vue";
 import { supabase } from "@/lib/supabase/supabase/supabase";
@@ -13,7 +14,6 @@ import { clearFitbitAuthCodes, getFitbitAuthCodes, setFitbitTokenData } from "@/
 import FitbitView from "@/pages/fitbit/FitbitView.vue";
 import { baseUrl } from "@/common/consts";
 import AccessRedicrectView from "@/pages/access-redirect/accessRedicrectView.vue";
-import { get } from "node_modules/axios/index.d.cts";
 
 const routes = [
     //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },
@@ -23,6 +23,7 @@ const routes = [
     { name: "weight", path: "/weight", component: WeightView },
     { name: "bloodpreassure", path: "/bloodpreassure", component: BloodPreassureView },
     { name: "foodData", path: "/fooddata", component: FoodDataView },
+    { name: "editFood", path: "/editFood", component: EditFoodView },
     { name: "boughtItems", path: "/boughtItems", component: BoughtItemsView },
     { name: "test", path: "/test", component: TestPage },
     { name: "test2", path: "/test2", component: TestPage2 },

@@ -32,6 +32,7 @@ async function logoutUser() {
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.weight')" @click="router.push({ name: 'weight' })" />
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.bloodPreassure')" @click="router.push({ name: 'bloodpreassure' })" />
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.foodData')" @click="router.push({ name: 'foodData' })" />
+            <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.editFood')" @click="router.push({ name: 'editFood' })" />
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.boughtItems')" @click="router.push({ name: 'boughtItems' })" />
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.test')" @click="router.push({ name: 'test' })" />
             <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.test2')" @click="router.push({ name: 'test2' })" />

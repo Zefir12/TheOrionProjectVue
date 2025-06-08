@@ -14,7 +14,8 @@ export default [
             globals: globals.node
         },
         plugins: {
-            "@typescript-eslint": tsPlugin
+            "@typescript-eslint": tsPlugin,
+            prettier: prettierPlugin
         },
         rules: {
             ...tsPlugin.configs.recommended.rules

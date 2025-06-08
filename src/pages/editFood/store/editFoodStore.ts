@@ -1,11 +1,72 @@
 import { defineStore } from "pinia";
-import { reactive } from "vue";
+import { onBeforeMount, reactive, ref, watch } from "vue";
 import { supabase } from "../../../lib/supabase/supabase/supabase";
 import { useToast } from "primevue/usetoast";
 import { FoodTypeInfo } from "@/components/food/CreateNewFoodComponent.vue";
+import { FoodInsertItemCombined, Serving } from "@/lib/models/Food";
+import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
+import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
+import { FoodHelpers } from "@/common/helpers";
 
-export const useNewFoodStore = defineStore("newFoodStore", () => {
+export const useEditFoodStore = defineStore("editFoodStore", () => {
     const tost = useToast();
+    const foodTypes = ref<(FoodInsertItemCombined & { servings: string })[]>([]);
+    const query = ref("");
+
+    onBeforeMount(async () => {
+        await fetchFoodTypesData();
+    });
+
+    async function fetchFoodTypesData() {
+        const { data, error } = await supabase.from("food_types").select("*").returns<Tables<"food_types">[]>();
+        if (error) {
+            console.log(error);
+        } else {
+            foodTypes.value = data as unknown as (FoodInsertItemCombined & { servings: string })[];
+        }
+    }
+
+    function selectItem(item: FoodInsertItemCombined & { servings: string }) {
+        const food = { ...item, multiplier: 1, option: { name: "Standard", value: 100 }, food_id: item.id, servings: FoodHelpers.Unstringify(item.servings) } as unknown as ShelfFoodItem;
+        loadFoodFormList(food);
+    }
+
+    const loadFoodFormList = async (food: ShelfFoodItem) => {
+        const { data, error } = await supabase.from("food_types").select("*").eq("id", food.id).single();
+
+        if (error) {
+            console.error("Error loading food:", error.message);
+            return null;
+        }
+
+        foodModel.fats = data.fat;
+        foodModel.saturatedFats = data.fat_saturated;
+        foodModel.carbs = data.carbs;
+        foodModel.sugar = data.sugar;
+        foodModel.kcal = data.kcal;
+        foodModel.protein = data.protein;
+        foodModel.fibre = data.fibre;
+        foodModel.salt = data.salt;
+        foodModel.tags = data.tags
+            ? JSON.parse(data.tags as string)
+            : {
+                  brand: "",
+                  flavour: "",
+                  shop: "",
+                  type: ""
+              };
+        foodModel.servings = data.servings
+            ? (JSON.parse(data.servings) as Serving[])
+            : [
+                  { name: "Standard", value: 100 },
+                  { name: "Gram", value: 1 }
+              ];
+        foodModel.name = data.name as string;
+        foodModel.waterPercentage = data.water_percentage;
+        foodModel.nutriScore = data.nutri_score ?? undefined;
+        foodModel.novaScore = data.nova_score ?? undefined;
+    };
+
     const foodModel = reactive<FoodTypeInfo>({
         name: "",
         kcal: 0,
@@ -93,6 +154,9 @@ export const useNewFoodStore = defineStore("newFoodStore", () => {
 
     return {
         foodModel,
-        addNewFoodToDatabase
+        addNewFoodToDatabase,
+        foodTypes,
+        query,
+        selectItem
     };
 });

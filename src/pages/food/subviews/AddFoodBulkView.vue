@@ -30,6 +30,12 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
         addFoodBulkStore.changeItemShelf(item.internalId, item.type, timeShelf.id);
     }
 };
+
+function adjustDay(deltaDays: number) {
+    const current = new Date(addFoodBulkStore.time);
+    current.setDate(current.getDate() + deltaDays);
+    addFoodBulkStore.time = current;
+}
 </script>
 <template>
     <Group ml="10rem" mr="10rem">
@@ -55,7 +61,11 @@ const drop = (event: DragEvent, timeShelf: TimeShelf) => {
             </TimeShelfCard>
         </Stack>
         <Stack gap="xs" align="stretch">
-            <Calendar id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" />
+            <Group>
+                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(-1)" :name="'<'" />
+                <Calendar :style="{ width: '100%' }" id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" />
+                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(1)" :name="'>'" />
+            </Group>
             <Group>
                 {{ addFoodBulkStore.getTotalsInCurrentShelf() }}
             </Group>

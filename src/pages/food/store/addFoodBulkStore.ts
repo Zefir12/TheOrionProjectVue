@@ -8,6 +8,7 @@ import { TimeShelf } from "@/lib/models/TimeShelfs/TimeShelf";
 import { useDictionaryStore } from "@/stores/dictionaryStore";
 import { FoodAsItemToAdd, MealAsItemToAdd, MealOrFoodItem, Serving } from "@/lib/models/Food";
 import { SelectOption } from "@/components/global/Select.vue";
+import { FoodHelpers } from "@/common/helpers";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     const dictionaryStore = useDictionaryStore();
@@ -98,7 +99,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
             });
 
             const shelfId = matchedShelf?.id || "1"; // fallback to default shelf if no match
-            const servings = unstringify(foodItem.servings);
+            const servings = FoodHelpers.Unstringify(foodItem.servings);
             foodsToAdd.value.push({
                 trueId: item.id,
                 id: item.food_id,
@@ -300,21 +301,11 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         };
     };
 
-    function unstringify(data: string | null): SelectOption[] {
-        if (data) {
-            return JSON.parse(data);
-        }
-        return [
-            { name: "Standard", value: 100 },
-            { name: "Gram", value: 1 }
-        ];
-    }
-
     function selectItem(item: MealOrFoodItem) {
         if (item.type == "food") {
             const food = foodTypes.value.find((f) => f.id == item.id);
             if (food) {
-                const servings = unstringify(food.servings);
+                const servings = FoodHelpers.Unstringify(food.servings);
                 const foodItem = {
                     id: food.id,
                     internalId: internalIdCounter.value,
@@ -331,11 +322,11 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         } else if (item.type == "meal") {
             const meal = mealTypes.value.find((m) => m.id == item.id);
             if (!meal) return;
-            const foods = meal.content as { id: number; amount: number; option: number }[];
+            const foods = meal.content as unknown as { id: number; amount: number; option: SelectOption }[];
             const foodDatas = foods.map((fi) => {
                 const food = foodTypes.value.find((f) => f.id == fi.id);
                 if (!food) return;
-                const servings = unstringify(food.servings);
+                const servings = FoodHelpers.Unstringify(food.servings);
                 const serving = servings.find((s) => s.value == fi.option.value);
                 return {
                     id: food.id,
