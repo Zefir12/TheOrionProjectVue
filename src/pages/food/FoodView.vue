@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import TabView from "primevue/tabview";
 import TabPanel from "primevue/tabpanel";
-import { IconChefHat, IconFridge, IconSettings } from "@tabler/icons-vue";
-import CreateNewFoodView from "./subviews/CreateNewFoodView.vue";
+import { IconFridge, IconSettings } from "@tabler/icons-vue";
 import AddFoodBulkView from "./subviews/AddFoodBulkView.vue";
 import CreateFoodComboView from "./subviews/CreateFoodComboView.vue";
 </script>
@@ -16,15 +15,6 @@ import CreateFoodComboView from "./subviews/CreateFoodComboView.vue";
                 </div>
             </template>
             <AddFoodBulkView />
-        </TabPanel>
-        <TabPanel>
-            <template #header>
-                <div class="tab-head">
-                    <IconChefHat size="24" stroke-width="2" />
-                    <span class="font-bold white-space-nowrap">{{ $t("FoodView.createNewFood") }}</span>
-                </div>
-            </template>
-            <CreateNewFoodView />
         </TabPanel>
         <TabPanel>
             <template #header>
