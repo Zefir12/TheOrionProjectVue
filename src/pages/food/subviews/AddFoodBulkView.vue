@@ -63,7 +63,7 @@ function adjustDay(deltaDays: number) {
         <Stack gap="xs" align="stretch">
             <Group>
                 <StyledButton :style="{ width: '3rem' }" @click="adjustDay(-1)" :name="'<'" />
-                <Calendar :style="{ width: '100%' }" id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" />
+                <Calendar :style="{ width: '100%' }" id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
                 <StyledButton :style="{ width: '3rem' }" @click="adjustDay(1)" :name="'>'" />
             </Group>
             <Group>

@@ -79,7 +79,14 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     };
 
     const loadDay = async () => {
-        const data = await getFoodsForEditDispaly(time.value, new Date(new Date(time.value).getTime() + 24 * 60 * 60 * 1000));
+        const baseDate = new Date(time.value);
+
+        // Set to current day at 00:00 (UTC)
+        const startDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate() - 1, 24, 0, 0, 0));
+
+        // Set next day at 00:00 (UTC)
+        const endDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate(), 24, 0, 0, 0));
+        const data = await getFoodsForEditDispaly(startDate, endDate);
         for (const item of data) {
             currentDayLoadedIds.value.push(item.id);
             const foodItem = foodTypes.value.find((f) => f.id == item.food_id) as Tables<"food_types">;

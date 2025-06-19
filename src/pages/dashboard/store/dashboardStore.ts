@@ -16,13 +16,15 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const day = ref(getMidnight(getTodayWithOffset(currentDay.value)));
 
     const fetchData = async () => {
-        const startDate = new Date(day.value); // Clone to avoid mutation
-        const nextDay = new Date(startDate);
-        nextDay.setDate(startDate.getDate() + 1);
+        const baseDate = new Date(day.value); // e.g., 2025-06-19
 
-        const midnightNextDay = getMidnight(nextDay);
+        // Start at 00:00 UTC of the today
+        const startDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate(), 24, 0, 0, 0));
 
-        const data = await getFoodsWithData(startDate, midnightNextDay);
+        // End at 0:00 UTC of the next day day
+        const endDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate() + 1, 24, 0, 0, 0));
+
+        const data = await getFoodsWithData(startDate, endDate);
         foodData.value = data as FoodItem[];
     };
 
