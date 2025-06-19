@@ -72,4 +72,5 @@ export interface MealAsItemToAdd {
     shelfId: string;
     type: "meal";
     foods: FoodAsItemToAdd[];
+    multiplier: number;
 }

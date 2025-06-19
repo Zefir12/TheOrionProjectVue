@@ -214,7 +214,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
             const uuid = uuidv4();
             meal.foods.forEach((food) => {
                 itemsToInsert.push({
-                    food_amount: food.multiplier * food.option.value,
+                    food_amount: food.multiplier * food.option.value * meal.multiplier,
                     food_id: food.id,
                     intake_time_accuracy: getIntakeAccuracy(meal.shelfId),
                     time_of_intake: new Date(time.value.toDateString() + " " + getTimeOfIntake(meal.shelfId)).toISOString(),
@@ -230,9 +230,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         await addFood(itemsToInsert);
 
         // Perform updates
-        for (const item of itemsToUpdate) {
-            await updateFood(item.id, item.updates);
-        }
+        await Promise.all(itemsToUpdate.map((item) => updateFood(item.id, item.updates)));
 
         // Get a list of all still-present trueIds (those that were edited or unchanged)
         const remainingIds = foodsToAdd.value.filter((f) => f.trueId).map((f) => f.trueId);
@@ -352,7 +350,8 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
                 name: meal.name as string,
                 shelfId: currentTimeShelfId.value,
                 type: "meal",
-                foods: foodDatas
+                foods: foodDatas,
+                multiplier: 1
             } as MealAsItemToAdd;
             mealsToAdd.value.push(mealItem);
             internalIdCounter.value++;
