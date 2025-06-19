@@ -2,7 +2,7 @@
     <div class="page-container">
         <div class="time-section">
             <StyledButton class="time-button" name="<" @click="dashboardStore.changeDay(-1)"></StyledButton>
-            <span>{{ dashboardStore.day.toLocaleString().split(",")[0] }}</span>
+            <span>{{ dashboardStore.day.toISOString().split("T")[0] }}</span>
             <StyledButton class="time-button" name=">" @click="dashboardStore.changeDay(1)"></StyledButton>
         </div>
         <div class="grid-container">
