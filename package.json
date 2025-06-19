@@ -24,6 +24,7 @@
         "@vuepic/vue-datepicker": "^8.8.0",
         "axios": "^1.7.9",
         "chart.js": "^4.4.2",
+        "date-fns": "^4.1.0",
         "eslint": "^9.28.0",
         "globals": "^15.0.0",
         "pinia": "^2.1.7",
