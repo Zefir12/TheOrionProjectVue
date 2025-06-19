@@ -20,8 +20,8 @@ export async function getFoodsForEditDispaly(startDate: Date, endDate: Date): Pr
     const { error, data } = await supabase
         .from("food")
         .select("food_amount, time_of_intake, id, portion, food_id")
-        .gte("time_of_intake", startDate.toLocaleDateString())
-        .lt("time_of_intake", endDate.toLocaleDateString())
+        .gte("time_of_intake", startDate.toISOString())
+        .lt("time_of_intake", endDate.toISOString())
         .order("time_of_intake", { ascending: false });
     if (error) {
         console.log(error);
