@@ -9,7 +9,6 @@ import { useDictionaryStore } from "@/stores/dictionaryStore";
 import { FoodAsItemToAdd, MealAsItemToAdd, MealOrFoodItem, Serving } from "@/lib/models/Food";
 import { SelectOption } from "@/components/global/Select.vue";
 import { FoodHelpers } from "@/common/helpers";
-import { getMidnight, getTodayWithOffset } from "@/lib/zefir/dates";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     const dictionaryStore = useDictionaryStore();
