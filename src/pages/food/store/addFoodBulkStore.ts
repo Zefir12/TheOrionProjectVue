@@ -9,6 +9,7 @@ import { useDictionaryStore } from "@/stores/dictionaryStore";
 import { FoodAsItemToAdd, MealAsItemToAdd, MealOrFoodItem, Serving } from "@/lib/models/Food";
 import { SelectOption } from "@/components/global/Select.vue";
 import { FoodHelpers } from "@/common/helpers";
+import { getMidnight, getTodayWithOffset } from "@/lib/zefir/dates";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     const dictionaryStore = useDictionaryStore();
@@ -80,12 +81,16 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
 
     const loadDay = async () => {
         const baseDate = new Date(time.value);
+        // Local midnight today (00:00 local)
+        const startLocalMidnight = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), 0, 0, 0, 0);
 
-        // Set to current day at 00:00 (UTC)
-        const startDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate() - 1, 24, 0, 0, 0));
+        // Local midnight tomorrow (00:00 local + 1 day)
+        const endLocalMidnight = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate() + 1, 0, 0, 0, 0);
 
-        // Set next day at 00:00 (UTC)
-        const endDate = new Date(Date.UTC(baseDate.getUTCFullYear(), baseDate.getUTCMonth(), baseDate.getUTCDate(), 24, 0, 0, 0));
+        // Convert to UTC timestamps to query backend
+        const startDate = new Date(startLocalMidnight.getTime() - startLocalMidnight.getTimezoneOffset() * 60000);
+        const endDate = new Date(endLocalMidnight.getTime() - endLocalMidnight.getTimezoneOffset() * 60000);
+
         const data = await getFoodsForEditDispaly(startDate, endDate);
         for (const item of data) {
             currentDayLoadedIds.value.push(item.id);
