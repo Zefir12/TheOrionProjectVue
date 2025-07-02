@@ -64,6 +64,14 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         return Math.round(totalKcal * 100) / 100;
     });
 
+    const water = computed(() => {
+        let total = 0;
+        foodData.value.forEach((food) => {
+            total += food.food_types.water_percentage * (food.food_amount / 100);
+        });
+        return Math.round(total * 100) / 100;
+    });
+
     return {
         currentDay,
         changeDay,
@@ -73,6 +81,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         proteins,
         carbohydrates,
         fats,
-        kcal
+        kcal,
+        water
     };
 });

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import MySidebar from "./components/sidebar/MySidebar.vue"
-import Toast from "primevue/toast"
+import MySidebar from "./components/sidebar/MySidebar.vue";
+import Toast from "primevue/toast";
+import TopHeader from "./components/global/TopHeader.vue";
 </script>
 
 <!--
@@ -12,6 +13,7 @@ import Toast from "primevue/toast"
 
 <template>
     <Toast />
+    <TopHeader />
     <MySidebar />
     <RouterView />
 </template>
