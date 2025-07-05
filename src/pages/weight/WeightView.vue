@@ -54,7 +54,7 @@ const setChartData = async () => {
     // const weight = await getAllWeight();
     const tomorrow = new Date(Date.now());
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const weight = await getAllWeightBetween(new Date("2003-01-01"), tomorrow);
+    const weight = await getAllWeightBetween(new Date("2024-01-01"), tomorrow);
     if (!weight) {
         throw new Error();
     }

@@ -72,6 +72,14 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         return Math.round(total * 100) / 100;
     });
 
+    const fibre = computed(() => {
+        let total = 0;
+        foodData.value.forEach((food) => {
+            total += food.food_types.fibre * (food.food_amount / 100);
+        });
+        return Math.round(total * 100) / 100;
+    });
+
     return {
         currentDay,
         changeDay,
@@ -82,6 +90,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         carbohydrates,
         fats,
         kcal,
-        water
+        water,
+        fibre
     };
 });

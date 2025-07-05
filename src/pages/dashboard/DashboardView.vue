@@ -10,6 +10,30 @@
                 <div :style="{ display: 'flex', alignItems: 'center' }">
                     <IconDroplet size="40" stroke-width="2" />
                     <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
+                        <t class="subtitle"> <NumberAnimationWrapper :value="dashboardStore.water / 1000" :suffix="' / 2L'" /></t>
+                        <t class="normal-text">Water consumed today</t>
+                    </div>
+                </div>
+                <ProgressBar class="custom-water-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.water / 20"
+                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.water / 20" suffix="%" /></div
+                ></ProgressBar>
+            </div>
+            <div class="stat-card">
+                <div :style="{ display: 'flex', alignItems: 'center' }">
+                    <IconDroplet size="40" stroke-width="2" />
+                    <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
+                        <t class="subtitle">{{ Math.round(dashboardStore.water / 100) / 10 }} / 2L</t>
+                        <t class="normal-text">Water consumed today</t>
+                    </div>
+                </div>
+                <ProgressBar class="custom-water-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.water / 20"
+                    ><div :style="{ marginLeft: '40px' }">{{ Math.round(dashboardStore.water / 20) }}%</div></ProgressBar
+                >
+            </div>
+            <div class="stat-card">
+                <div :style="{ display: 'flex', alignItems: 'center' }">
+                    <IconDroplet size="40" stroke-width="2" />
+                    <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
                         <t class="subtitle">{{ Math.round(dashboardStore.water / 100) / 10 }} / 2L</t>
                         <t class="normal-text">Water consumed today</t>
                     </div>
@@ -19,25 +43,22 @@
                 >
             </div>
         </div>
-        <div class="grid-container">
-            <div class="item1 grid-item"><FoodInfoView /></div>
-            <div class="item2 grid-item"><SleepInfoView /></div>
-            <div class="grid-item"><SleepInfoView /></div>
-            <div class="grid-item"><SleepInfoView /></div>
-            <div class="grid-item"><SleepInfoView /></div>
-            <div class="grid-item"><SleepInfoView /></div>
+        <div class="dashboard-content">
+            <div class="big-panel"><FoodInfoView /></div>
+            <div class="big-panel"></div>
+            <div class="big-panel"></div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import FoodInfoView from "./subviews/FoodInfoView.vue";
-import SleepInfoView from "./subviews/SleepInfoView.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { useDashboardStore } from "./store/dashboardStore";
 import { onMounted } from "vue";
 import { IconDroplet } from "@tabler/icons-vue";
 import ProgressBar from "primevue/progressbar";
+import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
 
 const dashboardStore = useDashboardStore();
 
@@ -56,17 +77,35 @@ onMounted(async () => {
 ::v-deep(.p-progressbar-label) {
     color: #fff;
 }
+
+::v-deep(.custom-water-bar .p-progressbar-value) {
+    transition: width 0.5s ease-out !important; /* Faster - 0.2 seconds */
+}
+
 .subtitle {
     font-weight: 700;
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: min(95%, 1200px);
+}
+
+@media (min-width: 1000px) {
+    .dashboard-content {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .normal-text {
     font-size: 12px;
 }
 .stat-card {
-    background: #332947;
+    background: #1f1c1c;
     border-radius: 8px;
-    padding: 0.5rem;
+    padding: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -81,11 +120,20 @@ onMounted(async () => {
 }
 
 .top-panels {
-    width: min(80%, 1200px);
+    width: min(95%, 1200px);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
+}
+
+.big-panel {
+    background: #332947;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .time-button {
@@ -103,7 +151,7 @@ onMounted(async () => {
 .page-container {
     flex-direction: column;
     display: flex;
-    height: 100vh;
+
     width: 100%;
     overflow: hidden;
     align-items: center;

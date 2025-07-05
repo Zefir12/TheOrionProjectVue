@@ -17,9 +17,25 @@
         :options="{
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                animateRotate: false, // Disable rotation animation
+                duration: 450, // Animation duration in ms
+                easing: 'easeOut' // Smooth easing function
+            },
             plugins: {
                 legend: {
-                    display: false
+                    position: 'bottom',
+                    display: true,
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        font: {
+                            size: 14,
+                            family: 'sans-serif',
+                            weight: 'bold'
+                        }
+                    }
                 },
                 centerText: {} // activate custom plugin
             }
@@ -51,7 +67,7 @@ const centerTextPlugin = {
 
         const text = `${props.kcal.toFixed(0)} kcal`;
         const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2;
+        const textY = height / 2 - 18;
 
         ctx.fillText(text, textX, textY);
         ctx.save();
@@ -60,7 +76,7 @@ const centerTextPlugin = {
 </script>
 <style scoped>
 .food-chart {
-    height: 100%;
-    width: 200px;
+    height: 240px;
+    width: 340px;
 }
 </style>
