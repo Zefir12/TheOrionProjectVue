@@ -7,9 +7,10 @@
             datasets: [
                 {
                     data: [props.proteins, props.fats, props.carbohydrates],
-                    backgroundColor: ['#646159', '#FFA000', '#673AB7'],
-                    borderColor: ['#646159', '#FFA000', '#673AB7'],
+                    backgroundColor: ['#646159', '#FFA000', '#7a1515'],
+                    borderColor: ['#000', '#000', '#111'],
                     borderRadius: '10',
+                    borderWidth: [1.3, 1, 2],
                     borderAlign: 'inner'
                 }
             ]

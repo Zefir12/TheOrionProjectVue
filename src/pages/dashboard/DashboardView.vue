@@ -18,29 +18,31 @@
                     ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.water / 20" suffix="%" /></div
                 ></ProgressBar>
             </div>
+
             <div class="stat-card">
                 <div :style="{ display: 'flex', alignItems: 'center' }">
-                    <IconDroplet size="40" stroke-width="2" />
+                    <IconBolt color="#b99f29" size="40" stroke-width="2" />
                     <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
-                        <t class="subtitle">{{ Math.round(dashboardStore.water / 100) / 10 }} / 2L</t>
-                        <t class="normal-text">Water consumed today</t>
+                        <t class="subtitle"><NumberAnimationWrapper :decimals="0" :value="dashboardStore.kcal" :suffix="' / 2000'" /></t>
+                        <t class="normal-text">Kcal today</t>
                     </div>
                 </div>
-                <ProgressBar class="custom-water-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.water / 20"
-                    ><div :style="{ marginLeft: '40px' }">{{ Math.round(dashboardStore.water / 20) }}%</div></ProgressBar
-                >
+                <ProgressBar class="custom-kcal-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.kcal / 20"
+                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.kcal / 20" suffix="%" /></div
+                ></ProgressBar>
             </div>
+
             <div class="stat-card">
                 <div :style="{ display: 'flex', alignItems: 'center' }">
-                    <IconDroplet size="40" stroke-width="2" />
+                    <IconMeat color="#6e6e6e" size="40" stroke-width="2" />
                     <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
-                        <t class="subtitle">{{ Math.round(dashboardStore.water / 100) / 10 }} / 2L</t>
-                        <t class="normal-text">Water consumed today</t>
+                        <t class="subtitle"><NumberAnimationWrapper :decimals="0" :value="dashboardStore.proteins" :suffix="' / 120g'" /></t>
+                        <t class="normal-text">Protein today</t>
                     </div>
                 </div>
-                <ProgressBar class="custom-water-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.water / 20"
-                    ><div :style="{ marginLeft: '40px' }">{{ Math.round(dashboardStore.water / 20) }}%</div></ProgressBar
-                >
+                <ProgressBar class="custom-protein-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.proteins / 1.2"
+                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.proteins / 1.2" suffix="%" /></div
+                ></ProgressBar>
             </div>
         </div>
         <div class="dashboard-content">
@@ -56,7 +58,7 @@ import FoodInfoView from "./subviews/FoodInfoView.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { useDashboardStore } from "./store/dashboardStore";
 import { onMounted } from "vue";
-import { IconDroplet } from "@tabler/icons-vue";
+import { IconDroplet, IconBolt, IconMeat } from "@tabler/icons-vue";
 import ProgressBar from "primevue/progressbar";
 import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
 
@@ -68,8 +70,20 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-::v-deep(.p-progressbar-value.p-progressbar-value-animate) {
+::v-deep(.custom-water-bar .p-progressbar-value.p-progressbar-value-animate) {
     background-color: rgb(4, 93, 194);
+    display: flex;
+    justify-content: start;
+}
+
+::v-deep(.custom-kcal-bar .p-progressbar-value.p-progressbar-value-animate) {
+    background-color: rgb(185, 159, 41);
+    display: flex;
+    justify-content: start;
+}
+
+::v-deep(.custom-protein-bar .p-progressbar-value.p-progressbar-value-animate) {
+    background-color: rgb(110, 110, 110);
     display: flex;
     justify-content: start;
 }
@@ -79,6 +93,10 @@ onMounted(async () => {
 }
 
 ::v-deep(.custom-water-bar .p-progressbar-value) {
+    transition: width 0.5s ease-out !important; /* Faster - 0.2 seconds */
+}
+
+::v-deep(.custom-kcal-bar .p-progressbar-value) {
     transition: width 0.5s ease-out !important; /* Faster - 0.2 seconds */
 }
 
@@ -106,7 +124,7 @@ onMounted(async () => {
     background: #1f1c1c;
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(99, 10, 10, 0.1);
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
