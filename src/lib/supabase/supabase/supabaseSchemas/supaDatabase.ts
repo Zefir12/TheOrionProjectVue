@@ -1,6 +1,6 @@
 //export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
-import { Json } from "@/lib/types/json";
+import { Json } from "@/lib/types/json"; //importnat
 
 export type Database = {
     graphql_public: {
@@ -36,18 +36,21 @@ export type Database = {
                     diastolic: number | null;
                     id: number;
                     systolic: number | null;
+                    user_id: string | null;
                 };
                 Insert: {
                     created_at?: string;
                     diastolic?: number | null;
                     id?: number;
                     systolic?: number | null;
+                    user_id?: string | null;
                 };
                 Update: {
                     created_at?: string;
                     diastolic?: number | null;
                     id?: number;
                     systolic?: number | null;
+                    user_id?: string | null;
                 };
                 Relationships: [];
             };
@@ -233,6 +236,7 @@ export type Database = {
                     id: number;
                     intake_time_accuracy: number | null;
                     meal_id: string | null;
+                    portion: Json | null;
                     time_of_intake: string | null;
                     user_id: string | null;
                 };
@@ -243,6 +247,7 @@ export type Database = {
                     id?: number;
                     intake_time_accuracy?: number | null;
                     meal_id?: string | null;
+                    portion?: Json | null;
                     time_of_intake?: string | null;
                     user_id?: string | null;
                 };
@@ -253,6 +258,7 @@ export type Database = {
                     id?: number;
                     intake_time_accuracy?: number | null;
                     meal_id?: string | null;
+                    portion?: Json | null;
                     time_of_intake?: string | null;
                     user_id?: string | null;
                 };
@@ -353,57 +359,6 @@ export type Database = {
                     tags?: Json | null;
                     user_id?: string | null;
                     water_percentage?: number;
-                };
-                Relationships: [];
-            };
-            h: {
-                Row: {
-                    amount: string | null;
-                    created_at: string | null;
-                    date: string | null;
-                    duration: string | null;
-                    id: number;
-                    satisfacion: number | null;
-                };
-                Insert: {
-                    amount?: string | null;
-                    created_at?: string | null;
-                    date?: string | null;
-                    duration?: string | null;
-                    id?: number;
-                    satisfacion?: number | null;
-                };
-                Update: {
-                    amount?: string | null;
-                    created_at?: string | null;
-                    date?: string | null;
-                    duration?: string | null;
-                    id?: number;
-                    satisfacion?: number | null;
-                };
-                Relationships: [];
-            };
-            health: {
-                Row: {
-                    action_name: string | null;
-                    created_at: string | null;
-                    description: string | null;
-                    id: number;
-                    time_of_action: string | null;
-                };
-                Insert: {
-                    action_name?: string | null;
-                    created_at?: string | null;
-                    description?: string | null;
-                    id?: number;
-                    time_of_action?: string | null;
-                };
-                Update: {
-                    action_name?: string | null;
-                    created_at?: string | null;
-                    description?: string | null;
-                    id?: number;
-                    time_of_action?: string | null;
                 };
                 Relationships: [];
             };
@@ -628,6 +583,27 @@ export type Database = {
                     id?: number;
                     name?: string | null;
                     portion_weight?: number;
+                };
+                Relationships: [];
+            };
+            user_settings: {
+                Row: {
+                    created_at: string;
+                    daily_tresholds: Json | null;
+                    id: number;
+                    user_id: string;
+                };
+                Insert: {
+                    created_at?: string;
+                    daily_tresholds?: Json | null;
+                    id?: number;
+                    user_id?: string;
+                };
+                Update: {
+                    created_at?: string;
+                    daily_tresholds?: Json | null;
+                    id?: number;
+                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -885,30 +861,19 @@ export type Database = {
         };
         Functions: {
             can_insert_object: {
-                Args: {
-                    bucketid: string;
-                    name: string;
-                    owner: string;
-                    metadata: Json;
-                };
+                Args: { bucketid: string; name: string; owner: string; metadata: Json };
                 Returns: undefined;
             };
             extension: {
-                Args: {
-                    name: string;
-                };
+                Args: { name: string };
                 Returns: string;
             };
             filename: {
-                Args: {
-                    name: string;
-                };
+                Args: { name: string };
                 Returns: string;
             };
             foldername: {
-                Args: {
-                    name: string;
-                };
+                Args: { name: string };
                 Returns: string[];
             };
             get_size_by_bucket: {
@@ -983,21 +948,23 @@ export type Database = {
     };
 };
 
-type PublicSchema = Database[Extract<keyof Database, "public">];
+type DefaultSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
-    PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"]) | { schema: keyof Database },
-    TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-        ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] & Database[PublicTableNameOrOptions["schema"]]["Views"])
+    DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] & DefaultSchema["Views"]) | { schema: keyof Database },
+    TableName extends DefaultSchemaTableNameOrOptions extends {
+        schema: keyof Database;
+    }
+        ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] & Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
         : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-    ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] & Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+    ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] & Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
           Row: infer R;
       }
         ? R
         : never
-    : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
-      ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+    : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+      ? (DefaultSchema["Tables"] & DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
             Row: infer R;
         }
           ? R
@@ -1005,16 +972,20 @@ export type Tables<
       : never;
 
 export type TablesInsert<
-    PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
-    TableName extends PublicTableNameOrOptions extends { schema: keyof Database } ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"] : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-    ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+    DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"] | { schema: keyof Database },
+    TableName extends DefaultSchemaTableNameOrOptions extends {
+        schema: keyof Database;
+    }
+        ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+        : never = never
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+    ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
           Insert: infer I;
       }
         ? I
         : never
-    : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-      ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+    : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+      ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
             Insert: infer I;
         }
           ? I
@@ -1022,16 +993,20 @@ export type TablesInsert<
       : never;
 
 export type TablesUpdate<
-    PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
-    TableName extends PublicTableNameOrOptions extends { schema: keyof Database } ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"] : never = never
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-    ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+    DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"] | { schema: keyof Database },
+    TableName extends DefaultSchemaTableNameOrOptions extends {
+        schema: keyof Database;
+    }
+        ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+        : never = never
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+    ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
           Update: infer U;
       }
         ? U
         : never
-    : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-      ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+    : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+      ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
             Update: infer U;
         }
           ? U
@@ -1039,16 +1014,20 @@ export type TablesUpdate<
       : never;
 
 export type Enums<
-    PublicEnumNameOrOptions extends keyof PublicSchema["Enums"] | { schema: keyof Database },
-    EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database } ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"] : never = never
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-    : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-      ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"] | { schema: keyof Database },
+    EnumName extends DefaultSchemaEnumNameOrOptions extends {
+        schema: keyof Database;
+    }
+        ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+        : never = never
+> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
+    ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+    : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+      ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
       : never;
 
 export type CompositeTypes<
-    PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"] | { schema: keyof Database },
+    PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"] | { schema: keyof Database },
     CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
         schema: keyof Database;
     }
@@ -1056,6 +1035,18 @@ export type CompositeTypes<
         : never = never
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
     ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-    : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-      ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+      ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
       : never;
+
+export const Constants = {
+    graphql_public: {
+        Enums: {}
+    },
+    public: {
+        Enums: {}
+    },
+    storage: {
+        Enums: {}
+    }
+} as const;

@@ -1,7 +1,7 @@
 <template>
     <FoodInfoModal v-model="foodModalOpen" :food="foodItemInModal" />
     <div class="full-container">
-        <div class="top"><t>DZISIAJ ZJEDZONE</t></div>
+        <div class="top"><div>DZISIAJ ZJEDZONE</div></div>
         <div class="container">
             <div class="today-eaten-list">
                 <TodayEatenCard :food="food" v-for="food in foods" @open-food-info-modal="openFoodInfoModal" />

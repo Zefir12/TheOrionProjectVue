@@ -1,4 +1,7 @@
 <template>
+    <WaterTresholdModal v-model="waterModalOpened" />
+    <KcalTresholdModal v-model="kcalModalOpened" />
+    <ProteinTresholdModal v-model="proteinModalOpened" />
     <div class="page-container">
         <div class="time-section">
             <div class="arrow-icon" @click="dashboardStore.changeDay(-1)">
@@ -11,44 +14,34 @@
             <div class="arrow-icon-disabled" v-else><IconArrowNarrowRight size="32" stroke-width="3" /></div>
         </div>
         <div class="top-panels">
-            <div class="stat-card">
-                <div :style="{ display: 'flex', alignItems: 'center' }">
-                    <IconDroplet size="40" stroke-width="2" />
-                    <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
-                        <t class="subtitle"> <NumberAnimationWrapper :value="dashboardStore.water / 1000" :suffix="' / 2L'" /></t>
-                        <t class="normal-text">Water consumed today</t>
-                    </div>
-                </div>
-                <ProgressBar class="custom-water-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.water / 20"
-                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.water / 20" suffix="%" /></div
-                ></ProgressBar>
-            </div>
-
-            <div class="stat-card">
-                <div :style="{ display: 'flex', alignItems: 'center' }">
-                    <IconBolt color="#b99f29" size="40" stroke-width="2" />
-                    <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
-                        <t class="subtitle"><NumberAnimationWrapper :decimals="0" :value="dashboardStore.kcal" :suffix="' / 2000'" /></t>
-                        <t class="normal-text">Kcal today</t>
-                    </div>
-                </div>
-                <ProgressBar class="custom-kcal-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.kcal / 20"
-                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.kcal / 20" suffix="%" /></div
-                ></ProgressBar>
-            </div>
-
-            <div class="stat-card">
-                <div :style="{ display: 'flex', alignItems: 'center' }">
-                    <IconMeat color="#6e6e6e" size="40" stroke-width="2" />
-                    <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
-                        <t class="subtitle"><NumberAnimationWrapper :decimals="0" :value="dashboardStore.proteins" :suffix="' / 120g'" /></t>
-                        <t class="normal-text">Protein today</t>
-                    </div>
-                </div>
-                <ProgressBar class="custom-protein-bar" :mode="'determinate'" :show-value="true" :value="dashboardStore.proteins / 1.2"
-                    ><div :style="{ marginLeft: '40px' }"><NumberAnimationWrapper :value="dashboardStore.proteins / 1.2" suffix="%" /></div
-                ></ProgressBar>
-            </div>
+            <FoodStatCard
+                @cog-clicked="waterModalOpened = true"
+                :subtitle="'Water consumed today'"
+                :value="dashboardStore.water"
+                :treshold="userStore.userDailyStats.water"
+                :color="'#045dc2'"
+                :icon="IconDroplet"
+                suffix="L"
+                :scale="1000"
+            />
+            <FoodStatCard
+                @cog-clicked="kcalModalOpened = true"
+                :subtitle="'Kcal today'"
+                :value="dashboardStore.kcal"
+                :decimals="0"
+                :treshold="userStore.userDailyStats.calories"
+                :color="'#b99f29'"
+                :icon="IconBolt"
+            />
+            <FoodStatCard
+                @cog-clicked="proteinModalOpened = true"
+                :subtitle="'Protein today'"
+                :value="dashboardStore.proteins"
+                :treshold="userStore.userDailyStats.protein"
+                :color="'#6e6e6e'"
+                :icon="IconMeat"
+                suffix="g"
+            />
         </div>
         <div class="dashboard-content">
             <div class="big-panel"><FoodInfoView /></div>
@@ -61,13 +54,21 @@
 <script setup lang="ts">
 import FoodInfoView from "./subviews/FoodInfoView.vue";
 import { useDashboardStore } from "./store/dashboardStore";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { IconDroplet, IconBolt, IconMeat, IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-vue";
-import ProgressBar from "primevue/progressbar";
-import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
 import FoodsEatenTodayView from "./subviews/FoodsEatenTodayView.vue";
+import FoodStatCard from "./components/FoodStatCard.vue";
+import { useUserStore } from "@/stores/userStore";
+import WaterTresholdModal from "./components/tresholds/WaterTresholdModal.vue";
+import KcalTresholdModal from "./components/tresholds/KcalTresholdModal.vue";
+import ProteinTresholdModal from "./components/tresholds/ProteinTresholdModal.vue";
 
 const dashboardStore = useDashboardStore();
+const userStore = useUserStore();
+
+const waterModalOpened = ref(false);
+const kcalModalOpened = ref(false);
+const proteinModalOpened = ref(false);
 
 onMounted(async () => {
     await dashboardStore.fetchData();
@@ -75,36 +76,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-::v-deep(.custom-water-bar .p-progressbar-value.p-progressbar-value-animate) {
-    background-color: rgb(4, 93, 194);
-    display: flex;
-    justify-content: start;
-}
-
-::v-deep(.custom-kcal-bar .p-progressbar-value.p-progressbar-value-animate) {
-    background-color: rgb(185, 159, 41);
-    display: flex;
-    justify-content: start;
-}
-
-::v-deep(.custom-protein-bar .p-progressbar-value.p-progressbar-value-animate) {
-    background-color: rgb(110, 110, 110);
-    display: flex;
-    justify-content: start;
-}
-
-::v-deep(.p-progressbar-label) {
-    color: #fff;
-}
-
-::v-deep(.p-progressbar-determinate .p-progressbar-value-animate) {
-    transition: width 0.3s ease-in-out;
-}
-
-.subtitle {
-    font-weight: 700;
-}
-
 .dashboard-content {
     display: grid;
     grid-template-columns: 1fr;
@@ -141,9 +112,6 @@ onMounted(async () => {
     background-color: #413a54;
 }
 
-.normal-text {
-    font-size: 12px;
-}
 .stat-card {
     background: #1f1c1c;
     border-radius: 8px;
@@ -182,6 +150,7 @@ onMounted(async () => {
     width: 2.4rem;
     padding: 0px;
 }
+
 .time-section {
     display: flex;
     align-items: center;
@@ -190,6 +159,7 @@ onMounted(async () => {
     padding: 1rem;
     width: 16rem;
 }
+
 .page-container {
     flex-direction: column;
     display: flex;
@@ -199,6 +169,7 @@ onMounted(async () => {
     align-items: center;
     margin-bottom: 20px;
 }
+
 .grid-container {
     display: grid;
     height: 50rem;
@@ -213,13 +184,5 @@ onMounted(async () => {
 .grid-item {
     width: 100%;
     height: 100%;
-}
-
-.item1 {
-    grid-column: 1 / 4;
-}
-.item2 {
-    grid-column: 1 / 2;
-    grid-row: 2 / 4;
 }
 </style>

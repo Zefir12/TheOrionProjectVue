@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="inner-container">
-            <div class="top"><t>DZISIEJSZE MAKRO</t></div>
+            <div class="top"><div>DZISIEJSZE MAKRO</div></div>
             <div class="plus-icon">
                 <IconPlus size="32" stroke-width="2" style="margin: 1rem; cursor: pointer" @click="router.push({ name: 'food' })" />
             </div>
