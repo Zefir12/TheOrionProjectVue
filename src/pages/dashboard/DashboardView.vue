@@ -1,9 +1,14 @@
 <template>
     <div class="page-container">
         <div class="time-section">
-            <StyledButton class="time-button" name="<" @click="dashboardStore.changeDay(-1)"></StyledButton>
-            <span>{{ dashboardStore.day.toISOString().split("T")[0] }}</span>
-            <StyledButton class="time-button" name=">" @click="dashboardStore.changeDay(1)"></StyledButton>
+            <div class="arrow-icon" @click="dashboardStore.changeDay(-1)">
+                <IconArrowNarrowLeft size="32" stroke-width="3" />
+            </div>
+            <span :style="{ fontWeight: '700' }">{{ dashboardStore.day.toISOString().split("T")[0] }}</span>
+            <div v-if="dashboardStore.currentDay != 1" class="arrow-icon" @click="dashboardStore.changeDay(1)">
+                <IconArrowNarrowRight size="32" stroke-width="3" />
+            </div>
+            <div class="arrow-icon-disabled" v-else><IconArrowNarrowRight size="32" stroke-width="3" /></div>
         </div>
         <div class="top-panels">
             <div class="stat-card">
@@ -47,7 +52,7 @@
         </div>
         <div class="dashboard-content">
             <div class="big-panel"><FoodInfoView /></div>
-            <div class="big-panel"></div>
+            <div class="big-panel"><FoodsEatenTodayView /></div>
             <div class="big-panel"></div>
         </div>
     </div>
@@ -55,12 +60,12 @@
 
 <script setup lang="ts">
 import FoodInfoView from "./subviews/FoodInfoView.vue";
-import StyledButton from "@/components/global/StyledButton.vue";
 import { useDashboardStore } from "./store/dashboardStore";
 import { onMounted } from "vue";
-import { IconDroplet, IconBolt, IconMeat } from "@tabler/icons-vue";
+import { IconDroplet, IconBolt, IconMeat, IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-vue";
 import ProgressBar from "primevue/progressbar";
 import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
+import FoodsEatenTodayView from "./subviews/FoodsEatenTodayView.vue";
 
 const dashboardStore = useDashboardStore();
 
@@ -92,12 +97,8 @@ onMounted(async () => {
     color: #fff;
 }
 
-::v-deep(.custom-water-bar .p-progressbar-value) {
-    transition: width 0.5s ease-out !important; /* Faster - 0.2 seconds */
-}
-
-::v-deep(.custom-kcal-bar .p-progressbar-value) {
-    transition: width 0.5s ease-out !important; /* Faster - 0.2 seconds */
+::v-deep(.p-progressbar-determinate .p-progressbar-value-animate) {
+    transition: width 0.3s ease-in-out;
 }
 
 .subtitle {
@@ -117,6 +118,29 @@ onMounted(async () => {
     }
 }
 
+.arrow-icon {
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 6px;
+    background-color: #312b43;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-icon-disabled {
+    padding: 3px;
+    border-radius: 6px;
+    background-color: #3f3f3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-icon:hover {
+    background-color: #413a54;
+}
+
 .normal-text {
     font-size: 12px;
 }
@@ -128,7 +152,7 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    max-width: 400px;
+    max-width: 600px;
     transition: all 0.3s ease;
 }
 
@@ -164,7 +188,7 @@ onMounted(async () => {
     justify-content: space-between;
     height: 4rem;
     padding: 1rem;
-    width: 25rem;
+    width: 16rem;
 }
 .page-container {
     flex-direction: column;
@@ -173,6 +197,7 @@ onMounted(async () => {
     width: 100%;
     overflow: hidden;
     align-items: center;
+    margin-bottom: 20px;
 }
 .grid-container {
     display: grid;

@@ -2,6 +2,9 @@
     <div class="container">
         <div class="inner-container">
             <div class="top"><t>DZISIEJSZE MAKRO</t></div>
+            <div class="plus-icon">
+                <IconPlus size="32" stroke-width="2" style="margin: 1rem; cursor: pointer" @click="router.push({ name: 'food' })" />
+            </div>
 
             <FoodInfoChart :proteins="dashboardStore.proteins" :fats="dashboardStore.fats" :carbohydrates="dashboardStore.carbohydrates" :kcal="dashboardStore.kcal" />
 
@@ -9,7 +12,7 @@
                 <NumberLabel name="Białko:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.proteins)" suffix="g" /></NumberLabel>
                 <NumberLabel name="Tłuszcze:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fats)" suffix="g" /></NumberLabel>
                 <NumberLabel name="Węglowodany:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.carbohydrates)" suffix="g" /></NumberLabel>
-                <NumberLabel name="Fibre:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fibre)" suffix="g" /></NumberLabel>
+                <NumberLabel name="Błonnik:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fibre)" suffix="g" /></NumberLabel>
             </div>
         </div>
     </div>
@@ -21,11 +24,21 @@ import FoodInfoChart from "../components/FoodInfoChart.vue";
 import { useDashboardStore } from "../store/dashboardStore";
 import NumberLabel from "@/components/dashboard/NumberLabel.vue";
 import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
+import { IconPlus } from "@tabler/icons-vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const dashboardStore = useDashboardStore();
 </script>
 
 <style scoped>
+.plus-icon {
+    position: absolute;
+    top: 0rem;
+    right: 0rem;
+    cursor: pointer;
+}
 .top {
     width: 100%;
     display: flex;
@@ -41,6 +54,7 @@ const dashboardStore = useDashboardStore();
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+    position: relative;
 }
 .container {
     background-color: #1f1c1c;

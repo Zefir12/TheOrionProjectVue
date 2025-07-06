@@ -28,6 +28,22 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         foodData.value = data as FoodItem[];
     };
 
+    const computedFoodsEatenToday = computed(() => {
+        const totalsMap = new Map();
+
+        foodData.value.forEach((item) => {
+            const id = item.food_types.id;
+
+            if (totalsMap.has(id)) {
+                totalsMap.get(id).food_amount += item.food_amount;
+            } else {
+                totalsMap.set(id, { ...item });
+            }
+        });
+
+        return Array.from(totalsMap.values());
+    });
+
     const changeDay = async (offset: number) => {
         currentDay.value += offset;
         day.value = getMidnight(getTodayWithOffset(currentDay.value));
@@ -91,6 +107,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         fats,
         kcal,
         water,
-        fibre
+        fibre,
+        computedFoodsEatenToday
     };
 });

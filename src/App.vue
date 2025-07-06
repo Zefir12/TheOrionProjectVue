@@ -11,7 +11,7 @@ import TopHeader from "./components/global/TopHeader.vue";
 -->
 
 <template>
-    <Toast />
+    <Toast position="bottom-right" />
     <TopHeader />
     <RouterView />
 </template>
