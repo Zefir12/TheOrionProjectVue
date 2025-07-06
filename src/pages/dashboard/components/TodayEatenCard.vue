@@ -64,13 +64,13 @@ const getColor = () => {
 }
 
 .inside-item {
-    transform: translate(4px, 0);
+    transform: translate(6px, 0);
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem;
+    padding: 0.4rem;
     background-color: rgb(77, 77, 77);
     border-radius: 0.5rem;
     transition:
