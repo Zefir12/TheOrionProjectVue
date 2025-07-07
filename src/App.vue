@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import Toast from "primevue/toast";
 import TopHeader from "./components/global/TopHeader.vue";
+import { useUserStore } from "./stores/userStore";
+import { onBeforeMount } from "vue";
+const userStore = useUserStore();
+
+onBeforeMount(async () => {
+    await userStore.fetchUserData();
+});
 </script>
 
 <!--

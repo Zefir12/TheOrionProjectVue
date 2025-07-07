@@ -32,6 +32,21 @@ export const useCreateFoodComboStore = defineStore("createFoodComboStore", () =>
         }
     }
 
+    const getMealValue = () => {
+        let kcal = 0;
+        let proteins = 0;
+        let fats = 0;
+        let carbohydrates = 0;
+        for (const item of selectedFoodItems.value) {
+            kcal += (item.kcal * item.multiplier * item.option.value) / 100;
+            proteins += (item.protein * item.multiplier * item.option.value) / 100;
+            fats += (item.fat * item.multiplier * item.option.value) / 100;
+            carbohydrates += (item.carbs * item.multiplier * item.option.value) / 100;
+        }
+
+        return { kcal, proteins, fats, carbohydrates };
+    };
+
     watch(query, () => {
         sortFoods();
     });
@@ -106,6 +121,7 @@ export const useCreateFoodComboStore = defineStore("createFoodComboStore", () =>
         deselectItem,
         addToDatabase,
         checkForAlreadyAdded,
-        selectedFoodItems
+        selectedFoodItems,
+        getMealValue
     };
 });

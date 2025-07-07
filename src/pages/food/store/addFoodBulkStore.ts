@@ -9,6 +9,7 @@ import { useDictionaryStore } from "@/stores/dictionaryStore";
 import { FoodAsItemToAdd, MealAsItemToAdd, MealOrFoodItem, Serving } from "@/lib/models/Food";
 import { SelectOption } from "@/components/global/Select.vue";
 import { FoodHelpers } from "@/common/helpers";
+import { useUserStore } from "@/stores/userStore";
 
 export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     const dictionaryStore = useDictionaryStore();
@@ -155,7 +156,20 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
     };
 
     const getItemsForQueryList = () => {
-        return mealOrFoodItemList.value;
+        const userStore = useUserStore();
+        const favItems = [];
+        const otherItems = [];
+
+        for (const item of mealOrFoodItemList.value) {
+            if ((item.type === "food" && userStore.favouriteFoods.includes(item.id)) || (item.type === "meal" && userStore.favouriteMeals.includes(item.id))) {
+                favItems.push(item);
+            } else {
+                otherItems.push(item);
+            }
+        }
+
+        return [...favItems, ...otherItems];
+        //return mealOrFoodItemList.value;
     };
 
     const getFoodMetadata = (id: number): string => {

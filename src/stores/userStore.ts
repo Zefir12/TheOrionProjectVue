@@ -1,7 +1,15 @@
-import { getUserDailyTresholds, setUserKcalTreshold, setUserProteinTreshold, setUserWaterTreshold } from "@/lib/supabase/services/supabaseUserService";
+import {
+    addFavourite,
+    getUserDailyTresholds,
+    getUserFavouriteFoods,
+    removeFavourite,
+    setUserKcalTreshold,
+    setUserProteinTreshold,
+    setUserWaterTreshold
+} from "@/lib/supabase/services/supabaseUserService";
 import { supabase } from "@/lib/supabase/supabase/supabase";
 import { defineStore } from "pinia";
-import { onBeforeMount, reactive } from "vue";
+import { reactive, ref } from "vue";
 
 export interface UserDailyStats {
     water: number;
@@ -16,6 +24,9 @@ export const useUserStore = defineStore("userStore", () => {
         protein: 1000
     });
 
+    const favouriteFoods = ref<number[]>([]);
+    const favouriteMeals = ref<number[]>([]);
+
     async function fetchUserDailyStats() {
         const user = await supabase.auth.getUser();
         const stats = await getUserDailyTresholds(user.data.user?.id ?? "");
@@ -24,9 +35,32 @@ export const useUserStore = defineStore("userStore", () => {
         userDailyStats.protein = stats?.protein ?? 133;
     }
 
-    onBeforeMount(async () => {
+    const fetchUserFavoriteFoods = async () => {
+        const user = await supabase.auth.getUser();
+        if (user.data.user) {
+            const favorites = await getUserFavouriteFoods(user.data.user.id);
+            favouriteFoods.value = favorites.favorite_foods;
+            favouriteMeals.value = favorites.favorite_meals;
+        }
+    };
+
+    const setFavouriteFood = async (foodId: number, value: boolean, type: "meal" | "food") => {
+        const user = await supabase.auth.getUser();
+        if (user.data.user) {
+            if (value) {
+                await addFavourite(user.data.user.id, type == "food" ? "favorite_foods" : "favorite_meals", foodId);
+                await fetchUserFavoriteFoods();
+            } else {
+                await removeFavourite(user.data.user.id, type == "food" ? "favorite_foods" : "favorite_meals", foodId);
+                await fetchUserFavoriteFoods();
+            }
+        }
+    };
+
+    const fetchUserData = async () => {
         await fetchUserDailyStats();
-    });
+        await fetchUserFavoriteFoods();
+    };
 
     const setWaterTreshold = async (water: number) => {
         const user = await supabase.auth.getUser();
@@ -52,5 +86,5 @@ export const useUserStore = defineStore("userStore", () => {
         }
     };
 
-    return { userDailyStats, setWaterTreshold, setKcalTreshold, setProteinTreshold };
+    return { userDailyStats, setWaterTreshold, setKcalTreshold, setProteinTreshold, favouriteFoods, favouriteMeals, setFavouriteFood, fetchUserData };
 });

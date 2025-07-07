@@ -29,6 +29,7 @@
                 :subtitle="'Kcal today'"
                 :value="dashboardStore.kcal"
                 :decimals="0"
+                :tresholdType="'under'"
                 :treshold="userStore.userDailyStats.calories"
                 :color="'#b99f29'"
                 :icon="IconBolt"
@@ -110,23 +111,6 @@ onMounted(async () => {
 
 .arrow-icon:hover {
     background-color: #413a54;
-}
-
-.stat-card {
-    background: #1f1c1c;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(99, 10, 10, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    max-width: 600px;
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .top-panels {
