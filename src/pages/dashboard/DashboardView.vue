@@ -2,6 +2,7 @@
     <WaterTresholdModal v-model="waterModalOpened" />
     <KcalTresholdModal v-model="kcalModalOpened" />
     <ProteinTresholdModal v-model="proteinModalOpened" />
+    <AddWaterModal v-model="addWaterModalOpened" />
     <div class="page-container">
         <div class="time-section">
             <div class="arrow-icon" @click="dashboardStore.changeDay(-1)">
@@ -23,6 +24,8 @@
                 :icon="IconDroplet"
                 suffix="L"
                 :scale="1000"
+                :icon-clickable="true"
+                @icon-clicked="addWaterModalOpened = true"
             />
             <FoodStatCard
                 @cog-clicked="kcalModalOpened = true"
@@ -63,11 +66,13 @@ import { useUserStore } from "@/stores/userStore";
 import WaterTresholdModal from "./components/tresholds/WaterTresholdModal.vue";
 import KcalTresholdModal from "./components/tresholds/KcalTresholdModal.vue";
 import ProteinTresholdModal from "./components/tresholds/ProteinTresholdModal.vue";
+import AddWaterModal from "./components/AddWaterModal.vue";
 
 const dashboardStore = useDashboardStore();
 const userStore = useUserStore();
 
 const waterModalOpened = ref(false);
+const addWaterModalOpened = ref(false);
 const kcalModalOpened = ref(false);
 const proteinModalOpened = ref(false);
 

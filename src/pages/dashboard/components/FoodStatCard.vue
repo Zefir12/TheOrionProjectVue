@@ -3,7 +3,15 @@
         <div class="cog-icon" @click="emit('cogClicked')"><IconSettings color="grey" :size="28" stroke-width="2" /></div>
         <div v-if="overtreshold()" class="check-icon"><IconCircleCheck :color="'green'" :size="28" stroke-width="2" /></div>
         <div :style="{ display: 'flex', alignItems: 'center' }">
-            <component v-if="props.icon" :is="props.icon" size="40" stroke-width="2" :color="props.color || '#045dc2'" />
+            <component
+                @click="if (iconClickable) emit('iconClicked');"
+                :style="{ cursor: props.iconClickable ? 'pointer' : 'default' }"
+                v-if="props.icon"
+                :is="props.icon"
+                size="40"
+                stroke-width="2"
+                :color="props.color || '#045dc2'"
+            />
             <div :style="{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }">
                 <div class="subtitle">
                     <NumberAnimationWrapper :decimals="props.decimals" :value="props.value / (props.scale ?? 1)" :suffix="` / ${props.treshold / (props.scale ?? 1)}${props.suffix ?? ''}`" />
@@ -22,7 +30,7 @@ import ProgressBar from "primevue/progressbar";
 import NumberAnimationWrapper from "@/components/global/NumberAnimationWrapper.vue";
 import { IconSettings, IconCircleCheck } from "@tabler/icons-vue";
 
-const emit = defineEmits(["cogClicked"]);
+const emit = defineEmits(["cogClicked", "iconClicked"]);
 
 const props = defineProps<{
     subtitle?: string;
@@ -34,6 +42,7 @@ const props = defineProps<{
     suffix?: string;
     scale?: number;
     decimals?: number;
+    iconClickable?: boolean; // If true, the icon will emit an event when clicked
 }>();
 
 const overtreshold = () => {

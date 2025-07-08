@@ -96,10 +96,15 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         return Math.round(total * 100) / 100;
     });
 
+    const refreshDashboard = async () => {
+        await fetchData();
+    };
+
     return {
         currentDay,
         changeDay,
         fetchData,
+        refreshDashboard,
         day,
         foodData,
         proteins,
