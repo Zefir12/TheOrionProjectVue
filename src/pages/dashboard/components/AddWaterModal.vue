@@ -22,8 +22,8 @@ import { useDashboardStore } from "../store/dashboardStore";
 
 const dashboardStore = useDashboardStore();
 
-const addWaterGlass = () => {
-    addFood([
+const addWaterGlass = async () => {
+    await addFood([
         {
             food_id: 183,
             food_amount: 250 * amount.value,
@@ -31,7 +31,7 @@ const addWaterGlass = () => {
             intake_time_accuracy: 0
         }
     ]);
-    dashboardStore.refreshDashboard();
+    await dashboardStore.refreshDashboard();
     amount.value = 1; // Reset the amount to 1 after adding
     model.value = false;
 };
