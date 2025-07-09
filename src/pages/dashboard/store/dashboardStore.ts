@@ -2,7 +2,7 @@ import { getFoodsWithData } from "@/lib/supabase/services/supabaseFoodService";
 import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { getMidnight, getTodayWithOffset } from "@/lib/zefir/dates";
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 export interface FoodItem {
     food_amount: number;
@@ -14,6 +14,13 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const currentDay = ref(1);
     const foodData = ref([] as FoodItem[]);
     const day = ref(getMidnight(getTodayWithOffset(currentDay.value)));
+
+    const water = ref(0);
+    const proteins = ref(0);
+    const fats = ref(0);
+    const carbohydrates = ref(0);
+    const kcal = ref(0);
+    const fibre = ref(0);
 
     const fetchData = async () => {
         const baseDate = new Date(day.value); // e.g., 2025-06-19
@@ -51,49 +58,27 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         await fetchData();
     };
 
-    const proteins = computed(() => {
+    watch(foodData, () => {
+        let totalWater = 0;
         let totalProtein = 0;
-        foodData.value.forEach((food) => {
-            totalProtein += food.food_types.protein * (food.food_amount / 100);
-        });
-        return totalProtein;
-    });
-    const fats = computed(() => {
         let totalFats = 0;
-        foodData.value.forEach((food) => {
-            totalFats += food.food_types.fat * (food.food_amount / 100);
-        });
-        return totalFats;
-    });
-    const carbohydrates = computed(() => {
         let totalCarbs = 0;
-        foodData.value.forEach((food) => {
-            totalCarbs += food.food_types.carbs * (food.food_amount / 100);
-        });
-        return totalCarbs;
-    });
-    const kcal = computed(() => {
         let totalKcal = 0;
+        let totalFibre = 0;
         foodData.value.forEach((food) => {
+            totalWater += food.food_types.water_percentage * (food.food_amount / 100);
+            totalProtein += food.food_types.protein * (food.food_amount / 100);
+            totalFats += food.food_types.fat * (food.food_amount / 100);
+            totalCarbs += food.food_types.carbs * (food.food_amount / 100);
             totalKcal += food.food_types.kcal * (food.food_amount / 100);
+            totalFibre += food.food_types.fibre * (food.food_amount / 100);
         });
-        return Math.round(totalKcal * 100) / 100;
-    });
-
-    const water = computed(() => {
-        let total = 0;
-        foodData.value.forEach((food) => {
-            total += food.food_types.water_percentage * (food.food_amount / 100);
-        });
-        return Math.round(total * 100) / 100;
-    });
-
-    const fibre = computed(() => {
-        let total = 0;
-        foodData.value.forEach((food) => {
-            total += food.food_types.fibre * (food.food_amount / 100);
-        });
-        return Math.round(total * 100) / 100;
+        water.value = totalWater;
+        proteins.value = totalProtein;
+        fats.value = totalFats;
+        carbohydrates.value = totalCarbs;
+        kcal.value = totalKcal;
+        fibre.value = totalFibre;
     });
 
     const refreshDashboard = async () => {

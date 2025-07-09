@@ -18,7 +18,7 @@
             <FoodStatCard
                 @cog-clicked="waterModalOpened = true"
                 :subtitle="'Water consumed today'"
-                :value="dashboardStore.water"
+                :value="dashboardRefs.water.value"
                 :treshold="userStore.userDailyStats.water"
                 :color="'#045dc2'"
                 :icon="IconDroplet"
@@ -30,7 +30,7 @@
             <FoodStatCard
                 @cog-clicked="kcalModalOpened = true"
                 :subtitle="'Kcal today'"
-                :value="dashboardStore.kcal"
+                :value="dashboardRefs.kcal.value"
                 :decimals="0"
                 :tresholdType="'under'"
                 :treshold="userStore.userDailyStats.calories"
@@ -40,7 +40,7 @@
             <FoodStatCard
                 @cog-clicked="proteinModalOpened = true"
                 :subtitle="'Protein today'"
-                :value="dashboardStore.proteins"
+                :value="dashboardRefs.proteins.value"
                 :treshold="userStore.userDailyStats.protein"
                 :color="'#6e6e6e'"
                 :icon="IconMeat"
@@ -67,6 +67,7 @@ import WaterTresholdModal from "./components/tresholds/WaterTresholdModal.vue";
 import KcalTresholdModal from "./components/tresholds/KcalTresholdModal.vue";
 import ProteinTresholdModal from "./components/tresholds/ProteinTresholdModal.vue";
 import AddWaterModal from "./components/AddWaterModal.vue";
+import { storeToRefs } from "pinia";
 
 const dashboardStore = useDashboardStore();
 const userStore = useUserStore();
@@ -75,6 +76,8 @@ const waterModalOpened = ref(false);
 const addWaterModalOpened = ref(false);
 const kcalModalOpened = ref(false);
 const proteinModalOpened = ref(false);
+
+const dashboardRefs = storeToRefs(dashboardStore);
 
 onMounted(async () => {
     await dashboardStore.fetchData();
