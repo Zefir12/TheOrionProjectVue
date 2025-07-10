@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import LoginView from "../pages/login/LoginView.vue";
 import DashboardView from "../pages/dashboard/DashboardView.vue";
 import FoodView from "../pages/food/FoodView.vue";
@@ -18,7 +18,22 @@ import AccessRedicrectView from "@/pages/access-redirect/accessRedicrectView.vue
 const routes = [
     //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },
     { name: "dashboard", path: "/dashboard", component: DashboardView },
-    { name: "login", path: "/login", component: LoginView },
+    {
+        name: "login",
+        path: "/login",
+        component: LoginView,
+        beforeEnter: async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+            const {
+                data: { session }
+            } = await supabase.auth.getSession();
+
+            if (session) {
+                next({ name: "dashboard" });
+            } else {
+                next();
+            }
+        }
+    },
     { name: "food", path: "/food", component: FoodView },
     { name: "weight", path: "/weight", component: WeightView },
     { name: "bloodpreassure", path: "/bloodpreassure", component: BloodPreassureView },

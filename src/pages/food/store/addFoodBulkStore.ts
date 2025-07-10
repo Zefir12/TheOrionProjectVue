@@ -404,6 +404,7 @@ export const useAddFoodBulkStore = defineStore("addFoodBulkStore", () => {
         getTotalsInCurrentShelf,
         getFoodMetadata,
         getItemsInCurrentShelf,
+        fetchMealsAndFoods,
         addToDatabase,
         changeItemShelf,
         getItemsForQueryList,

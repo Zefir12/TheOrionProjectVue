@@ -13,6 +13,7 @@
                 <NumberLabel name="Tłuszcze:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fats)" suffix="g" /></NumberLabel>
                 <NumberLabel name="Węglowodany:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.carbohydrates)" suffix="g" /></NumberLabel>
                 <NumberLabel name="Błonnik:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fibre)" suffix="g" /></NumberLabel>
+                <NumberLabel name="Sól:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.salt)" suffix="g" /></NumberLabel>
             </div>
         </div>
     </div>

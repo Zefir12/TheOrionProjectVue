@@ -21,6 +21,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
     const carbohydrates = ref(0);
     const kcal = ref(0);
     const fibre = ref(0);
+    const salt = ref(0);
 
     const fetchData = async () => {
         const baseDate = new Date(day.value); // e.g., 2025-06-19
@@ -65,6 +66,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         let totalCarbs = 0;
         let totalKcal = 0;
         let totalFibre = 0;
+        let totalSalt = 0;
         foodData.value.forEach((food) => {
             totalWater += food.food_types.water_percentage * (food.food_amount / 100);
             totalProtein += food.food_types.protein * (food.food_amount / 100);
@@ -72,6 +74,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
             totalCarbs += food.food_types.carbs * (food.food_amount / 100);
             totalKcal += food.food_types.kcal * (food.food_amount / 100);
             totalFibre += food.food_types.fibre * (food.food_amount / 100);
+            totalSalt += food.food_types.salt * (food.food_amount / 100);
         });
         water.value = totalWater;
         proteins.value = totalProtein;
@@ -79,6 +82,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         carbohydrates.value = totalCarbs;
         kcal.value = totalKcal;
         fibre.value = totalFibre;
+        salt.value = totalSalt;
     });
 
     const refreshDashboard = async () => {
@@ -97,6 +101,7 @@ export const useDashboardStore = defineStore("dashboardStore", () => {
         fats,
         kcal,
         water,
+        salt,
         fibre,
         computedFoodsEatenToday
     };
