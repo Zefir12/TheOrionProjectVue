@@ -17,7 +17,7 @@
                             <StyledTextInput v-model="createFoodComboStore.name" :label="'Name'" />
                         </Group>
 
-                        <ScrollableStack height="80vh">
+                        <ScrollableStack height="60vh">
                             <BulkFoodItem
                                 v-for="foodtype in createFoodComboStore.selectedFoodItems"
                                 :food-item="foodtype"
