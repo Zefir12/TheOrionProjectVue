@@ -1,5 +1,13 @@
 <template>
     <Group ml="10rem" mr="10rem">
+        <Stack gap="xs" align="stretch" :style="{ maxWidth: '20.5rem' }">
+            <FoodInfoChart
+                :kcal="createFoodComboStore.getMealValue().kcal"
+                :proteins="createFoodComboStore.getMealValue().proteins"
+                :fats="createFoodComboStore.getMealValue().fats"
+                :carbohydrates="createFoodComboStore.getMealValue().carbohydrates"
+            />
+        </Stack>
         <Stack align="stretch" :style="{ maxWidth: '25.5rem' }">
             <Card :style="{ height: '75vh', maxWidth: '25.5rem' }">
                 <template #content>
@@ -9,7 +17,7 @@
                             <StyledTextInput v-model="createFoodComboStore.name" :label="'Name'" />
                         </Group>
 
-                        <ScrollableStack height="80vh">
+                        <ScrollableStack height="60vh">
                             <BulkFoodItem
                                 v-for="foodtype in createFoodComboStore.selectedFoodItems"
                                 :food-item="foodtype"
@@ -49,6 +57,7 @@ import BulkFoodItem from "@/components/food/BulkFoodItem.vue";
 import CardInput from "@/components/food/CardInput.vue";
 import Card from "primevue/card";
 import StyledButton from "@/components/global/StyledButton.vue";
+import FoodInfoChart from "@/pages/dashboard/components/FoodInfoChart.vue";
 
 const createFoodComboStore = useCreateFoodComboStore();
 </script>

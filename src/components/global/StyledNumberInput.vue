@@ -1,22 +1,13 @@
 <script setup lang="ts">
 import InputNumber from "primevue/inputnumber";
 
-const props = defineProps<{ label?: String; disabled?: boolean }>();
+const props = defineProps<{ label?: String; disabled?: boolean; maxFractionDigits?: number; step?: number }>();
 const model = defineModel({ required: false, default: 0 });
 </script>
 <template>
     <div class="styled-number-input-container">
         <small class="small-label">{{ props.label }}</small>
-        <InputNumber
-            class="my-input"
-            :disabled="props.disabled"
-            v-model="model"
-            :showButtons="true"
-            :min="0"
-            :step="0.1"
-            :useGrouping="false"
-            :max-fraction-digits="3"
-        />
+        <InputNumber class="my-input" :disabled="props.disabled" v-model="model" :showButtons="true" :min="0" :step="step ?? 0.1" :useGrouping="false" :max-fraction-digits="maxFractionDigits ?? 3" />
     </div>
 </template>
 

@@ -1,5 +1,14 @@
 :root {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
@@ -21,7 +30,6 @@
 body {
     margin: 0;
     display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
 }
@@ -62,7 +70,16 @@ body {
     border-radius: calc(0.125rem * 1);
     background-color: #3b3b3b;
     color: #c9c9c9;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        Segoe UI,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif,
+        Apple Color Emoji,
+        Segoe UI Emoji;
     height: calc(1.875rem * 1);
     line-height: calc(calc(1.875rem * 1) - calc(0.125rem * 1));
     font-size: 12px;

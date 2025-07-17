@@ -26,6 +26,10 @@ class Helpers {
             .replace(/\//g, "_") // Replace '/' with '_'
             .replace(/=+$/, ""); // Remove padding '='
     }
+
+    public static RoundT1(value: number) {
+        return Math.round(value * 10) / 10;
+    }
 }
 
 export class FoodHelpers {

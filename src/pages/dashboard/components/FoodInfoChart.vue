@@ -7,9 +7,10 @@
             datasets: [
                 {
                     data: [props.proteins, props.fats, props.carbohydrates],
-                    backgroundColor: ['#646159', '#FFA000', '#673AB7'],
-                    borderColor: ['#646159', '#FFA000', '#673AB7'],
+                    backgroundColor: ['#646159', '#FFA000', '#7a1515'],
+                    borderColor: ['#000', '#000', '#111'],
                     borderRadius: '10',
+                    borderWidth: [1.3, 1, 2],
                     borderAlign: 'inner'
                 }
             ]
@@ -17,9 +18,25 @@
         :options="{
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                animateRotate: false, // Disable rotation animation
+                duration: 450, // Animation duration in ms
+                easing: 'easeOut' // Smooth easing function
+            },
             plugins: {
                 legend: {
-                    display: false
+                    position: 'bottom',
+                    display: true,
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        font: {
+                            size: 14,
+                            family: 'sans-serif',
+                            weight: 'bold'
+                        }
+                    }
                 },
                 centerText: {} // activate custom plugin
             }
@@ -51,7 +68,7 @@ const centerTextPlugin = {
 
         const text = `${props.kcal.toFixed(0)} kcal`;
         const textX = Math.round((width - ctx.measureText(text).width) / 2);
-        const textY = height / 2;
+        const textY = height / 2 - 18;
 
         ctx.fillText(text, textX, textY);
         ctx.save();
@@ -60,7 +77,7 @@ const centerTextPlugin = {
 </script>
 <style scoped>
 .food-chart {
-    height: 100%;
-    width: 200px;
+    height: 240px;
+    width: 340px;
 }
 </style>

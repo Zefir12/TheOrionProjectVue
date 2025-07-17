@@ -1,19 +1,64 @@
+<template>
+    <div class="zefir-weight-container">
+        <div class="zefir-content">
+            <Stack height="100%">
+                <Group justify="center">
+                    <StyledNumberInput v-model="weightStore.weightToAdd" />
+                    <StyledButton @click="addWeight" name="Add" width="auto" />
+                    <Calendar :style="{ width: '12rem' }" id="calendar-24h" v-model="date" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
+                    <div :style="{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }">
+                        <label :style="{ fontSize: '10px', textAlign: 'center' }">Begin at 0</label> <input type="checkbox" v-model="weightChartTotal" />
+                    </div>
+                </Group>
+                <div :key="`${chartData}`" class="zefir-chart-container">
+                    <Chart :ref="chartRef" class="zefir-chart" type="line" :data="chartData" :options="chartOptions" />
+                </div>
+            </Stack>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import Group from "@/components/global/containers/Group.vue";
 import Stack from "@/components/global/containers/Stack.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Chart from "primevue/chart";
 import { useWeightStore } from "./store/weightStore";
 import { getAllWeightBetween } from "../../lib/supabase/services/supabaseWeightService";
 import { Tables } from "../../lib/supabase/supabase/supabaseSchemas/supaDatabase";
 import { getAllDatesInRange, getMinMaxDates } from "../../lib/zefir/dates";
+import Calendar from "primevue/calendar";
 
 const weightStore = useWeightStore();
+const date = ref(new Date(Date.now()));
+const weightChartTotal = ref(localStorage.getItem("weightChartTotal") === "true");
+const chartRef = ref();
+
+const addWeight = async () => {
+    const newDate = new Date(date.value);
+    newDate.setHours(12, 0, 0, 0); // sets hour to 12:00:00.000
+    await weightStore.addNewWeight(weightStore.weightToAdd, newDate);
+    await refreshChart();
+};
+
+watch(weightChartTotal, (newValue, oldValue) => {
+    if (newValue !== oldValue) {
+        localStorage.setItem("weightChartTotal", JSON.stringify(newValue));
+        // only update chartOptions with fixed params or parameters that won't cause loop
+        chartOptions.value = setChartOptions();
+    }
+});
 
 const x = ref([] as (null | number)[]);
 const y = ref([] as string[]);
+
+const refreshChart = async () => {
+    chartData.value = await setChartData();
+    chartOptions.value = setChartOptions();
+    console.log(chartData, chartOptions);
+};
 
 onMounted(async () => {
     chartData.value = await setChartData();
@@ -54,11 +99,13 @@ const setChartData = async () => {
     // const weight = await getAllWeight();
     const tomorrow = new Date(Date.now());
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const weight = await getAllWeightBetween(new Date("2003-01-01"), tomorrow);
+    const weight = await getAllWeightBetween(new Date("2024-01-01"), tomorrow);
     if (!weight) {
         throw new Error();
     }
     const dates = curateData(weight);
+    x.value = [];
+    y.value = [];
     dates.forEach((date) => {
         if (date) {
             x.value.push(date.value);
@@ -122,7 +169,7 @@ const setChartOptions = () => {
 
                         // Format as "styczeń 2023" using Polish locale
                         return date.toLocaleDateString("pl-PL", {
-                            month: "long",
+                            month: "short",
                             year: "numeric"
                         });
                     }
@@ -132,7 +179,7 @@ const setChartOptions = () => {
                 }
             },
             y: {
-                beginAtZero: false,
+                beginAtZero: weightChartTotal.value,
                 ticks: {
                     color: textColorSecondary
                 },
@@ -144,22 +191,6 @@ const setChartOptions = () => {
     };
 };
 </script>
-
-<template>
-    <div class="zefir-weight-container">
-        <div class="zefir-content">
-            <Stack height="100%">
-                <Group justify="center">
-                    <StyledNumberInput v-model="weightStore.weightToAdd" />
-                    <StyledButton @click="weightStore.addNewWeight" name="Add" width="auto" />
-                </Group>
-                <div class="zefir-chart-container">
-                    <Chart class="zefir-chart" type="line" :data="chartData" :options="chartOptions" />
-                </div>
-            </Stack>
-        </div>
-    </div>
-</template>
 
 <style scoped>
 .zefir-chart-container {

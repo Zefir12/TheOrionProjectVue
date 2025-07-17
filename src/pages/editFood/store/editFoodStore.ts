@@ -7,12 +7,16 @@ import { FoodInsertItemCombined, Serving } from "@/lib/models/Food";
 import { ShelfFoodItem } from "@/lib/models/TimeShelfs/TimeShelf";
 import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
 import { FoodHelpers } from "@/common/helpers";
+import { useDashboardStore } from "@/pages/dashboard/store/dashboardStore";
+import { useAddFoodBulkStore } from "@/pages/food/store/addFoodBulkStore";
 
 export const useEditFoodStore = defineStore("editFoodStore", () => {
     const tost = useToast();
     const id = ref<number | null>(null);
     const foodTypes = ref<(FoodInsertItemCombined & { servings: string })[]>([]);
     const query = ref("");
+    const dashboardStore = useDashboardStore();
+    const addFoodBulkStore = useAddFoodBulkStore();
 
     onBeforeMount(async () => {
         await fetchFoodTypesData();
@@ -179,6 +183,9 @@ export const useEditFoodStore = defineStore("editFoodStore", () => {
         if (error) {
             showError(JSON.stringify(error));
         } else {
+            await fetchFoodTypesData();
+            await dashboardStore.refreshDashboard();
+            await addFoodBulkStore.fetchMealsAndFoods();
             showSuccess();
             clear();
         }

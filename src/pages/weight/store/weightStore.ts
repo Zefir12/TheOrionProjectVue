@@ -7,8 +7,8 @@ export const useWeightStore = defineStore("weightStore", () => {
     const toast = useToast();
     const weightToAdd = ref(70.1);
 
-    async function addNewWeight() {
-        await addNewWeightToDb(weightToAdd.value);
+    async function addNewWeight(weight: number, data: Date) {
+        await addNewWeightToDb(weight, data);
         toast.add({ severity: "success", summary: "Succes", detail: "Succesfully added new weight", life: 3000 });
     }
 

@@ -85,10 +85,11 @@ function adjustDay(deltaDays: number) {
             <div class="zefir-foodtypes-container">
                 <MealOrFoodSearchCard
                     v-for="foodtype in addFoodBulkStore.getItemsForQueryList()"
-                    :key="foodtype.id"
+                    :key="foodtype.id + foodtype.type"
                     :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
                     :name="foodtype.name?.toString()"
                     :type="foodtype.type"
+                    :item_id="foodtype.id"
                     :metadata="
                         foodtype.type == 'food'
                             ? addFoodBulkStore.getFoodMetadata(foodtype.id)

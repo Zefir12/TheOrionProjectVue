@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import MySidebar from "./components/sidebar/MySidebar.vue"
-import Toast from "primevue/toast"
+import Toast from "primevue/toast";
+import TopHeader from "./components/global/TopHeader.vue";
+import { useUserStore } from "./stores/userStore";
+import { onBeforeMount } from "vue";
+const userStore = useUserStore();
+
+onBeforeMount(async () => {
+    await userStore.fetchUserData();
+});
 </script>
 
 <!--
@@ -11,7 +18,7 @@ import Toast from "primevue/toast"
 -->
 
 <template>
-    <Toast />
-    <MySidebar />
+    <Toast position="bottom-right" />
+    <TopHeader />
     <RouterView />
 </template>
