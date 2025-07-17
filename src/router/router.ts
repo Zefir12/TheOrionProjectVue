@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized } from "vue-router";
+import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import LoginView from "../pages/login/LoginView.vue";
 import DashboardView from "../pages/dashboard/DashboardView.vue";
 import FoodView from "../pages/food/FoodView.vue";
@@ -48,7 +48,8 @@ const routes = [
 
 const router = createRouter({
     //history: createMemoryHistory(),
-    history: createWebHashHistory(),
+    //history: createWebHashHistory(),
+    history: createWebHistory(),
     routes
 });
 
