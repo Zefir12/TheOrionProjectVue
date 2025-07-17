@@ -88,7 +88,7 @@ watch(
     background-color: #1f1c1c;
     width: 100%;
     height: 100%;
-    max-height: 28rem;
+    max-height: 26rem;
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 5px;

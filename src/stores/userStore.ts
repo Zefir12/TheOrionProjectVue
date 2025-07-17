@@ -7,6 +7,7 @@ import {
     setUserProteinTreshold,
     setUserWaterTreshold
 } from "@/lib/supabase/services/supabaseUserService";
+import { getWeightForSevenDaysWithAnchor } from "@/lib/supabase/services/supabaseWeightService";
 import { supabase } from "@/lib/supabase/supabase/supabase";
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
@@ -26,6 +27,7 @@ export const useUserStore = defineStore("userStore", () => {
 
     const favouriteFoods = ref<number[]>([]);
     const favouriteMeals = ref<number[]>([]);
+    const lastWeekWeights = ref<{ date: Date; weight: number | null }[]>([]);
 
     async function fetchUserDailyStats() {
         const user = await supabase.auth.getUser();
@@ -34,6 +36,19 @@ export const useUserStore = defineStore("userStore", () => {
         userDailyStats.calories = stats?.calories ?? 2333;
         userDailyStats.protein = stats?.protein ?? 133;
     }
+
+    const fetchUserWeight = async () => {
+        const user = await supabase.auth.getUser();
+        if (user.data.user) {
+            const result = await getWeightForSevenDaysWithAnchor();
+            result.reverse();
+            lastWeekWeights.value = result.map((item) => ({
+                date: new Date(item.created_at!),
+                weight: item.weight
+            }));
+            console.log();
+        }
+    };
 
     const fetchUserFavoriteFoods = async () => {
         const user = await supabase.auth.getUser();
@@ -49,17 +64,17 @@ export const useUserStore = defineStore("userStore", () => {
         if (user.data.user) {
             if (value) {
                 await addFavourite(user.data.user.id, type == "food" ? "favorite_foods" : "favorite_meals", foodId);
-                await fetchUserFavoriteFoods();
             } else {
                 await removeFavourite(user.data.user.id, type == "food" ? "favorite_foods" : "favorite_meals", foodId);
-                await fetchUserFavoriteFoods();
             }
+            await fetchUserFavoriteFoods();
         }
     };
 
     const fetchUserData = async () => {
         await fetchUserDailyStats();
         await fetchUserFavoriteFoods();
+        await fetchUserWeight();
     };
 
     const setWaterTreshold = async (water: number) => {
@@ -86,5 +101,5 @@ export const useUserStore = defineStore("userStore", () => {
         }
     };
 
-    return { userDailyStats, setWaterTreshold, setKcalTreshold, setProteinTreshold, favouriteFoods, favouriteMeals, setFavouriteFood, fetchUserData };
+    return { userDailyStats, setWaterTreshold, setKcalTreshold, setProteinTreshold, favouriteFoods, favouriteMeals, setFavouriteFood, fetchUserData, lastWeekWeights };
 });

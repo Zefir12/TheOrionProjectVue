@@ -50,7 +50,7 @@
         <div class="dashboard-content">
             <div class="big-panel"><FoodInfoView /></div>
             <div class="big-panel"><FoodsEatenTodayView /></div>
-            <div class="big-panel"></div>
+            <div class="big-panel"><WeightCard /></div>
         </div>
     </div>
 </template>
@@ -68,6 +68,7 @@ import KcalTresholdModal from "./components/tresholds/KcalTresholdModal.vue";
 import ProteinTresholdModal from "./components/tresholds/ProteinTresholdModal.vue";
 import AddWaterModal from "./components/AddWaterModal.vue";
 import { storeToRefs } from "pinia";
+import WeightCard from "./subviews/WeightCard.vue";
 
 const dashboardStore = useDashboardStore();
 const userStore = useUserStore();

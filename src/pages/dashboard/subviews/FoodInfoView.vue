@@ -72,5 +72,6 @@ const dashboardStore = useDashboardStore();
     width: 100%;
     height: 160px;
     padding: 1rem;
+    padding-bottom: 10rem;
 }
 </style>
