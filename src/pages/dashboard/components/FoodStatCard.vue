@@ -1,6 +1,6 @@
 <template>
     <div class="stat-card" :style="{ '--border-color': overtreshold() ? '#008000' : '#444444' }">
-        <div class="cog-icon" @click="emit('cogClicked')"><IconSettings color="grey" :size="28" stroke-width="2" /></div>
+        <div class="cog-icon no-select" @click="emit('cogClicked')"><IconSettings color="grey" :size="28" stroke-width="2" /></div>
         <div v-if="overtreshold()" class="check-icon"><IconCircleCheck :color="'green'" :size="28" stroke-width="2" /></div>
         <div :style="{ display: 'flex', alignItems: 'center' }">
             <component

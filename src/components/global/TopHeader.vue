@@ -2,12 +2,12 @@
     <SettingsModal v-model="settingsOpen" />
     <div class="main">
         <div class="top-layer">
-            <h1 @click="router.push({ name: 'dashboard' })" :style="{ marginLeft: '30px', cursor: 'pointer' }">Orion</h1>
-            <IconSettingsFilled @click="openSettings" :style="{ marginRight: '30px', cursor: 'pointer' }" size="32" stroke-width="2" />
+            <h1 @click="router.push({ name: 'dashboard' })" class="no-select" :style="{ marginLeft: '30px', cursor: 'pointer' }">Orion</h1>
+            <IconSettingsFilled class="no-select" @click="openSettings" :style="{ marginRight: '30px', cursor: 'pointer' }" size="32" stroke-width="2" />
         </div>
         <div class="bottom-layer">
-            <ButtonIcon @click="router.push({ name: 'food' })" :icon="IconMeat" />
-            <ButtonIcon @click="router.push({ name: 'activity' })" :icon="IconGymnastics" />
+            <ButtonIcon class="no-select" @click="router.push({ name: 'food' })" :icon="IconMeat" />
+            <ButtonIcon class="no-select" @click="router.push({ name: 'activity' })" :icon="IconGymnastics" />
         </div>
     </div>
 </template>

@@ -29,6 +29,14 @@
     scrollbar-gutter: stable;
 }
 
+.no-select {
+    user-select: none; /* Standard */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE11/Edge */
+    -webkit-touch-callout: none; /* Disable long press callout on iOS */
+    -webkit-tap-highlight-color: transparent; /* Remove gray tap highlight */
+}
+
 body {
     margin: 0;
     display: flex;
