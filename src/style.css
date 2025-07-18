@@ -25,6 +25,8 @@
     --zefir-spacing-lg: calc(1.25rem * var(--zefir-scale));
     --zefir-spacing-xl: calc(2rem * var(--zefir-scale));
     --zefir-font-size-sm: calc(0.875rem * var(--zefir-scale));
+
+    scrollbar-gutter: stable;
 }
 
 body {

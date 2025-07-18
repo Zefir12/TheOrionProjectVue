@@ -14,10 +14,26 @@ import { clearFitbitAuthCodes, getFitbitAuthCodes, setFitbitTokenData } from "@/
 import FitbitView from "@/pages/fitbit/FitbitView.vue";
 import { baseUrl } from "@/common/consts";
 import AccessRedicrectView from "@/pages/access-redirect/accessRedicrectView.vue";
+import ActivityView from "@/pages/activity/ActivityView.vue";
 
 const routes = [
-    //{ name: "home", path: "/", redirect: getPage() ?? "/dashboard" },
     { name: "dashboard", path: "/dashboard", component: DashboardView },
+    {
+        name: "home",
+        path: "/",
+        component: LoginView,
+        beforeEnter: async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+            const {
+                data: { session }
+            } = await supabase.auth.getSession();
+
+            if (session) {
+                next({ name: "dashboard" });
+            } else {
+                next({ name: "login" });
+            }
+        }
+    },
     {
         name: "login",
         path: "/login",
@@ -43,6 +59,7 @@ const routes = [
     { name: "test", path: "/test", component: TestPage },
     { name: "test2", path: "/test2", component: TestPage2 },
     { name: "fitbit", path: "/fitbit", component: FitbitView },
+    { name: "activity", path: "/activity", component: ActivityView },
     { name: "access-token", path: "/access_token=:token", component: AccessRedicrectView }
 ];
 
