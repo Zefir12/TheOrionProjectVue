@@ -405,8 +405,9 @@ export type Database = {
                     id: number;
                     is_warmup: boolean;
                     reps: number;
-                    RIR: number | null;
+                    rir: number | null;
                     set_number: number;
+                    user_id: string;
                     weight: number;
                 };
                 Insert: {
@@ -416,8 +417,9 @@ export type Database = {
                     id?: number;
                     is_warmup?: boolean;
                     reps: number;
-                    RIR?: number | null;
+                    rir?: number | null;
                     set_number: number;
+                    user_id?: string;
                     weight: number;
                 };
                 Update: {
@@ -427,8 +429,9 @@ export type Database = {
                     id?: number;
                     is_warmup?: boolean;
                     reps?: number;
-                    RIR?: number | null;
+                    rir?: number | null;
                     set_number?: number;
+                    user_id?: string;
                     weight?: number;
                 };
                 Relationships: [
@@ -468,24 +471,34 @@ export type Database = {
             };
             gym_exercises: {
                 Row: {
+                    activity_id: number;
                     created_at: string;
                     exercise_type_id: number;
                     id: number;
                     user_id: string;
                 };
                 Insert: {
+                    activity_id: number;
                     created_at?: string;
                     exercise_type_id: number;
                     id?: number;
                     user_id?: string;
                 };
                 Update: {
+                    activity_id?: number;
                     created_at?: string;
                     exercise_type_id?: number;
                     id?: number;
                     user_id?: string;
                 };
                 Relationships: [
+                    {
+                        foreignKeyName: "gym_exercises_activity_id_fkey";
+                        columns: ["activity_id"];
+                        isOneToOne: false;
+                        referencedRelation: "activity";
+                        referencedColumns: ["id"];
+                    },
                     {
                         foreignKeyName: "gym_exercises_exercise_type_id_fkey";
                         columns: ["exercise_type_id"];

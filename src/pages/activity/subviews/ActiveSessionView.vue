@@ -6,16 +6,27 @@
         <div class="container">
             <Group :style="{ width: '100%' }">
                 <StyledButton name="Finish Workout" @click="confirmFinishModalOpen = true" />
-                <StyledButton name="Load Plan" />
+                <StyledButton name="Load Plan" :disabled="true" />
                 <IconButton @click="emit('switchSubview', 0)" :style="{ width: '5.5rem' }" />
             </Group>
             <StyledButton name="Add Excercise" @click="addExcerciseModalOpen = true" />
             <div :style="{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }">
                 <div class="exercise" v-for="exercise in exercises">
-                    {{ activityStore.GetExerciseNameById(exercise.exercise_type_id) }}
-                    <IconButton @click="openSetModal(exercise)" />
-                    <div class="set-container">
-                        <pre class="json-div" v-for="set in exercise.gym_exercise_sets">{{ set }}</pre>
+                    <div>{{ activityStore.GetExerciseNameById(exercise.exercise_type_id) }}</div>
+
+                    <IconButton :style="{ position: 'absolute', left: '4px', top: '4px', borderRadius: '10px' }" @click="openSetModal(exercise)" />
+                    <IconTrash :style="{ position: 'absolute', right: '10px', top: '7px', borderRadius: '10px', cursor: 'pointer' }" size="30" @click="removeExerciseFromActivity(exercise)" />
+                    <div v-if="exercise.gym_exercise_sets.length > 0" class="set-container">
+                        <div class="set" v-for="set in exercise.gym_exercise_sets">
+                            <Group justify="space-between" :align="'center'">
+                                <div>{{ set.set_number + "." }}</div>
+                                <div>{{ "W: " + set.weight + "kg" }}</div>
+                                <div>{{ "Reps: " + set.reps }}</div>
+                                <div>{{ "RIR: " + (set.rir ?? "-") }}</div>
+                                <input type="checkbox" v-model="set.is_warmup" :disabled="true" />
+                                <IconTrash size="24" @click="removeSetFromExercise(set.id)" :style="{ cursor: 'pointer' }" />
+                            </Group>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -31,15 +42,15 @@ import { useActivityStore } from "@/stores/activityStore";
 import ConfirmFinishModal from "../components/ConfirmFinishModal.vue";
 import { onMounted, ref } from "vue";
 import AddExcerciseModal from "../components/AddExcerciseModal.vue";
-import { getExercisesForActivity } from "@/lib/supabase/services/supabaseActivityService.ts";
-import { Tables } from "@/lib/supabase/supabase/supabaseSchemas/supaDatabaseExtensions";
+import { getExercisesForActivity, GymExerciseWithSets, removeExercise, removeSet } from "@/lib/supabase/services/supabaseActivityService.ts";
 import AddSetModal from "../components/AddSetModal.vue";
+import { IconTrash } from "@tabler/icons-vue";
 
 const activityStore = useActivityStore();
 const confirmFinishModalOpen = ref(false);
 const addExcerciseModalOpen = ref(false);
 const addSetModalOpen = ref(false);
-const exercises = ref<Tables<"gym_exercises">[]>([]);
+const exercises = ref<GymExerciseWithSets[]>([]);
 
 const emit = defineEmits(["switchSubview"]);
 
@@ -48,7 +59,17 @@ const refreshExercises = async () => {
     exercises.value = result;
 };
 
-const openSetModal = (exercise: Tables<"gym_exercises">) => {
+const removeExerciseFromActivity = async (exercise: GymExerciseWithSets) => {
+    await removeExercise(exercise.id);
+    await refreshExercises();
+};
+
+const removeSetFromExercise = async (set_id: number) => {
+    await removeSet(set_id);
+    await refreshExercises();
+};
+
+const openSetModal = (exercise: GymExerciseWithSets) => {
     activityStore.currentExercise = exercise;
     addSetModalOpen.value = true;
 };
@@ -59,24 +80,16 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.json-div {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    padding: 1rem;
-    color: white;
-    font-family: monospace;
-    font-size: 0.9rem;
-    text-align: left;
-
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
+.set-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.json-div pre {
-    white-space: pre-wrap; /* Allow wrapping inside <pre> */
-    word-wrap: break-word; /* Break long words if needed */
+.set {
+    background-color: rgb(44, 44, 44);
+    padding: 6px;
+    border-radius: 8px;
 }
 
 .exercise {
@@ -84,6 +97,10 @@ onMounted(async () => {
     padding: 12px;
     border-radius: 12px;
     width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 .container {
     margin: auto;
