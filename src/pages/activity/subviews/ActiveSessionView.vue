@@ -91,7 +91,12 @@ const refreshExercises = async () => {
 };
 
 const markSetDoneInExercise = async (set: Tables<"gym_exercise_sets">) => {
-    navigator.vibrate(200);
+    try {
+        navigator.vibrate(50);
+    } catch (err) {
+        console.log(err);
+    }
+
     await markSetDone(set.id, !set.done);
     await refreshExercises();
 };
