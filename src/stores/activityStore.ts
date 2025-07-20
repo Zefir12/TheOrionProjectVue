@@ -9,6 +9,7 @@ export const useActivityStore = defineStore("ActivityStore", () => {
     const gymExerciseTypes = ref<Tables<"gym_exercise_types">[] | null>(null);
     const currentSession = ref<Tables<"activity"> | null>();
     const currentExercise = ref<GymExerciseWithSets | null>();
+    const currentSet = ref<Tables<"gym_exercise_sets"> | null>();
 
     const setCurrentSession = (id: number) => {
         currentSession.value = activities.value?.find((x) => x.id == id);
@@ -41,5 +42,5 @@ export const useActivityStore = defineStore("ActivityStore", () => {
         return gymExerciseTypes.value?.find((x) => x.id == id)?.name ?? "";
     };
 
-    return { RefreshData, GetExerciseNameById, activities, currentSession, gymExerciseTypes, FetchData, setCurrentSession, finishCurrentSession, currentExercise };
+    return { RefreshData, GetExerciseNameById, activities, currentSession, gymExerciseTypes, FetchData, setCurrentSession, finishCurrentSession, currentExercise, currentSet };
 });

@@ -47,6 +47,10 @@ export async function removeSet(set_id: number) {
     return await supabase.from("gym_exercise_sets").delete().eq("id", set_id);
 }
 
+export async function markSetDone(set_id: number, value: boolean) {
+    return await supabase.from("gym_exercise_sets").update({ done: value }).eq("id", set_id);
+}
+
 export async function removeExercise(exercise_id: number) {
     return await supabase.from("gym_exercises").delete().eq("id", exercise_id);
 }

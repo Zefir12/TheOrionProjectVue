@@ -400,6 +400,7 @@ export type Database = {
             gym_exercise_sets: {
                 Row: {
                     created_at: string;
+                    done: boolean;
                     exercise_id: number;
                     exercise_type_id: number;
                     id: number;
@@ -412,6 +413,7 @@ export type Database = {
                 };
                 Insert: {
                     created_at?: string;
+                    done?: boolean;
                     exercise_id: number;
                     exercise_type_id: number;
                     id?: number;
@@ -424,6 +426,7 @@ export type Database = {
                 };
                 Update: {
                     created_at?: string;
+                    done?: boolean;
                     exercise_id?: number;
                     exercise_type_id?: number;
                     id?: number;

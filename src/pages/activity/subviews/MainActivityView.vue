@@ -87,7 +87,7 @@ const cancelCreateSession = () => {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    width: min(100%, 24rem);
+    width: min(100%, 28rem);
 }
 
 .session-container {

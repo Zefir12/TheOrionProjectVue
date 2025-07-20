@@ -1,6 +1,6 @@
 <template>
-    <div v-if="model" class="modal">
-        <div class="modal-content">
+    <div v-if="model" class="modal" @click="handleBackdropClick">
+        <div class="modal-content" @click.stop>
             <slot />
             <!-- Content will go here -->
         </div>
@@ -9,6 +9,18 @@
 
 <script setup lang="ts">
 const model = defineModel();
+
+// Prop to control backdrop click behavior
+const props = defineProps<{
+    closeOnBackdrop?: boolean;
+}>();
+
+// Handle clicks on backdrop
+function handleBackdropClick() {
+    if (props.closeOnBackdrop) {
+        model.value = false;
+    }
+}
 </script>
 
 <style scoped>
