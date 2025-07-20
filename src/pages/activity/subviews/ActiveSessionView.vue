@@ -7,15 +7,15 @@
             <Group :style="{ width: '100%' }">
                 <StyledButton name="Finish Workout" @click="confirmFinishModalOpen = true" />
                 <StyledButton name="Load Plan" :disabled="true" />
-                <IconButton @click="emit('switchSubview', 0)" :style="{ width: '5.5rem' }" />
+                <IconButton @click="emit('switchSubview', 0)" :style="{ width: '5.5rem' }" :icon="IconX" />
             </Group>
             <StyledButton name="Add Excercise" @click="addExcerciseModalOpen = true" />
             <div :style="{ display: 'flex', flexDirection: 'column', width: '100%', gap: '10px' }">
                 <div class="exercise" v-for="exercise in exercises">
                     <div>{{ activityStore.GetExerciseNameById(exercise.exercise_type_id) }}</div>
 
-                    <IconButton :style="{ position: 'absolute', left: '4px', top: '4px', borderRadius: '10px' }" @click="openSetModal(exercise)" />
-                    <IconTrash :style="{ position: 'absolute', right: '10px', top: '7px', borderRadius: '10px', cursor: 'pointer' }" size="30" @click="removeExerciseFromActivity(exercise)" />
+                    <IconButton :style="{ position: 'absolute', right: '4px', top: '4px', borderRadius: '10px' }" @click="openSetModal(exercise)" />
+                    <IconTrash :style="{ position: 'absolute', left: '10px', top: '7px', borderRadius: '10px', cursor: 'pointer' }" size="30" @click="removeExerciseFromActivity(exercise)" />
                     <div v-if="exercise.gym_exercise_sets.length > 0" class="set-container">
                         <div class="set" v-for="set in exercise.gym_exercise_sets">
                             <Group justify="space-between" :align="'center'">
@@ -44,7 +44,7 @@ import { onMounted, ref } from "vue";
 import AddExcerciseModal from "../components/AddExcerciseModal.vue";
 import { getExercisesForActivity, GymExerciseWithSets, removeExercise, removeSet } from "@/lib/supabase/services/supabaseActivityService.ts";
 import AddSetModal from "../components/AddSetModal.vue";
-import { IconTrash } from "@tabler/icons-vue";
+import { IconTrash, IconX } from "@tabler/icons-vue";
 
 const activityStore = useActivityStore();
 const confirmFinishModalOpen = ref(false);
