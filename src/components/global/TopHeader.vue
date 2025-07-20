@@ -32,6 +32,7 @@ const openSettings = () => {
 .main {
     width: 100%;
     height: 70px;
+    min-height: 70px;
     display: flex;
     position: relative;
     background-color: #1f1c1c;

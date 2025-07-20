@@ -1,87 +1,109 @@
 <template>
-    <div class="container">
-        <div class="card" :class="!activeSession ? 'card-small' : 'card-session'">
-            <div @click="createSession" v-if="!activeSession" :style="{ width: '100%', height: '100%' }">Create new session</div>
-            <div class="session-container" v-else>
-                <div class="session-column">
-                    <div>Create new workout</div>
-                    <Select width="12rem" label="Select mode" :options="options" />
-                    <Group>
-                        <StyledButton name="Create" />
-                        <StyledButton name="Cancel" @click="cancelCreateSession" />
-                    </Group>
-                </div>
-            </div>
-        </div>
+    <div class="subview-container">
+        <transition :name="transitionName" mode="out-in">
+            <component :is="currentSubviewComponent" :key="currentSubview" @switchSubview="switchSubview" />
+        </transition>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import StyledButton from "@/components/global/StyledButton.vue";
-import Group from "@/components/global/containers/Group.vue";
-import Select from "@/components/global/Select.vue";
+import { computed, ref } from "vue";
+import MainActivityView from "./subviews/MainActivityView.vue";
+import ActiveSessionView from "./subviews/ActiveSessionView.vue";
 
-const activeSession = ref(false);
-const options = [
-    { name: "Weights", value: 0 },
-    { name: "Cardio", value: 1 },
-    { name: "Sports", value: 2 }
-];
+const currentSubview = ref(0);
+const transitionName = ref("zoom"); // dynamic transition
 
-const createSession = () => {
-    activeSession.value = true;
+const subviews = [MainActivityView, ActiveSessionView];
+
+const switchSubview = (value: number) => {
+    switch (value) {
+        case 0:
+            transitionName.value = `slide-left`;
+            break;
+
+        default:
+            transitionName.value = `slide-right`;
+            break;
+    }
+    currentSubview.value = value;
 };
 
-const cancelCreateSession = () => {
-    activeSession.value = false;
-};
+const currentSubviewComponent = computed(() => subviews[currentSubview.value]);
 </script>
 
 <style scoped>
-.container {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.session-container {
-    position: relative;
+.subview-container {
+    position: relative; /* <-- make it the positioning context for absolute children */
+    overflow: hidden; /* <-- hides content that slides out */
     width: 100%;
     height: 100%;
 }
 
-.card {
-    width: min(100%, 24rem);
-    padding: 12px;
-    background-color: #1f1c1c;
-    border-radius: 12px;
-    transition: height 0.8s;
-    overflow: hidden;
+.zoom-enter-active,
+.zoom-leave-active {
+    transition: all 0.3s ease;
 }
 
-.session-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 100%;
+.zoom-enter-from {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.zoom-enter-to {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.zoom-leave-from {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.zoom-leave-to {
+    transform: scale(1.05);
+    opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+    position: absolute;
     width: 100%;
+    transition: all 0.2s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-.card-small {
-    cursor: pointer;
-    height: 3rem;
-    transition: background-color 1s;
+.slide-right-enter-from {
+    transform: translateX(100%);
+}
+.slide-right-enter-to {
+    transform: translateX(0);
 }
 
-.card-session {
-    height: 10rem;
+.slide-right-leave-from {
+    transform: translateX(0);
+}
+.slide-right-leave-to {
+    transform: translateX(-100%);
 }
 
-.card-small:hover {
-    background-color: #383636;
-    transition: background-color 0s;
+.slide-left-enter-active,
+.slide-left-leave-active {
+    position: absolute;
+    width: 100%;
+    transition: all 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.slide-left-enter-from {
+    transform: translateX(-100%);
+}
+.slide-left-enter-to {
+    transform: translateX(0);
+}
+
+.slide-left-leave-from {
+    transform: translateX(0);
+}
+.slide-left-leave-to {
+    transform: translateX(100%);
 }
 </style>

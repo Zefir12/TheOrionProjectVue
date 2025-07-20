@@ -3,10 +3,13 @@ import Toast from "primevue/toast";
 import TopHeader from "./components/global/TopHeader.vue";
 import { useUserStore } from "./stores/userStore";
 import { onBeforeMount } from "vue";
+import { useActivityStore } from "./stores/activityStore";
 const userStore = useUserStore();
+const activityStore = useActivityStore();
 
 onBeforeMount(async () => {
     await userStore.fetchUserData();
+    activityStore.FetchData();
 });
 </script>
 
@@ -19,6 +22,8 @@ onBeforeMount(async () => {
 
 <template>
     <Toast position="bottom-right" />
-    <TopHeader />
-    <RouterView />
+    <div :style="{ display: 'flex', flexDirection: 'column', height: '100%' }">
+        <TopHeader />
+        <RouterView />
+    </div>
 </template>

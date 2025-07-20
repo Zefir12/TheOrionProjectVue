@@ -1,5 +1,5 @@
 <template>
-    <Button :style="{ width: width }" class="my-button" :disabled="props.disabled" text @click="$emit('click')">
+    <Button :style="{ width: width }" class="my-button no-select" :disabled="props.disabled" text @click="$emit('click')">
         <div v-if="!loading" class="my-button-text-container">
             {{ name ?? "Button" }}
         </div>

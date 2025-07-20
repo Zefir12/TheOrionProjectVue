@@ -1,4 +1,5 @@
 import { Serving } from "@/lib/models/Food";
+import { supabase } from "@/lib/supabase/supabase/supabase";
 
 class Helpers {
     public static GnerateRandomToken(length = 44) {
@@ -43,5 +44,13 @@ export class FoodHelpers {
         ];
     }
 }
+
+export const GetUser = async () => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error) {
+        throw error;
+    }
+    return data.user;
+};
 
 export default Helpers;
