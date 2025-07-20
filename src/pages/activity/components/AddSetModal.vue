@@ -3,7 +3,7 @@
         <div :style="{ display: 'flex', flexDirection: 'column', gap: '10px' }">
             <Group>
                 <div>RIR</div>
-                <StyledNumberInput v-model="rir" />
+                <StyledNumberInput v-if="useRir" v-model="rir" />
                 <input type="checkbox" v-model="useRir" />
             </Group>
             <Group>
