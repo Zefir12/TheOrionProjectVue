@@ -33,7 +33,6 @@
 import BaseModal from "@/components/global/BaseModal.vue";
 import Group from "@/components/global/containers/Group.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
-import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import { addSetToExercise } from "@/lib/supabase/services/supabaseActivityService.ts";
 import { useActivityStore } from "@/stores/activityStore";
 import { ref, watch } from "vue";
