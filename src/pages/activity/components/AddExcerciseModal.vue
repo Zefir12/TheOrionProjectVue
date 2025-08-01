@@ -1,16 +1,14 @@
 <template>
     <BaseModal v-model="model">
-        <div :style="{ height: '90vh', display: 'flex', flexDirection: 'column', gap: '10px' }">
-            <Group>
-                <StyledButton name="Cancel" @click="model = false" />
-            </Group>
+        <div :style="{ height: '90vh', display: 'flex', overflowY: 'scroll', flexDirection: 'column', gap: '10px' }">
+            <StyledButton name="Cancel" @click="model = false" />
+
             <StyledButton v-for="exercise in activityStore.gymExerciseTypes" :key="exercise.id" :name="exercise.name" @click="addExercise(exercise.id)" />
         </div>
     </BaseModal>
 </template>
 <script setup lang="ts">
 import BaseModal from "@/components/global/BaseModal.vue";
-import Group from "@/components/global/containers/Group.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import { addExerciseToActivity } from "@/lib/supabase/services/supabaseActivityService.ts";
 import { useActivityStore } from "@/stores/activityStore";

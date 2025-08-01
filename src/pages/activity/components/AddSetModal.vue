@@ -3,16 +3,16 @@
         <div :style="{ display: 'flex', flexDirection: 'column', gap: '10px' }">
             <Group>
                 <div>RIR</div>
-                <StyledNumberInput v-if="useRir" v-model="rir" />
+                <input type="text" v-if="useRir" inputmode="numeric" pattern="[0-9]*" class="text-input" style="width: 2rem" v-model="rir" />
                 <input type="checkbox" v-model="useRir" />
             </Group>
             <Group>
                 <div>Weight</div>
-                <StyledNumberInput v-model="weight" />
+                <input type="text" inputmode="numeric" pattern="[0-9]*" class="text-input" style="width: 2rem" v-model="weight" />
             </Group>
             <Group>
                 <div>Reps</div>
-                <StyledNumberInput v-model="reps" :step="1" />
+                <input type="text" inputmode="numeric" pattern="[0-9]*" class="text-input" style="width: 2rem" v-model="reps" />
             </Group>
             <Group>
                 <div>Is warmup?</div>
@@ -20,7 +20,7 @@
             </Group>
             <Group>
                 <div>Set number</div>
-                <StyledNumberInput v-model="setNumber" :step="1" />
+                <input type="text" inputmode="numeric" pattern="[0-9]*" class="text-input" style="width: 2rem" v-model="setNumber" />
             </Group>
             <Group>
                 <StyledButton name="Cancel" @click="model = false" />
