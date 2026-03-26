@@ -16,6 +16,7 @@
                 </div>
             </div>
             <ActiveSession v-for="session in activityStore.activities" :session="session" :key="session.id" @click="openActiveSession(session.id)" />
+            <div>Historical sessions</div>
         </div>
     </div>
 </template>
