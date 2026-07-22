@@ -1,9 +1,18 @@
-<script setup lang="ts">
-import { IconPlus } from "@tabler/icons-vue";
-</script>
 <template>
-    <button class="my-button"><IconPlus stroke-width="2"></IconPlus></button>
+    <button class="my-button">
+        <component :is="icon || DefaultIcon" :stroke-width="2" />
+    </button>
 </template>
+
+<script setup lang="ts">
+import { IconPlus as DefaultIcon } from "@tabler/icons-vue";
+
+// Add a prop to accept a custom icon component
+defineProps<{
+    icon?: any; // Or type it stricter if you want
+}>();
+</script>
+
 <style scoped>
 .my-button {
     background: rgba(132, 94, 247, 0.15);

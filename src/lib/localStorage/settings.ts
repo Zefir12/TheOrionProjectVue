@@ -56,3 +56,18 @@ export const getPage = (): string | null => {
         return null;
     }
 };
+
+// Language storage
+export const setLanguage = (language: string): void => {
+    setItem("language", language);
+};
+
+export const getLanguage = (): string | null => {
+    const data = getItem("language");
+    if (!data) return null;
+    return JSON.parse(data) as string;
+};
+
+export const clearLanguage = (): void => {
+    removeItem("language");
+};

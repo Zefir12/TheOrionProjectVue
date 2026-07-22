@@ -1,7 +1,7 @@
 <template>
-    <div class="custom-select">
+    <div class="custom-select" :style="{ width: props.width }">
         <small v-if="props.label" class="small-label">{{ props.label }}</small>
-        <select class="my-input select" :style="{ width: props.width, height: props.height }" v-model="model">
+        <select class="my-input select" :style="{ height: props.height }" v-model="model">
             <option v-for="option in props.options" :value="option">{{ option.name }}</option>
         </select>
     </div>

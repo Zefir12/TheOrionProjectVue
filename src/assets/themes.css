@@ -1,0 +1,354 @@
+/* ==========================================================================
+   THEME TOKENS — generated from a 7-color base palette
+   Structure:
+     1. Raw scale      — tint/shade ramps, theme-independent, never change
+     2. Semantic layer — [data-theme="light"] / [data-theme="dark"]
+   Toggle in JS:  document.documentElement.setAttribute('data-theme', 'dark')
+   ========================================================================== */
+
+/* ---------- 1. Raw scale (your originals are locked in, exact) ---------- */
+:root {
+    /* crimson — primary / error  (base: 600 = #BF3945) */
+    --color-crimson-50: #fbf4f5;
+    --color-crimson-100: #f0d6d8;
+    --color-crimson-200: #e6b7bb;
+    --color-crimson-300: #dc979d;
+    --color-crimson-400: #d3777f;
+    --color-crimson-500: #cb5661;
+    --color-crimson-600: #bf3945;
+    --color-crimson-700: #501419;
+    --color-crimson-800: #761f27;
+    --color-crimson-900: #501419;
+    --color-crimson-950: #290a0d;
+
+    /* gold — secondary / warning  (base: 400 = #F4C364) */
+    --color-gold-50: #fdf9f2;
+    --color-gold-100: #f8ebd1;
+    --color-gold-200: #f5ddae;
+    --color-gold-300: #f4d08a;
+    --color-gold-400: #f4c364;
+    --color-gold-500: #efb23a;
+    --color-gold-600: #e69e14;
+    --color-gold-700: #b98012;
+    --color-gold-800: #8d620f;
+    --color-gold-900: #61440b;
+    --color-gold-950: #362607;
+
+    /* clay — tertiary accent  (base: 500 = #C8926E) */
+    --color-clay-50: #f8f4f1;
+    --color-clay-100: #ede1d8;
+    --color-clay-200: #e3cdbf;
+    --color-clay-300: #d9baa5;
+    --color-clay-400: #d0a68a;
+    --color-clay-500: #c8926e;
+    --color-clay-600: #bc7749;
+    --color-clay-700: #9b5f38;
+    --color-clay-800: #77492a;
+    --color-clay-900: #53321c;
+    --color-clay-950: #2e1c0f;
+
+    /* sand — warm cream→espresso  (base: 200 = #F2D9BB, 900 = #4B3430) */
+    --color-sand-50: #fbf8f4;
+    --color-sand-100: #f5e9d9;
+    --color-sand-200: #f2d9bb;
+    --color-sand-300: #e7c09a;
+    --color-sand-400: #d9a47d;
+    --color-sand-500: #c88862;
+    --color-sand-600: #b46c4a;
+    --color-sand-700: #8e5844;
+    --color-sand-800: #6b453c;
+    --color-sand-900: #4b3430;
+    --color-sand-950: #2b1917;
+
+    /* neutral — warm-tinted gray  (base: 900 = #252426, 950 = #0C0C0D) */
+    --color-neutral-50: #f8f7f7;
+    --color-neutral-100: #e1e0df;
+    --color-neutral-200: #cac9c7;
+    --color-neutral-300: #b3b1af;
+    --color-neutral-400: #9d9a97;
+    --color-neutral-500: #86827f;
+    --color-neutral-600: #6e6b68;
+    --color-neutral-700: #565451;
+    --color-neutral-800: #3e3c3b;
+    --color-neutral-900: #252426;
+    --color-neutral-950: #0c0c0d;
+
+    /* sage — success (derived, tuned to sit alongside the palette) */
+    --color-sage-50: #f4f7f2;
+    --color-sage-100: #d4e2cd;
+    --color-sage-200: #b3cca7;
+    --color-sage-300: #93b880;
+    --color-sage-400: #72a35a;
+    --color-sage-500: #577e44;
+    --color-sage-600: #4a6c39;
+    --color-sage-700: #3d5a2e;
+    --color-sage-800: #304824;
+    --color-sage-900: #23351a;
+    --color-sage-950: #172211;
+
+    /* slate — info (derived, tuned to sit alongside the palette) */
+    --color-slate-50: #f3f5f7;
+    --color-slate-100: #d2dce3;
+    --color-slate-200: #b2c3d0;
+    --color-slate-300: #90aabd;
+    --color-slate-400: #6e91ab;
+    --color-slate-500: #537793;
+    --color-slate-600: #45667f;
+    --color-slate-700: #38546a;
+    --color-slate-800: #2c4355;
+    --color-slate-900: #20323f;
+    --color-slate-950: #142029;
+}
+/* ---------- 2. Semantic tokens ----------
+   These are what you actually use in components (var(--color-bg), var(--color-primary), etc).
+   Never reference --color-crimson-600 directly in a component — reference --color-primary,
+   so that swapping data-theme (or re-mapping a token here later) updates everything downstream. */
+
+:root,
+[data-theme="light"] {
+    color-scheme: light;
+
+    /* Surfaces — "elevation" always reads as lighter, both themes */
+    --color-bg: var(--color-clay-300); /* page background */
+
+    --container-gradient: linear-gradient(110deg, var(--color-clay-400) 0%, var(--color-clay-400) 50%, var(--color-clay-500) 100%);
+
+    --color-bg-subtle: var(--color-sand-200); /* alternating sections, subtle blocks */
+    --color-surface: var(--color-sand-50); /* cards, panels, modals */
+    --color-surface-hover: var(--color-neutral-100);
+
+    /* Borders */
+    --color-dark-border: color-mix(in srgb, var(--color-sand-500) 50%, var(--color-neutral-500));
+
+    --graph-weight-line: var(--color-clay-900);
+    --color-weight-background: var(--color-clay-700);
+    --color-border: var(--color-neutral-300); /* subtle dividers */
+    --color-border-strong: var(--color-neutral-500); /* input outlines, emphasis */
+
+    /* Text */
+    --color-text: var(--color-sand-900); /* body copy — warm umber, not flat black */
+    --color-text-secondary: var(--color-sand-700);
+    --color-text-muted: var(--color-neutral-600);
+    --color-text-inverse: var(--color-sand-50); /* text on filled/dark elements */
+
+    /* Primary — crimson */
+    --color-primary: var(--color-crimson-600);
+    --color-primary-hover: var(--color-crimson-700);
+    --color-primary-active: var(--color-crimson-800);
+    --color-primary-subtle: var(--color-crimson-100); /* tinted badge/alert backgrounds */
+    --color-primary-text: var(--color-crimson-700); /* crimson used as a link/text color */
+    --color-on-primary: var(--color-sand-50);
+
+    /* Secondary — gold */
+    --color-secondary: var(--color-gold-500);
+    --color-secondary-hover: var(--color-gold-600);
+    --color-secondary-subtle: var(--color-gold-100);
+    --color-on-secondary: var(--color-sand-900);
+
+    /* Accent — clay (terracotta) */
+    --color-accent: var(--color-clay-500); /* icons, chart series, non-text use */
+    --color-accent-fill: var(--color-clay-700); /* solid buttons/badges (contrast-safe) */
+    --color-accent-hover: var(--color-clay-800);
+    --color-accent-subtle: var(--color-clay-100);
+    --color-on-accent: var(--color-sand-50);
+
+    /* Status */
+    --color-success: var(--color-sage-600);
+    --color-success-subtle: var(--color-sage-100);
+    --color-on-success: var(--color-sand-50);
+
+    --color-warning: var(--color-gold-500);
+    --color-warning-subtle: var(--color-gold-100);
+    --color-on-warning: var(--color-sand-900);
+
+    --color-error: var(--color-crimson-600);
+    --color-error-subtle: var(--color-crimson-100);
+    --color-on-error: var(--color-sand-50);
+
+    --color-info: var(--color-slate-600);
+    --color-info-subtle: var(--color-slate-100);
+    --color-on-info: var(--color-sand-50);
+
+    --color-focus-ring: var(--color-crimson-600);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --color-bg: linear-gradient(180deg, var(--color-neutral-900) 0%, var(--color-neutral-950) 100%); /* your original #0C0C0D, exact */
+
+    --container-gradient: linear-gradient(135deg, #1c1c1c97, var(--color-neutral-950));
+
+    --color-bg-subtle: var(--color-neutral-900); /* your original #252426, exact */
+    --color-surface: var(--color-neutral-800);
+    --color-surface-hover: var(--color-neutral-700);
+
+    /* Borders */
+    --color-dark-border: color-mix(in srgb, var(--color-neutral-950) 60%, var(--color-neutral-900));
+
+    --graph-weight-line: var(--color-accent);
+    --color-weight-background: var(--color-neutral-950);
+    --color-border: var(--color-neutral-800);
+    --color-border-strong: var(--color-neutral-600);
+
+    /* Text */
+    --color-text: var(--color-sand-100);
+    --color-text-secondary: var(--color-neutral-300);
+    --color-text-muted: var(--color-neutral-500);
+    --color-text-inverse: var(--color-neutral-950);
+
+    /* Primary — crimson (fill stays constant across themes for brand recognition;
+     hover/active invert direction since "lighter = lifted" on a dark bg) */
+    --color-primary: var(--color-crimson-600);
+    --color-primary-hover: var(--color-crimson-500);
+    --color-primary-active: var(--color-crimson-400);
+    --color-primary-subtle: var(--color-crimson-950);
+    --color-primary-text: var(--color-crimson-400);
+    --color-on-primary: var(--color-sand-50);
+
+    /* Secondary — gold */
+    --color-secondary: var(--color-gold-500);
+    --color-secondary-hover: var(--color-gold-400);
+    --color-secondary-subtle: var(--color-gold-950);
+    --color-on-secondary: var(--color-sand-900);
+
+    /* Accent — clay */
+    --color-accent: var(--color-clay-500);
+    --color-accent-fill: var(--color-clay-700);
+    --color-accent-hover: var(--color-clay-600);
+    --color-accent-subtle: var(--color-clay-950);
+    --color-on-accent: var(--color-sand-50);
+
+    /* Status */
+    --color-success: var(--color-sage-600);
+    --color-success-subtle: var(--color-sage-950);
+    --color-on-success: var(--color-sand-50);
+
+    --color-warning: var(--color-gold-500);
+    --color-warning-subtle: var(--color-gold-950);
+    --color-on-warning: var(--color-sand-900);
+
+    --color-error: var(--color-crimson-600);
+    --color-error-subtle: var(--color-crimson-950);
+    --color-on-error: var(--color-sand-50);
+
+    --color-info: var(--color-slate-600);
+    --color-info-subtle: var(--color-slate-950);
+    --color-on-info: var(--color-sand-50);
+
+    --color-focus-ring: var(--color-crimson-400);
+}
+
+[data-theme="dark-original"] {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --color-bg: #242424; /* your original #0C0C0D, exact */
+
+    --container-gradient: linear-gradient(240deg, #1b1818 0%, #1f1c1c 50%, #141212 100%);
+
+    --color-bg-subtle: var(--color-neutral-900); /* your original #252426, exact */
+    --color-surface: var(--color-neutral-800);
+    --color-surface-hover: var(--color-neutral-700);
+
+    --color-dark-border: #141212;
+
+    --graph-weight-line: var(--color-accent);
+    --color-weight-background: var(--color-neutral-950);
+    /* Borders */
+    --color-border: var(--color-neutral-800);
+    --color-border-strong: var(--color-neutral-600);
+
+    /* Text */
+    --color-text: rgba(255, 255, 255, 0.87);
+    --color-text-secondary: var(--color-neutral-300);
+    --color-text-muted: var(--color-neutral-500);
+    --color-text-inverse: var(--color-neutral-950);
+
+    /* Primary — crimson (fill stays constant across themes for brand recognition;
+     hover/active invert direction since "lighter = lifted" on a dark bg) */
+    --color-primary: var(--color-crimson-600);
+    --color-primary-hover: var(--color-crimson-500);
+    --color-primary-active: var(--color-crimson-400);
+    --color-primary-subtle: var(--color-crimson-950);
+    --color-primary-text: var(--color-crimson-400);
+    --color-on-primary: var(--color-sand-50);
+
+    /* Secondary — gold */
+    --color-secondary: var(--color-gold-500);
+    --color-secondary-hover: var(--color-gold-400);
+    --color-secondary-subtle: var(--color-gold-950);
+    --color-on-secondary: var(--color-sand-900);
+
+    /* Accent — clay */
+    --color-accent: var(--color-clay-500);
+    --color-accent-fill: var(--color-clay-700);
+    --color-accent-hover: var(--color-clay-600);
+    --color-accent-subtle: var(--color-clay-950);
+    --color-on-accent: var(--color-sand-50);
+
+    /* Status */
+    --color-success: var(--color-sage-600);
+    --color-success-subtle: var(--color-sage-950);
+    --color-on-success: var(--color-sand-50);
+
+    --color-warning: var(--color-gold-500);
+    --color-warning-subtle: var(--color-gold-950);
+    --color-on-warning: var(--color-sand-900);
+
+    --color-error: var(--color-crimson-600);
+    --color-error-subtle: var(--color-crimson-950);
+    --color-on-error: var(--color-sand-50);
+
+    --color-info: var(--color-slate-600);
+    --color-info-subtle: var(--color-slate-950);
+    --color-on-info: var(--color-sand-50);
+
+    --color-focus-ring: var(--color-crimson-400);
+}
+
+/* ---------- 3. Optional: respect system preference when no data-theme is set ---------- */
+/* @media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-bg: var(--color-neutral-950);
+    --color-bg-subtle: var(--color-neutral-900);
+    --color-surface: var(--color-neutral-800);
+    --color-surface-hover: var(--color-neutral-700);
+    --color-border: var(--color-neutral-800);
+    --color-border-strong: var(--color-neutral-600);
+    --color-text: var(--color-sand-100);
+    --color-text-secondary: var(--color-neutral-300);
+    --color-text-muted: var(--color-neutral-500);
+    --color-text-inverse: var(--color-neutral-950);
+    --color-primary: var(--color-crimson-600);
+    --color-primary-hover: var(--color-crimson-500);
+    --color-primary-active: var(--color-crimson-400);
+    --color-primary-subtle: var(--color-crimson-950);
+    --color-primary-text: var(--color-crimson-400);
+    --color-on-primary: var(--color-sand-50);
+    --color-secondary: var(--color-gold-500);
+    --color-secondary-hover: var(--color-gold-400);
+    --color-secondary-subtle: var(--color-gold-950);
+    --color-on-secondary: var(--color-sand-900);
+    --color-accent: var(--color-clay-500);
+    --color-accent-fill: var(--color-clay-700);
+    --color-accent-hover: var(--color-clay-600);
+    --color-accent-subtle: var(--color-clay-950);
+    --color-on-accent: var(--color-sand-50);
+    --color-success: var(--color-sage-600);
+    --color-success-subtle: var(--color-sage-950);
+    --color-on-success: var(--color-sand-50);
+    --color-warning: var(--color-gold-500);
+    --color-warning-subtle: var(--color-gold-950);
+    --color-on-warning: var(--color-sand-900);
+    --color-error: var(--color-crimson-600);
+    --color-error-subtle: var(--color-crimson-950);
+    --color-on-error: var(--color-sand-50);
+    --color-info: var(--color-slate-600);
+    --color-info-subtle: var(--color-slate-950);
+    --color-on-info: var(--color-sand-50);
+    --color-focus-ring: var(--color-crimson-400);
+  }
+} */

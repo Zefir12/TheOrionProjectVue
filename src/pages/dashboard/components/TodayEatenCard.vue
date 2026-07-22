@@ -59,22 +59,22 @@ const getColor = () => {
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     background-color: #2658c4;
 }
 
 .inside-item {
-    transform: translate(6px, 0);
+    transform: translate(4px, 0);
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.4rem;
-    background-color: rgb(77, 77, 77);
-    border-radius: 0.5rem;
+    padding: 0.3rem;
+    background-color: rgb(45, 43, 43);
+    border-radius: 0.3rem;
     transition:
-        transform 0.3s ease,
+        transform 0.25s ease-out,
         background-color 0.3s ease;
     position: relative;
 }
@@ -127,7 +127,7 @@ const getColor = () => {
     animation: shake 0.54s ease-in-out infinite;
 }
 .item:hover .inside-item {
-    transform: translate(32px, 0);
+    transform: translate(120px, 0);
     background-color: rgb(87, 87, 87);
 }
 </style>

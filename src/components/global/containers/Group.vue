@@ -13,6 +13,7 @@ defineProps<{
     mr?: string;
     ml?: string;
     mb?: string;
+    align?: string;
 }>();
 </script>
 
@@ -20,6 +21,7 @@ defineProps<{
     <div
         class="z-group-container"
         :style="{
+            alignItems: align,
             justifyContent: justify ?? 'center',
             backgroundColor: bg,
             gap: `var(--zefir-spacing-${gap ?? 'md'})`,
@@ -30,7 +32,7 @@ defineProps<{
             marginLeft: ml,
             marginRight: mr,
             marginTop: mt,
-            marginBottom: mb,
+            marginBottom: mb
         }"
     >
         <slot></slot>

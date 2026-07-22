@@ -1,8 +1,8 @@
 <template>
     <FoodInfoModal v-model="foodModalOpen" :food="foodItemInModal" />
-    <div class="full-container">
+    <div class="container shadowed tet">
         <div class="top"><div>DZISIAJ ZJEDZONE</div></div>
-        <div class="container">
+        <div class="containerr">
             <div class="today-eaten-list">
                 <TodayEatenCard :food="food" v-for="food in foods" @open-food-info-modal="openFoodInfoModal" />
             </div>
@@ -65,18 +65,13 @@ watch(
     margin-bottom: 0.5rem;
 }
 
-.full-container {
-    width: 100%;
-    height: 100%;
+.tet {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #1f1c1c;
-    border-radius: 5px;
+    justify-content: stretch;
 }
 
 .top {
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -84,9 +79,7 @@ watch(
     font-weight: bold;
     margin: 1rem 0 0 2rem;
 }
-.container {
-    background-color: #1f1c1c;
-    width: 100%;
+.containerr {
     height: 100%;
     max-height: 26rem;
     overflow-y: scroll;

@@ -2,20 +2,20 @@
     <div class="modal" v-if="model">
         <div class="modal-content">
             <IconX @click="model = false" class="icon-x" :size="32" :stroke-width="3" />
-            <div>p</div>
-            <LanguageSwitcher class="logout_buton" />
-            <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.logout')" @click="logout" />
-            <div class="sidebar-content">
+            <div style="height: 40px; margin-bottom: 10px"><LanguageSwitcher class="logout_buton" /></div>
+
+            <div class="lsit">
+                <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.logout')" @click="logout" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.dashboard')" @click="goto('dashboard')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.food')" @click="goto('food')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.weight')" @click="goto('weight')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.bloodPreassure')" @click="goto('bloodpreassure')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.foodData')" @click="goto('foodData')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.editFood')" @click="goto('editFood')" />
-                <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.boughtItems')" @click="goto('boughtItems')" />
+                <!-- <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.boughtItems')" @click="goto('boughtItems')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.test')" @click="goto('test')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.test2')" @click="goto('test2')" />
-                <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.fitbit')" @click="goto('fitbit')" />
+                <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.fitbit')" @click="goto('fitbit')" /> -->
             </div>
         </div>
     </div>
@@ -47,6 +47,12 @@ const goto = (path: string) => {
 </script>
 
 <style scoped>
+.lsit {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
 .modal {
     position: fixed; /* Stay in place */
     z-index: 10000; /* Sit on top */
@@ -71,11 +77,11 @@ const goto = (path: string) => {
 }
 
 .modal-content {
-    background-color: #312e2e;
+    background-color: #312e2eaa;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    height: 50rem;
-    width: 50rem;
+    height: 21.2rem;
+    width: 20rem;
     position: relative;
 }
 </style>

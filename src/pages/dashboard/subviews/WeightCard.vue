@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container shadowed">
         <div class="inner-container">
             <div class="top"><div>WAGA</div></div>
             <div class="plus-icon">
@@ -16,34 +16,49 @@
 import { useRouter } from "vue-router";
 import { IconPlus } from "@tabler/icons-vue";
 import { useUserStore } from "@/stores/userStore";
-import { onMounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import Chart from "primevue/chart";
 
 const router = useRouter();
 const userStore = useUserStore();
 
-const x = ref([] as (null | number)[]);
-const y = ref([] as string[]);
+const x = ref<(null | number)[]>([]);
+const y = ref<string[]>([]);
 
 const chartData = ref();
 const chartOptions = ref();
 
-watch(
-    () => userStore.lastWeekWeights,
-    async () => {
-        chartData.value = await setChartData();
-        chartOptions.value = setChartOptions();
-    }
-);
+const theme = ref(document.documentElement.getAttribute("data-theme"));
+
+const updateChart = async () => {
+    chartData.value = await setChartData();
+    chartOptions.value = setChartOptions();
+};
+
+watch(() => userStore.lastWeekWeights, updateChart, { deep: true });
+
+watch(theme, updateChart);
+
+const themeChanged = () => {
+    theme.value = document.documentElement.getAttribute("data-theme");
+};
 
 onMounted(async () => {
+    document.documentElement.addEventListener("themeChanged", themeChanged);
+
     if (userStore.lastWeekWeights.length !== 0) {
-        chartData.value = await setChartData();
-        chartOptions.value = setChartOptions();
+        await updateChart();
     }
 });
 
+onUnmounted(() => {
+    document.documentElement.removeEventListener("themeChanged", themeChanged);
+});
+
 const setChartData = async () => {
+    x.value = [];
+    y.value = [];
+
     userStore.lastWeekWeights.forEach((date) => {
         if (date) {
             x.value.push(date.weight);
@@ -52,45 +67,37 @@ const setChartData = async () => {
     });
 
     return {
-        labels: y,
-
+        labels: y.value,
         datasets: [
-            // {
-            //     label: "Projected Weight",
-            //     data: x,
-            //     borderDash: [10, 2],
-            //     spanGaps: true,
-            //     fill: false,
-            //     borderColor: "#333",
-            //     tension: 0.4,
-            // },
             {
-                data: x,
+                data: x.value,
                 fill: true,
                 spanGaps: true,
-                borderColor: "#b197fc",
-                backgroundColor: "#00000070",
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue("--graph-weight-line"),
+                backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--color-weight-background"),
                 tension: 0.4
             }
         ]
     };
 };
+
 const setChartOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
+
+    const textColor = documentStyle.getPropertyValue("--color-text");
+    const textColorSecondary = documentStyle.getPropertyValue("--color-text-secondary");
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
 
     const filteredValues = x.value.filter((v): v is number => v !== null);
+
     const minValue = Math.min(...filteredValues);
     const maxValue = Math.max(...filteredValues);
 
     return {
         maintainAspectRatio: false,
-        aspectRatio: 0.6,
         animation: {
-            duration: 900, // Transition duration in milliseconds
-            easing: "easeInOutQuart" // Easing function
+            duration: 900,
+            easing: "easeInOutQuart"
         },
         plugins: {
             legend: {
@@ -105,11 +112,9 @@ const setChartOptions = () => {
                 ticks: {
                     color: textColorSecondary,
                     maxTicksLimit: 16,
-                    callback: function (value: any): string {
-                        const label = y.value[value]; // y.value contains your date strings
-                        const date = new Date(label);
+                    callback(value: any) {
+                        const date = new Date(y.value[value]);
 
-                        // Return short weekday name in Polish locale, e.g. "pon", "wt"
                         return date.toLocaleDateString("pl-PL", {
                             weekday: "short"
                         });
@@ -121,9 +126,8 @@ const setChartOptions = () => {
                 }
             },
             y: {
-                min: minValue - 1, // 10 below min
-                max: maxValue + 1, // 10 above max
-                beginAtZero: false,
+                min: minValue - 1,
+                max: maxValue + 1,
                 ticks: {
                     color: textColorSecondary
                 },
@@ -165,12 +169,5 @@ const setChartOptions = () => {
     align-items: center;
     overflow-x: hidden;
     position: relative;
-}
-.container {
-    background-color: #1f1c1c;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    border-radius: 5px;
 }
 </style>

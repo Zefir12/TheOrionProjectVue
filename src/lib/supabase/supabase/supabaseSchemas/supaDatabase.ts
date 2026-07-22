@@ -35,6 +35,36 @@ export type Database = {
     };
     public: {
         Tables: {
+            activity: {
+                Row: {
+                    active: boolean | null;
+                    created_at: string;
+                    finished_at: string | null;
+                    id: number;
+                    started_at: string | null;
+                    type: string | null;
+                    user_id: string;
+                };
+                Insert: {
+                    active?: boolean | null;
+                    created_at?: string;
+                    finished_at?: string | null;
+                    id?: number;
+                    started_at?: string | null;
+                    type?: string | null;
+                    user_id?: string;
+                };
+                Update: {
+                    active?: boolean | null;
+                    created_at?: string;
+                    finished_at?: string | null;
+                    id?: number;
+                    started_at?: string | null;
+                    type?: string | null;
+                    user_id?: string;
+                };
+                Relationships: [];
+            };
             bloodpressure: {
                 Row: {
                     created_at: string;
@@ -366,6 +396,120 @@ export type Database = {
                     water_percentage?: number;
                 };
                 Relationships: [];
+            };
+            gym_exercise_sets: {
+                Row: {
+                    created_at: string;
+                    done: boolean;
+                    exercise_id: number;
+                    exercise_type_id: number;
+                    id: number;
+                    is_warmup: boolean;
+                    reps: number;
+                    rir: number | null;
+                    set_number: number;
+                    user_id: string;
+                    weight: number;
+                };
+                Insert: {
+                    created_at?: string;
+                    done?: boolean;
+                    exercise_id: number;
+                    exercise_type_id: number;
+                    id?: number;
+                    is_warmup?: boolean;
+                    reps: number;
+                    rir?: number | null;
+                    set_number: number;
+                    user_id?: string;
+                    weight: number;
+                };
+                Update: {
+                    created_at?: string;
+                    done?: boolean;
+                    exercise_id?: number;
+                    exercise_type_id?: number;
+                    id?: number;
+                    is_warmup?: boolean;
+                    reps?: number;
+                    rir?: number | null;
+                    set_number?: number;
+                    user_id?: string;
+                    weight?: number;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "gym_exercise_sets_exercise_id_fkey";
+                        columns: ["exercise_id"];
+                        isOneToOne: false;
+                        referencedRelation: "gym_exercises";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "gym_exercise_sets_exercise_type_id_fkey";
+                        columns: ["exercise_type_id"];
+                        isOneToOne: false;
+                        referencedRelation: "gym_exercise_types";
+                        referencedColumns: ["id"];
+                    }
+                ];
+            };
+            gym_exercise_types: {
+                Row: {
+                    created_at: string;
+                    id: number;
+                    name: string;
+                };
+                Insert: {
+                    created_at?: string;
+                    id?: number;
+                    name: string;
+                };
+                Update: {
+                    created_at?: string;
+                    id?: number;
+                    name?: string;
+                };
+                Relationships: [];
+            };
+            gym_exercises: {
+                Row: {
+                    activity_id: number;
+                    created_at: string;
+                    exercise_type_id: number;
+                    id: number;
+                    user_id: string;
+                };
+                Insert: {
+                    activity_id: number;
+                    created_at?: string;
+                    exercise_type_id: number;
+                    id?: number;
+                    user_id?: string;
+                };
+                Update: {
+                    activity_id?: number;
+                    created_at?: string;
+                    exercise_type_id?: number;
+                    id?: number;
+                    user_id?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "gym_exercises_activity_id_fkey";
+                        columns: ["activity_id"];
+                        isOneToOne: false;
+                        referencedRelation: "activity";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "gym_exercises_exercise_type_id_fkey";
+                        columns: ["exercise_type_id"];
+                        isOneToOne: false;
+                        referencedRelation: "gym_exercise_types";
+                        referencedColumns: ["id"];
+                    }
+                ];
             };
             health_problems: {
                 Row: {

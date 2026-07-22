@@ -8,7 +8,15 @@
             <div class="arrow-icon" @click="dashboardStore.changeDay(-1)">
                 <IconArrowNarrowLeft size="32" stroke-width="3" />
             </div>
-            <span :style="{ fontWeight: '700' }">{{ dashboardStore.day.toISOString().split("T")[0] }}</span>
+            <span :style="{ fontWeight: '700' }">
+                {{
+                    $d(new Date(dashboardStore.day.getTime() + dashboardStore.day.getTimezoneOffset() * 60000), {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric"
+                    })
+                }}</span
+            >
             <div v-if="dashboardStore.currentDay != 1" class="arrow-icon" @click="dashboardStore.changeDay(1)">
                 <IconArrowNarrowRight size="32" stroke-width="3" />
             </div>
@@ -131,7 +139,6 @@ onMounted(async () => {
 }
 
 .big-panel {
-    background: #332947;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
