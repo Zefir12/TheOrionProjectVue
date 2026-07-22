@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container shadowed">
         <div class="inner-container">
             <div class="top"><div>WAGA</div></div>
             <div class="plus-icon">
@@ -36,13 +36,25 @@ watch(
     }
 );
 
+const theme = ref(document.documentElement.getAttribute("data-theme"));
+
+const changeThemeListener = () => {
+    theme.value = document.documentElement.getAttribute("data-theme");
+};
+
+document.documentElement.addEventListener("themeChanged", changeThemeListener);
+
+watch(theme, () => {
+    chartData.value = setChartData();
+    chartOptions.value = setChartOptions();
+});
+
 onMounted(async () => {
     if (userStore.lastWeekWeights.length !== 0) {
         chartData.value = await setChartData();
         chartOptions.value = setChartOptions();
     }
 });
-
 const setChartData = async () => {
     userStore.lastWeekWeights.forEach((date) => {
         if (date) {
@@ -68,8 +80,8 @@ const setChartData = async () => {
                 data: x,
                 fill: true,
                 spanGaps: true,
-                borderColor: "#b197fc",
-                backgroundColor: "#00000070",
+                borderColor: getComputedStyle(document.documentElement).getPropertyValue("--graph-weight-line"),
+                backgroundColor: getComputedStyle(document.documentElement).getPropertyValue("--color-weight-background"),
                 tension: 0.4
             }
         ]
@@ -77,8 +89,8 @@ const setChartData = async () => {
 };
 const setChartOptions = () => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
+    const textColor = documentStyle.getPropertyValue("--color-text");
+    const textColorSecondary = documentStyle.getPropertyValue("--color-text-secondary");
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
 
     const filteredValues = x.value.filter((v): v is number => v !== null);
@@ -165,12 +177,5 @@ const setChartOptions = () => {
     align-items: center;
     overflow-x: hidden;
     position: relative;
-}
-.container {
-    background-color: #1f1c1c;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    border-radius: 5px;
 }
 </style>

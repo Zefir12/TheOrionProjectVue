@@ -15,7 +15,7 @@ const props = defineProps<{
 .cont {
     height: 3rem;
     width: 3rem;
-    background-color: #3f3f3f;
+    background-color: var(--color-bg-subtle);
     border-radius: 8px;
     display: grid;
     place-items: center;

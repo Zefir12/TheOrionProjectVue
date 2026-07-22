@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container shadowed">
         <div class="inner-container">
             <div class="top"><div>DZISIEJSZE MAKRO</div></div>
             <div class="plus-icon">
@@ -9,11 +9,11 @@
             <FoodInfoChart :proteins="dashboardStore.proteins" :fats="dashboardStore.fats" :carbohydrates="dashboardStore.carbohydrates" :kcal="dashboardStore.kcal" />
 
             <div class="container-foritems">
-                <NumberLabel name="Białko:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.proteins)" suffix="g" /></NumberLabel>
-                <NumberLabel name="Tłuszcze:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fats)" suffix="g" /></NumberLabel>
-                <NumberLabel name="Węglowodany:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.carbohydrates)" suffix="g" /></NumberLabel>
-                <NumberLabel name="Błonnik:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fibre)" suffix="g" /></NumberLabel>
-                <NumberLabel name="Sól:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.salt)" suffix="g" /></NumberLabel>
+                <NumberLabel background-color="#rgba(0,0,0,0)" name="Białko:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.proteins)" suffix="g" /></NumberLabel>
+                <NumberLabel background-color="#rgba(0,0,0,0)" name="Tłuszcze:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fats)" suffix="g" /></NumberLabel>
+                <NumberLabel background-color="#rgba(0,0,0,0)" name="Węglowodany:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.carbohydrates)" suffix="g" /></NumberLabel>
+                <NumberLabel background-color="#rgba(0,0,0,0)" name="Błonnik:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.fibre)" suffix="g" /></NumberLabel>
+                <NumberLabel background-color="#rgba(0,0,0,0)" name="Sól:"><NumberAnimationWrapper :value="Helpers.RoundT1(dashboardStore.salt)" suffix="g" /></NumberLabel>
             </div>
         </div>
     </div>
@@ -57,13 +57,7 @@ const dashboardStore = useDashboardStore();
     overflow-x: hidden;
     position: relative;
 }
-.container {
-    background-color: #1f1c1c;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    border-radius: 5px;
-}
+
 .container-foritems {
     display: grid;
     grid-template-columns: 1fr 1fr;

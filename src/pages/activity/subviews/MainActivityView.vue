@@ -1,6 +1,6 @@
 <template>
     <div class="main-cont">
-        <div class="container">
+        <div class="container4">
             <div class="card" :class="!activeSession ? 'card-small' : 'card-session'">
                 <div @click="createSession" v-if="!activeSession" :style="{ width: '100%', height: '100%' }">Create new session</div>
                 <div class="session-container" v-else>
@@ -79,7 +79,7 @@ const cancelCreateSession = () => {
 .main-cont {
 }
 
-.container {
+.container4 {
     margin: auto;
     margin-top: 10px;
     width: 100%;

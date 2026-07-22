@@ -5,7 +5,7 @@
         <AddSetModal v-model="addSetModalOpen" @added="refreshExercises" />
         <EditSetModal v-model="editSetModalOpen" @refresh-exercise="refreshExercises" />
         <EditExerciseModal v-model="editExerciseModalOpen" @refresh-exercise="refreshExercises" />
-        <div class="container">
+        <div class="container4">
             <Group :style="{ width: '100%' }">
                 <StyledButton name="Finish Workout" @click="confirmFinishModalOpen = true" />
                 <StyledButton name="Load Plan" :disabled="true" />
@@ -164,7 +164,7 @@ tr:nth-child(odd) {
     flex-direction: column;
     gap: 16px;
 }
-.container {
+.container4 {
     margin: auto;
     margin-top: 10px;
     width: 100%;

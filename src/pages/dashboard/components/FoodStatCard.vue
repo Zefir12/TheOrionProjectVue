@@ -106,7 +106,7 @@ const overtreshold = () => {
 }
 
 .stat-card {
-    background: #1f1c1c;
+    background: var(--container-gradient);
     border-radius: 8px;
     padding: 1rem;
     border: var(--border-color) 2px solid;

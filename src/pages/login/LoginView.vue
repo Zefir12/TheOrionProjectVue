@@ -17,7 +17,7 @@ async function loginSubmit() {
 <template>
     <Card class="t">
         <template #content>
-            <div class="container">
+            <div class="container4">
                 <FloatLabel class="container-item">
                     <InputText v-model="store.email" />
                     <label>{{ i18n.t("common.email") }}</label>
@@ -38,7 +38,7 @@ async function loginSubmit() {
     width: 15rem;
     margin: auto;
 }
-.container {
+.container4 {
     display: flex;
     flex-direction: column;
     align-items: center;

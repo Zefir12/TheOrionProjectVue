@@ -4,6 +4,7 @@ import TopHeader from "./components/global/TopHeader.vue";
 import { useUserStore } from "./stores/userStore";
 import { onBeforeMount } from "vue";
 import { useActivityStore } from "./stores/activityStore";
+import "./assets/themes.css";
 const userStore = useUserStore();
 const activityStore = useActivityStore();
 

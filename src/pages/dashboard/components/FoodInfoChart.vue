@@ -8,10 +8,8 @@
                 {
                     data: [props.proteins, props.fats, props.carbohydrates],
                     backgroundColor: ['#646159', '#FFA000', '#7a1515'],
-                    borderColor: ['#000', '#000', '#111'],
-                    borderRadius: '10',
-                    borderWidth: [1.3, 1, 2],
-                    borderAlign: 'inner'
+                    borderColor: ['#000', '#000', '#000'],
+                    borderRadius: '6'
                 }
             ]
         }"
@@ -20,14 +18,15 @@
             maintainAspectRatio: false,
             animation: {
                 animateRotate: false, // Disable rotation animation
-                duration: 450, // Animation duration in ms
-                easing: 'easeOut' // Smooth easing function
+                duration: 150, // Animation duration in ms
+                easing: 'ease' // Smooth easing function
             },
             plugins: {
                 legend: {
                     position: 'bottom',
                     display: true,
                     labels: {
+                        color: textColor,
                         padding: 20,
                         usePointStyle: true,
                         pointStyle: 'circle',
@@ -53,6 +52,9 @@ const props = defineProps<{
     carbohydrates: number;
     kcal: number;
 }>();
+
+const textColor = getComputedStyle(document.documentElement).getPropertyValue("--color-text").trim();
+
 const centerTextPlugin = {
     id: "centerText",
     beforeDraw(chart: any) {
@@ -64,7 +66,7 @@ const centerTextPlugin = {
         const fontSize = 16;
         ctx.font = `bold ${fontSize}px sans-serif`;
         ctx.textBaseline = "middle";
-        ctx.fillStyle = "#fff"; // white color
+        ctx.fillStyle = textColor; // white color
 
         const text = `${props.kcal.toFixed(0)} kcal`;
         const textX = Math.round((width - ctx.measureText(text).width) / 2);

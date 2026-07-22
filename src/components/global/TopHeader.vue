@@ -8,12 +8,13 @@
         <div class="bottom-layer">
             <ButtonIcon class="no-select" @click="router.push({ name: 'food' })" :icon="IconMeat" />
             <ButtonIcon class="no-select" @click="router.push({ name: 'activity' })" :icon="IconGymnastics" />
+            <ButtonIcon class="no-select" @click="cycleTheme" :icon="IconPalette" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { IconSettingsFilled, IconGymnastics, IconMeat } from "@tabler/icons-vue";
+import { IconSettingsFilled, IconGymnastics, IconMeat, IconPalette } from "@tabler/icons-vue";
 import SettingsModal from "./SettingsModal.vue";
 import { ref } from "vue";
 import ButtonIcon from "./ButtonIcon.vue";
@@ -26,8 +27,34 @@ const settingsOpen = ref(false);
 const openSettings = () => {
     settingsOpen.value = true;
 };
-</script>
 
+const themes = ["dark-original", "dark", "light"];
+let currentTheme = 0;
+
+const loadTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme && themes.includes(savedTheme)) {
+        currentTheme = themes.indexOf(savedTheme);
+        document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+        document.documentElement.setAttribute("data-theme", themes[currentTheme]);
+    }
+};
+
+const cycleTheme = () => {
+    currentTheme = (currentTheme + 1) % themes.length;
+
+    const theme = themes[currentTheme];
+
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+
+    document.documentElement.dispatchEvent(new Event("themeChanged"));
+};
+
+loadTheme();
+</script>
 <style scoped>
 .main {
     width: 100%;
@@ -35,7 +62,7 @@ const openSettings = () => {
     min-height: 70px;
     display: flex;
     position: relative;
-    background-color: #1f1c1c;
+    background-color: var(--color-dark-border);
 }
 
 .top-layer {
