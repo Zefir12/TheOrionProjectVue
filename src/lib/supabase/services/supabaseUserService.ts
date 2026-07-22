@@ -1,6 +1,7 @@
 import { UserDailyStats } from "@/stores/userStore";
 import { supabase } from "../supabase/supabase";
 import { Json } from "@/lib/types/json";
+import { Database } from "../supabase/supabaseSchemas/supaDatabase";
 
 export async function getUserDailyTresholds(user_id: string): Promise<UserDailyStats | null> {
     const { error, data } = await supabase.from("user_settings").select("daily_tresholds").eq("user_id", user_id);
@@ -50,7 +51,10 @@ export async function addFavourite(user_id: string, column: "favorite_meals" | "
 
         const { error: updateError } = await supabase
             .from("user_settings")
-            .update({ [column]: newArray })
+            .update({
+                [column]: newArray
+            } as Database["public"]["Tables"]["user_settings"]["Update"])
+            .eq("user_id", user_id)
             .eq("user_id", user_id);
 
         if (updateError) throw updateError;
@@ -71,7 +75,10 @@ export async function removeFavourite(user_id: string, column: "favorite_meals" 
 
         const { error: updateError } = await supabase
             .from("user_settings")
-            .update({ [column]: newArray })
+            .update({
+                [column]: newArray
+            } as Database["public"]["Tables"]["user_settings"]["Update"])
+            .eq("user_id", user_id)
             .eq("user_id", user_id);
 
         if (updateError) throw updateError;

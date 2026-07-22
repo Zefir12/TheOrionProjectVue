@@ -1,7 +1,7 @@
 <template>
     <div class="styled-number-input-container">
         <small class="small-label">{{ props.label }}</small>
-        <VueDatePicker v-model="model" time-picker-inline :action-row="{ showNow: true }" dark />
+        <VueDatePicker v-model="model as any" time-picker-inline :action-row="{ showNow: true }" dark />
     </div>
 </template>
 

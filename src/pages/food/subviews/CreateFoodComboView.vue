@@ -20,7 +20,7 @@
                         <ScrollableStack height="60vh">
                             <BulkFoodItem
                                 v-for="foodtype in createFoodComboStore.selectedFoodItems"
-                                :food-item="foodtype"
+                                :food-item="foodtype as any"
                                 :name="foodtype.name?.toString()"
                                 @submit="createFoodComboStore.deselectItem(foodtype)"
                             />

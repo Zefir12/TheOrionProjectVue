@@ -22,7 +22,7 @@ const routes = [
         name: "home",
         path: "/",
         component: LoginView,
-        beforeEnter: async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+        beforeEnter: async (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
             const {
                 data: { session }
             } = await supabase.auth.getSession();
@@ -38,7 +38,7 @@ const routes = [
         name: "login",
         path: "/login",
         component: LoginView,
-        beforeEnter: async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+        beforeEnter: async (_to: RouteLocationNormalized, _from: RouteLocationNormalized, next: NavigationGuardNext) => {
             const {
                 data: { session }
             } = await supabase.auth.getSession();

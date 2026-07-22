@@ -27,7 +27,7 @@ export async function getFoodsForEditDispaly(startDate: Date, endDate: Date): Pr
         console.log(error);
         throw new Error();
     } else {
-        return data;
+        return data as any;
     }
 }
 

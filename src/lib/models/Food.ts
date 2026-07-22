@@ -3,6 +3,8 @@
 
 //export type FoodInsertItemCombined = TablesInsert<"food"> & Tables<"food_types">;
 export type FoodInsertItemCombined = {
+    servings: string;
+    food_amount: number;
     id: number;
     name: string;
     description: string;
@@ -13,6 +15,19 @@ export type FoodInsertItemCombined = {
     multiplier: number;
     created_at: Date;
     updated_at: Date;
+    carbs: number;
+    fat_saturated: number;
+    fibre: number;
+    kcal: number;
+    nova_score: number | null;
+    nutri_score: number | null;
+    portion_weigth: number;
+    prototype: boolean;
+    salt: number;
+    sugar: number;
+    tags: string | null;
+    user_id: string | null;
+    water_percentage: number;
 };
 
 export type FoodType = {
@@ -56,13 +71,13 @@ export interface Serving {
 export interface FoodAsItemToAdd {
     trueId?: number;
     id: number;
-    internalId: number;
+    internalId?: number;
     name: string;
     option: Serving;
     shelfId: string;
     multiplier: number;
     servings: Serving[];
-    type: "food";
+    type?: "food";
 }
 
 export interface MealAsItemToAdd {
