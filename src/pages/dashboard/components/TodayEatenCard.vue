@@ -1,8 +1,10 @@
 <template>
-    <div class="item" :style="{ backgroundColor: getColor() }">
-        <div class="inside-item">
-            {{ props.food.food_types.name + " " + props.food.food_amount + "g" }}
-            <div class="info-icon" @click="emit('openFoodInfoModal', food)"><IconFileInvoice size="24" stroke-width="2" /></div>
+    <div class="wrapper">
+        <div class="item" :style="{ backgroundColor: getColor() }">
+            <div class="inside-item">
+                {{ props.food.food_types.name + " " + props.food.food_amount + "g" }}
+                <div class="info-icon" @click="emit('openFoodInfoModal', food)"><IconFileInvoice size="24" stroke-width="2" /></div>
+            </div>
         </div>
     </div>
 </template>
@@ -53,13 +55,17 @@ const getColor = () => {
 };
 </script>
 <style scoped>
+.wrapper {
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
 .item {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    border-radius: 0.3rem;
+    border-radius: 0.2rem;
     background-color: #2658c4;
 }
 
@@ -71,8 +77,8 @@ const getColor = () => {
     align-items: center;
     justify-content: space-between;
     padding: 0.3rem;
-    background-color: rgb(45, 43, 43);
-    border-radius: 0.3rem;
+    background: var(--color-food-item-dashboard);
+    border-radius: 0.2rem 0 0 0.2rem;
     transition:
         transform 0.25s ease-out,
         background-color 0.3s ease;

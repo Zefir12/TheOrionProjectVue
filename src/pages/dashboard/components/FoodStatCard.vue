@@ -89,8 +89,12 @@ const overtreshold = () => {
     justify-content: start;
 }
 
+::v-deep(.p-progressbar) {
+    background-color: var(--color-progressbar-background);
+}
+
 ::v-deep(.p-progressbar-label) {
-    color: #fff;
+    color: var(--color-progressbar-text);
 }
 
 ::v-deep(.p-progressbar-determinate .p-progressbar-value-animate) {

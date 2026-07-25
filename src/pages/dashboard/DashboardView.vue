@@ -111,7 +111,7 @@ onMounted(async () => {
     cursor: pointer;
     padding: 3px;
     border-radius: 6px;
-    background-color: #312b43;
+    background-color: var(--color-arrow);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,14 +120,14 @@ onMounted(async () => {
 .arrow-icon-disabled {
     padding: 3px;
     border-radius: 6px;
-    background-color: #3f3f3f;
+    background-color: var(--color-arrow-disabled);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .arrow-icon:hover {
-    background-color: #413a54;
+    background-color: var(--color-arrow-active);
 }
 
 .top-panels {

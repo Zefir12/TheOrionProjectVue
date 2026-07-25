@@ -1,12 +1,3 @@
-/* ==========================================================================
-   THEME TOKENS — generated from a 7-color base palette
-   Structure:
-     1. Raw scale      — tint/shade ramps, theme-independent, never change
-     2. Semantic layer — [data-theme="light"] / [data-theme="dark"]
-   Toggle in JS:  document.documentElement.setAttribute('data-theme', 'dark')
-   ========================================================================== */
-
-/* ---------- 1. Raw scale (your originals are locked in, exact) ---------- */
 :root {
     /* crimson — primary / error  (base: 600 = #BF3945) */
     --color-crimson-50: #fbf4f5;
@@ -98,11 +89,9 @@
     --color-slate-800: #2c4355;
     --color-slate-900: #20323f;
     --color-slate-950: #142029;
+
+    --color-communist-red: #af3436;
 }
-/* ---------- 2. Semantic tokens ----------
-   These are what you actually use in components (var(--color-bg), var(--color-primary), etc).
-   Never reference --color-crimson-600 directly in a component — reference --color-primary,
-   so that swapping data-theme (or re-mapping a token here later) updates everything downstream. */
 
 :root,
 [data-theme="light"] {
@@ -110,6 +99,7 @@
 
     /* Surfaces — "elevation" always reads as lighter, both themes */
     --color-bg: var(--color-clay-300); /* page background */
+    --color-scrollbar: var(--color-clay-800);
 
     --container-gradient: linear-gradient(110deg, var(--color-clay-400) 0%, var(--color-clay-400) 50%, var(--color-clay-500) 100%);
 
@@ -130,6 +120,18 @@
     --color-text-secondary: var(--color-sand-700);
     --color-text-muted: var(--color-neutral-600);
     --color-text-inverse: var(--color-sand-50); /* text on filled/dark elements */
+
+    --color-food-item-dashboard: linear-gradient(90deg, var(--color-sand-300) 0%, var(--color-sand-200) 100%);
+    --color-progressbar-background: var(--color-sand-300);
+    --color-progressbar-text: var(--color-text);
+
+    --color-arrow-disabled: var(--color-clay-200);
+    --color-arrow: var(--color-clay-500);
+    --color-arrow-active: var(--color-clay-400);
+
+    /* Button*/
+    --color-styled-button: #7950f226;
+    --color-styled-button-text: #b197fc;
 
     /* Primary — crimson */
     --color-primary: var(--color-crimson-600);
@@ -177,6 +179,7 @@
 
     /* Surfaces */
     --color-bg: linear-gradient(180deg, var(--color-neutral-900) 0%, var(--color-neutral-950) 100%); /* your original #0C0C0D, exact */
+    --color-scrollbar: #414141;
 
     --container-gradient: linear-gradient(135deg, #1c1c1c97, var(--color-neutral-950));
 
@@ -191,6 +194,18 @@
     --color-weight-background: var(--color-neutral-950);
     --color-border: var(--color-neutral-800);
     --color-border-strong: var(--color-neutral-600);
+
+    --color-food-item-dashboard: rgb(45, 43, 43);
+    --color-progressbar-background: #3f3f46;
+    --color-progressbar-text: var(--color-text);
+
+    --color-arrow-disabled: #3f3f3f;
+    --color-arrow: #312b43;
+    --color-arrow-active: #413a54;
+
+    /* Button*/
+    --color-styled-button: #7950f226;
+    --color-styled-button-text: #b197fc;
 
     /* Text */
     --color-text: var(--color-sand-100);
@@ -245,6 +260,7 @@
 
     /* Surfaces */
     --color-bg: #242424; /* your original #0C0C0D, exact */
+    --color-scrollbar: #414141;
 
     --container-gradient: linear-gradient(240deg, #1b1818 0%, #1f1c1c 50%, #141212 100%);
 
@@ -260,11 +276,103 @@
     --color-border: var(--color-neutral-800);
     --color-border-strong: var(--color-neutral-600);
 
+    --color-food-item-dashboard: rgb(45, 43, 43);
+    --color-progressbar-background: #3f3f46;
+
+    --color-arrow-disabled: #3f3f3f;
+    --color-arrow: #312b43;
+    --color-arrow-active: #413a54;
+
+    /* Button*/
+    --color-styled-button: #7950f226;
+    --color-styled-button-text: #b197fc;
+
     /* Text */
     --color-text: rgba(255, 255, 255, 0.87);
     --color-text-secondary: var(--color-neutral-300);
     --color-text-muted: var(--color-neutral-500);
     --color-text-inverse: var(--color-neutral-950);
+
+    /* Primary — crimson (fill stays constant across themes for brand recognition;
+     hover/active invert direction since "lighter = lifted" on a dark bg) */
+    --color-primary: var(--color-crimson-600);
+    --color-primary-hover: var(--color-crimson-500);
+    --color-primary-active: var(--color-crimson-400);
+    --color-primary-subtle: var(--color-crimson-950);
+    --color-primary-text: var(--color-crimson-400);
+    --color-on-primary: var(--color-sand-50);
+
+    /* Secondary — gold */
+    --color-secondary: var(--color-gold-500);
+    --color-secondary-hover: var(--color-gold-400);
+    --color-secondary-subtle: var(--color-gold-950);
+    --color-on-secondary: var(--color-sand-900);
+
+    /* Accent — clay */
+    --color-accent: var(--color-clay-500);
+    --color-accent-fill: var(--color-clay-700);
+    --color-accent-hover: var(--color-clay-600);
+    --color-accent-subtle: var(--color-clay-950);
+    --color-on-accent: var(--color-sand-50);
+
+    /* Status */
+    --color-success: var(--color-sage-600);
+    --color-success-subtle: var(--color-sage-950);
+    --color-on-success: var(--color-sand-50);
+
+    --color-warning: var(--color-gold-500);
+    --color-warning-subtle: var(--color-gold-950);
+    --color-on-warning: var(--color-sand-900);
+
+    --color-error: var(--color-crimson-600);
+    --color-error-subtle: var(--color-crimson-950);
+    --color-on-error: var(--color-sand-50);
+
+    --color-info: var(--color-slate-600);
+    --color-info-subtle: var(--color-slate-950);
+    --color-on-info: var(--color-sand-50);
+
+    --color-focus-ring: var(--color-crimson-400);
+}
+
+[data-theme="communist-red"] {
+    color-scheme: dark;
+
+    --color-bg: #210707;
+    /*--color-bg: url("iamges/universtock.jpg") center/cover no-repeat fixed;*/
+
+    --color-scrollbar: #100000;
+
+    --container-gradient: radial-gradient(ellipse at center, var(--color-communist-red) 0, #160202 100%);
+    --color-bg-subtle: var(--color-neutral-900); /* your original #252426, exact */
+    --color-surface: var(--color-neutral-800);
+    --color-surface-hover: var(--color-neutral-700);
+
+    --color-dark-border: #140101;
+
+    --graph-weight-line: #000000;
+    --color-weight-background: #2e0707;
+    /* Borders */
+    --color-border: var(--color-neutral-800);
+    --color-border-strong: var(--color-neutral-600);
+
+    --color-food-item-dashboard: radial-gradient(ellipse at left, rgb(88, 8, 8) 0, #280202 100%);
+    --color-progressbar-background: #1b0404;
+    --color-progressbar-text: var(--color-text);
+
+    --color-arrow-disabled: #3b1d1d;
+    --color-arrow: #741111;
+    --color-arrow-active: #bc0e0e;
+
+    /* Text */
+    --color-text: rgba(255, 255, 255, 0.87);
+    --color-text-secondary: var(--color-neutral-300);
+    --color-text-muted: var(--color-neutral-500);
+    --color-text-inverse: var(--color-neutral-950);
+
+    /* Button*/
+    --color-styled-button: #820b0b44;
+    --color-styled-button-text: var(--color-text);
 
     /* Primary — crimson (fill stays constant across themes for brand recognition;
      hover/active invert direction since "lighter = lifted" on a dark bg) */
