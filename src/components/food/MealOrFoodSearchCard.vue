@@ -7,7 +7,7 @@
         :name="name"
         :style="{ position: 'relative', overflow: 'hidden' }"
     >
-        <IconBowlChopsticks v-if="props.type == 'meal'" color="#4e3f6d" :style="{ position: 'absolute', right: '4px', bottom: '4px' }" stroke-width="2" size="24" />
+        <IconBowlChopsticks v-if="props.type == 'meal'" color="var(--color-meal-search-icon)" :style="{ position: 'absolute', right: '4px', bottom: '4px' }" stroke-width="2" size="24" />
         <IconStar
             @click.stop="userStore.setFavouriteFood(item_id, true, type ?? 'food')"
             v-if="!isFavorite()"
@@ -51,8 +51,8 @@ defineEmits(["click"]);
 
 <style scoped>
 .z-inside-container {
-    max-width: 6rem;
-    max-height: 6rem;
+    max-width: 5.5rem;
+    max-height: 5.5rem;
 
     overflow: hidden;
     font-family:
@@ -112,8 +112,8 @@ defineEmits(["click"]);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 8rem;
-    min-height: 8rem;
+    min-width: 7rem;
+    min-height: 7rem;
     background: rgb(41, 41, 41);
     border-style: groove;
     border-color: rgb(0, 0, 0, 0.3);
@@ -127,7 +127,7 @@ defineEmits(["click"]);
 }
 .z-card-container:hover {
     cursor: pointer;
-    background-color: rgba(132, 94, 247, 0.2);
+    background-color: var(--color-meal-search-card-highlight);
 }
 
 .z-card-container-disabled {
@@ -136,8 +136,8 @@ defineEmits(["click"]);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 8rem;
-    min-height: 8rem;
+    min-width: 6rem;
+    min-height: 6rem;
     background: rgb(27, 27, 27);
     border-style: groove;
     border-color: rgba(0, 0, 0, 0.548);

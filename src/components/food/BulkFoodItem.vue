@@ -2,9 +2,11 @@
     <div class="zefir-main-card">
         <div class="right-side">
             <Select v-model="foodItem.option" :options="foodItem.servings" class="zefir-select"></Select>
+            <div class="content-center"><StyledNumberInput :style="{ maxWidth: '6rem' }" v-model="foodItem.multiplier"></StyledNumberInput></div>
         </div>
-        <div class="content-center"><StyledNumberInput :style="{ maxWidth: '6rem' }" v-model="foodItem.multiplier"></StyledNumberInput></div>
-        <div class="content-center">{{ props.name }}</div>
+        <div class="content-center">
+            <div>{{ props.name }}</div>
+        </div>
         <button class="x-button" @click="emit('submit')">X</button>
     </div>
 </template>
@@ -27,19 +29,23 @@ onMounted(() => {});
 <style scoped>
 .content-center {
     display: flex;
+    justify-content: center;
+    flex-grow: 1;
     align-items: center;
-    height: 100%;
+    font-size: smaller;
+    text-align: center;
 }
 .zefir-select {
     height: 100%;
+    max-width: 6rem;
 }
 .right-side {
     height: 100%;
     /* background-color: aqua; */
 }
 .x-button {
-    height: 3rem;
-    width: 3rem;
+    height: 3.4rem;
+    width: 3.4rem;
     border-radius: 5px;
     border: 0px;
     cursor: pointer;
@@ -52,10 +58,11 @@ onMounted(() => {});
     min-height: 3rem;
     display: flex;
     justify-content: space-between;
+    align-items: stretch;
     border-radius: 5px;
     padding: 0px;
     overflow: hidden;
-    background: #7950f226;
-    color: #b197fc;
+    background: var(--color-meal-item-row);
+    color: var(--color-text);
 }
 </style>

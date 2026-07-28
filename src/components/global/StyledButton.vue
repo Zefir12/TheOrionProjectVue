@@ -78,6 +78,6 @@ defineEmits(["click"]);
 }
 
 .my-button:hover:enabled {
-    background-color: rgba(132, 94, 247, 0.2);
+    background-color: var(--color-styled-button-hover);
 }
 </style>

@@ -1,19 +1,21 @@
 <template>
     <div class="zefir-weight-container">
         <div class="zefir-content">
-            <Stack height="100%">
+            <div style="height: 500px">
                 <Group justify="center">
                     <StyledNumberInput v-model="weightStore.weightToAdd" />
                     <StyledButton @click="addWeight" name="Add" width="auto" />
-                    <Calendar :style="{ width: '12rem' }" id="calendar-24h" v-model="date" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
+                </Group>
+                <div style="display: flex; flex-direction: row; justify-content: center">
+                    <Calendar :style="{ width: '7.6rem' }" id="calendar-24h" v-model="date" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
                     <div :style="{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }">
                         <label :style="{ fontSize: '10px', textAlign: 'center' }">Begin at 0</label> <input type="checkbox" v-model="weightChartTotal" />
                     </div>
-                </Group>
+                </div>
                 <div :key="`${chartData}`" class="zefir-chart-container">
                     <Chart :ref="chartRef" class="zefir-chart" type="line" :data="chartData" :options="chartOptions" />
                 </div>
-            </Stack>
+            </div>
         </div>
     </div>
 </template>
@@ -22,7 +24,6 @@
 import StyledNumberInput from "@/components/global/StyledNumberInput.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import Group from "@/components/global/containers/Group.vue";
-import Stack from "@/components/global/containers/Stack.vue";
 import { onMounted, ref, watch } from "vue";
 import Chart from "primevue/chart";
 import { useWeightStore } from "./store/weightStore";
@@ -94,6 +95,11 @@ function curateData(data: Tables<"weight">[]) {
 }
 
 const setChartData = async () => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue("--text-color");
+    const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
+    const lineColor = documentStyle.getPropertyValue("--color-weight-graph-line");
+    console.log(lineColor);
     // const x: (number | null)[] = [];
     // const y: string[] = [];
     // const weight = await getAllWeight();
@@ -131,7 +137,7 @@ const setChartData = async () => {
                 data: x,
                 fill: true,
                 spanGaps: true,
-                borderColor: "#b197fc",
+                borderColor: lineColor,
                 backgroundColor: "#00000070",
                 tension: 0.4
             }

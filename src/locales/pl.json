@@ -31,7 +31,8 @@
     "weight": "Waga",
     "test": "Test",
     "fitbit": "Fitbit",
-    "test2": "Test2"
+    "test2": "Test2",
+    "editFood": "Edytuj jedzenie"
   },
   "AddFoodView": {
     "addToDatabase": "Dodaj do bazy danych",

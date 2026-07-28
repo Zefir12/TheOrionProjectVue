@@ -12,7 +12,6 @@ defineProps<{ height?: string; gap?: string }>();
 .z-scrollablestack-container {
     overflow-y: auto;
     flex-wrap: nowrap;
-    height: 70vh;
     border-color: yellowgreen;
     border-radius: 1px;
 }

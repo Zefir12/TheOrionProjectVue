@@ -17,7 +17,7 @@ const model = defineModel({ required: false, default: 0 });
     font-size: x-small;
     color: #828282;
     margin: 0;
-    padding-bottom: 2px;
+    padding-bottom: 0px;
 }
 
 .styled-number-input-container {

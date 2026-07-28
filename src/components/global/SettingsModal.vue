@@ -7,6 +7,7 @@
             <div class="lsit">
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.logout')" @click="logout" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.dashboard')" @click="goto('dashboard')" />
+                <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.foodCombo')" @click="goto('foodCombo')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.food')" @click="goto('food')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.weight')" @click="goto('weight')" />
                 <StyledButton :disabled="!loginStore.userLogged" :name="i18n.t('MySidebar.bloodPreassure')" @click="goto('bloodpreassure')" />
@@ -54,15 +55,15 @@ const goto = (path: string) => {
 }
 
 .modal {
-    position: fixed; /* Stay in place */
-    z-index: 10000; /* Sit on top */
+    position: fixed;
+    z-index: 10000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,10 +78,10 @@ const goto = (path: string) => {
 }
 
 .modal-content {
-    background-color: #312e2eaa;
+    background: var(--color-settings-modal);
     padding: 0.5rem;
     border-radius: 0.5rem;
-    height: 21.2rem;
+    height: 23.8rem;
     width: 20rem;
     position: relative;
 }

@@ -15,6 +15,7 @@ import FitbitView from "@/pages/fitbit/FitbitView.vue";
 import { baseUrl } from "@/common/consts";
 import AccessRedicrectView from "@/pages/access-redirect/accessRedicrectView.vue";
 import ActivityView from "@/pages/activity/ActivityView.vue";
+import CreateFoodComboView from "@/pages/food/CreateFoodComboView.vue";
 
 const routes = [
     { name: "dashboard", path: "/dashboard", component: DashboardView },
@@ -51,6 +52,7 @@ const routes = [
         }
     },
     { name: "food", path: "/food", component: FoodView },
+    { name: "foodCombo", path: "/foodCombo", component: CreateFoodComboView },
     { name: "weight", path: "/weight", component: WeightView },
     { name: "bloodpreassure", path: "/bloodpreassure", component: BloodPreassureView },
     { name: "foodData", path: "/fooddata", component: FoodDataView },

@@ -110,6 +110,8 @@
     /* Borders */
     --color-dark-border: color-mix(in srgb, var(--color-sand-500) 50%, var(--color-neutral-500));
 
+    --button-icon-background: var(--color-bg-subtle);
+
     --graph-weight-line: var(--color-clay-900);
     --color-weight-background: var(--color-clay-700);
     --color-border: var(--color-neutral-300); /* subtle dividers */
@@ -130,8 +132,18 @@
     --color-arrow-active: var(--color-clay-400);
 
     /* Button*/
-    --color-styled-button: #7950f226;
-    --color-styled-button-text: #b197fc;
+    --color-styled-button: #9e922995;
+    --color-styled-button-text: #222127;
+    --color-styled-button-hover: rgba(247, 242, 94, 0.2);
+
+    --color-settings-modal: #d1d6b3aa;
+    --color-time-shelf-card: rgba(226, 211, 43, 0.05);
+    --color-time-shelf-item: rgb(161, 146, 95);
+    --color-meal-search-card-highlight: rgba(237, 247, 94, 0.2);
+    --color-meal-search-icon: #6c6d3f;
+
+    --color-meal-item-row: #9c9b6026;
+    --color-weight-graph-line: #fcf997;
 
     /* Primary — crimson */
     --color-primary: var(--color-crimson-600);
@@ -190,6 +202,8 @@
     /* Borders */
     --color-dark-border: color-mix(in srgb, var(--color-neutral-950) 60%, var(--color-neutral-900));
 
+    --button-icon-background: var(--color-bg-subtle);
+
     --graph-weight-line: var(--color-accent);
     --color-weight-background: var(--color-neutral-950);
     --color-border: var(--color-neutral-800);
@@ -206,6 +220,16 @@
     /* Button*/
     --color-styled-button: #7950f226;
     --color-styled-button-text: #b197fc;
+    --color-styled-button-hover: rgba(132, 94, 247, 0.2);
+
+    --color-settings-modal: #312e2eaa;
+    --color-time-shelf-card: rgba(137, 43, 226, 0.05);
+    --color-time-shelf-item: rgb(87, 30, 95);
+    --color-meal-search-card-highlight: rgba(132, 94, 247, 0.2);
+    --color-meal-search-icon: #4e3f6d;
+
+    --color-meal-item-row: #7950f226;
+    --color-weight-graph-line: #b197fc;
 
     /* Text */
     --color-text: var(--color-sand-100);
@@ -270,11 +294,14 @@
 
     --color-dark-border: #141212;
 
+    --button-icon-background: var(--color-bg-subtle);
+
     --graph-weight-line: var(--color-accent);
     --color-weight-background: var(--color-neutral-950);
     /* Borders */
     --color-border: var(--color-neutral-800);
     --color-border-strong: var(--color-neutral-600);
+    --color-meal-search-card-highlight: rgba(132, 94, 247, 0.2);
 
     --color-food-item-dashboard: rgb(45, 43, 43);
     --color-progressbar-background: #3f3f46;
@@ -286,6 +313,15 @@
     /* Button*/
     --color-styled-button: #7950f226;
     --color-styled-button-text: #b197fc;
+    --color-styled-button-hover: rgba(132, 94, 247, 0.2);
+
+    --color-settings-modal: #312e2eaa;
+    --color-time-shelf-card: rgba(137, 43, 226, 0.05);
+    --color-time-shelf-item: rgb(87, 30, 95);
+    --color-meal-search-icon: #4e3f6d;
+
+    --color-meal-item-row: #7950f226;
+    --color-weight-graph-line: #b197fc;
 
     /* Text */
     --color-text: rgba(255, 255, 255, 0.87);
@@ -350,8 +386,17 @@
 
     --color-dark-border: #140101;
 
+    --button-icon-background: #520b0b;
+    --color-time-shelf-card: rgba(138, 15, 15, 0.313);
+    --color-time-shelf-item: rgba(145, 0, 0, 0.812);
+    --color-meal-search-card-highlight: rgba(247, 94, 94, 0.2);
+    --color-meal-search-icon: #8a1a1a;
+
+    --color-meal-item-row: #f2505026;
+
     --graph-weight-line: #000000;
     --color-weight-background: #2e0707;
+
     /* Borders */
     --color-border: var(--color-neutral-800);
     --color-border-strong: var(--color-neutral-600);
@@ -360,9 +405,11 @@
     --color-progressbar-background: #1b0404;
     --color-progressbar-text: var(--color-text);
 
+    --color-weight-graph-line: #8e0101;
+
     --color-arrow-disabled: #3b1d1d;
     --color-arrow: #741111;
-    --color-arrow-active: #bc0e0e;
+    --color-arrow-active: #ac2626;
 
     /* Text */
     --color-text: rgba(255, 255, 255, 0.87);
@@ -373,6 +420,9 @@
     /* Button*/
     --color-styled-button: #820b0b44;
     --color-styled-button-text: var(--color-text);
+    --color-styled-button-hover: rgba(229, 0, 0, 0.2);
+
+    --color-settings-modal: radial-gradient(ellipse at center, #520303 0, #0000009c 100%);
 
     /* Primary — crimson (fill stays constant across themes for brand recognition;
      hover/active invert direction since "lighter = lifted" on a dark bg) */
@@ -415,48 +465,3 @@
 
     --color-focus-ring: var(--color-crimson-400);
 }
-
-/* ---------- 3. Optional: respect system preference when no data-theme is set ---------- */
-/* @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    color-scheme: dark;
-    --color-bg: var(--color-neutral-950);
-    --color-bg-subtle: var(--color-neutral-900);
-    --color-surface: var(--color-neutral-800);
-    --color-surface-hover: var(--color-neutral-700);
-    --color-border: var(--color-neutral-800);
-    --color-border-strong: var(--color-neutral-600);
-    --color-text: var(--color-sand-100);
-    --color-text-secondary: var(--color-neutral-300);
-    --color-text-muted: var(--color-neutral-500);
-    --color-text-inverse: var(--color-neutral-950);
-    --color-primary: var(--color-crimson-600);
-    --color-primary-hover: var(--color-crimson-500);
-    --color-primary-active: var(--color-crimson-400);
-    --color-primary-subtle: var(--color-crimson-950);
-    --color-primary-text: var(--color-crimson-400);
-    --color-on-primary: var(--color-sand-50);
-    --color-secondary: var(--color-gold-500);
-    --color-secondary-hover: var(--color-gold-400);
-    --color-secondary-subtle: var(--color-gold-950);
-    --color-on-secondary: var(--color-sand-900);
-    --color-accent: var(--color-clay-500);
-    --color-accent-fill: var(--color-clay-700);
-    --color-accent-hover: var(--color-clay-600);
-    --color-accent-subtle: var(--color-clay-950);
-    --color-on-accent: var(--color-sand-50);
-    --color-success: var(--color-sage-600);
-    --color-success-subtle: var(--color-sage-950);
-    --color-on-success: var(--color-sand-50);
-    --color-warning: var(--color-gold-500);
-    --color-warning-subtle: var(--color-gold-950);
-    --color-on-warning: var(--color-sand-900);
-    --color-error: var(--color-crimson-600);
-    --color-error-subtle: var(--color-crimson-950);
-    --color-on-error: var(--color-sand-50);
-    --color-info: var(--color-slate-600);
-    --color-info-subtle: var(--color-slate-950);
-    --color-on-info: var(--color-sand-50);
-    --color-focus-ring: var(--color-crimson-400);
-  }
-} */

@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="item" :style="{ backgroundColor: getColor() }">
             <div class="inside-item">
-                {{ props.food.food_types.name + " " + props.food.food_amount + "g" }}
+                {{ getName() }}
                 <div class="info-icon" @click="emit('openFoodInfoModal', food)"><IconFileInvoice size="24" stroke-width="2" /></div>
             </div>
         </div>
@@ -18,6 +18,11 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["openFoodInfoModal"]);
+
+const getName = () => {
+    let stringhg = props.food.food_types.name + " " + props.food.food_amount + "g";
+    return stringhg.slice(0, 27);
+};
 
 const getColor = () => {
     const { water_percentage, carbs, fat, protein } = props.food.food_types;
@@ -58,6 +63,7 @@ const getColor = () => {
 .wrapper {
     border-radius: 0.2rem;
     overflow: hidden;
+    border: solid #000 1px;
 }
 .item {
     width: 100%;
@@ -65,7 +71,7 @@ const getColor = () => {
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
-    border-radius: 0.2rem;
+    border-radius: 0.2rem 0 0 0.2rem;
     background-color: #2658c4;
 }
 
@@ -74,10 +80,12 @@ const getColor = () => {
     width: 100%;
     height: 100%;
     display: flex;
+
     align-items: center;
     justify-content: space-between;
     padding: 0.3rem;
     background: var(--color-food-item-dashboard);
+
     border-radius: 0.2rem 0 0 0.2rem;
     transition:
         transform 0.25s ease-out,

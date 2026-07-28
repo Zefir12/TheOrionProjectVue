@@ -1,6 +1,72 @@
+<template>
+    <div class="bulk-layout">
+        <div class="column" style="gap: 4px; display: flex; flex-direction: column; padding: 4px">
+            <Group :gap="'xs'">
+                <Select :style="{ height: '2.25rem', width: '100%' }" v-model="selectedTimingstemplate" :options="[{ name: 'pog', value: 100 }]" />
+                <StyledButton :style="{ width: '3rem' }" @click="" :name="'+'" />
+            </Group>
+            <TimeShelfCard
+                v-for="timeShelf in addFoodBulkStore.timeShelfs"
+                :highlighted="addFoodBulkStore.currentTimeShelfId === timeShelf.id"
+                :key="timeShelf.id"
+                :name="timeShelf.name"
+                :text="timeShelf.startTime + ' - ' + timeShelf.endTime"
+                @click="addFoodBulkStore.currentTimeShelfId = timeShelf.id"
+                @dragover.prevent
+                @drop="drop($event, timeShelf)"
+            >
+                <template #content>
+                    <TimeShelfItem v-for="item in addFoodBulkStore.getItemsInShelf(timeShelf.id)" :name="(item.name as string).slice(0, 400)" :draggable="true" @dragstart="dragStart($event, item)" />
+                </template>
+            </TimeShelfCard>
+        </div>
+        <div class="column" style="padding: 4px">
+            <Group>
+                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(-1)" :name="'<'" />
+                <Calendar :style="{ width: '100%' }" id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
+                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(1)" :name="'>'" />
+            </Group>
+            <Group style="margin-bottom: 6px">
+                <div style="display: flex; align-items: center; font-size: smaller"><IconBolt color="yellow" size="20" />{{ addFoodBulkStore.getTotalsInCurrentShelf().totalKcal }}</div>
+                <div style="display: flex; align-items: center; font-size: smaller"><IconMeat color="red" size="20" />{{ addFoodBulkStore.getTotalsInCurrentShelf().totalProtein }}</div>
+                <div style="display: flex; align-items: center; font-size: smaller"><IconCandy size="20" />{{ addFoodBulkStore.getTotalsInCurrentShelf().totalCarbs }}</div>
+            </Group>
+            <Group style="margin-bottom: 6px">
+                <StyledButton @click="addFoodBulkStore.addToDatabase()" :name="i18n.t('AddFoodView.addToDatabase')" />
+            </Group>
+            <ScrollableStack style="gap: 6px">
+                <div v-for="item in addFoodBulkStore.getItemsInCurrentShelf()">
+                    <BulkFoodItem v-if="item.type == 'food'" :food-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
+                    <MealItem v-if="item.type == 'meal'" :meal-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
+                </div>
+            </ScrollableStack>
+        </div>
+        <div class="column" style="padding: 4px">
+            <CardInput v-model="addFoodBulkStore.query" />
+            <div class="zefir-foodtypes-container">
+                <MealOrFoodSearchCard
+                    v-for="foodtype in addFoodBulkStore.getItemsForQueryList()"
+                    :key="foodtype.id + foodtype.type"
+                    :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
+                    :name="foodtype.name?.toString()"
+                    :type="foodtype.type"
+                    :item_id="foodtype.id"
+                    :metadata="
+                        foodtype.type == 'food'
+                            ? addFoodBulkStore.getFoodMetadata(foodtype.id)
+                                ? Object.values(JSON.parse(addFoodBulkStore.getFoodMetadata(foodtype.id))).join(',')
+                                : undefined
+                            : undefined
+                    "
+                    @click="addFoodBulkStore.selectItem(foodtype)"
+                />
+            </div>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 import Group from "@/components/global/containers/Group.vue";
-import Stack from "@/components/global/containers/Stack.vue";
 import StyledButton from "@/components/global/StyledButton.vue";
 import CardInput from "@/components/food/CardInput.vue";
 import ScrollableStack from "@/components/global/containers/ScrollableStack.vue";
@@ -16,6 +82,7 @@ import Calendar from "primevue/calendar";
 import BulkFoodItem from "@/components/food/BulkFoodItem.vue";
 import { FoodAsItemToAdd, MealAsItemToAdd } from "@/lib/models/Food";
 import MealItem from "@/components/food/MealItem.vue";
+import { IconBolt, IconMeat, IconCandy } from "@tabler/icons-vue";
 
 const addFoodBulkStore = useAddFoodBulkStore();
 const selectedTimingstemplate = ref(null);
@@ -37,72 +104,6 @@ function adjustDay(deltaDays: number) {
     addFoodBulkStore.time = current;
 }
 </script>
-<template>
-    <Group ml="10rem" mr="10rem">
-        <Stack align="stretch">
-            <Group :gap="'xs'">
-                <Select :style="{ height: '2.25rem', width: '100%' }" v-model="selectedTimingstemplate" :options="[{ name: 'pog', value: 100 }]" />
-                <StyledButton :style="{ width: '3rem' }" @click="" :name="'+'" />
-            </Group>
-            <TimeShelfCard
-                v-for="timeShelf in addFoodBulkStore.timeShelfs"
-                :style="{ width: 'auto' }"
-                :highlighted="addFoodBulkStore.currentTimeShelfId === timeShelf.id"
-                :key="timeShelf.id"
-                :name="timeShelf.name"
-                :text="timeShelf.startTime + ' - ' + timeShelf.endTime"
-                @click="addFoodBulkStore.currentTimeShelfId = timeShelf.id"
-                @dragover.prevent
-                @drop="drop($event, timeShelf)"
-            >
-                <template #content>
-                    <TimeShelfItem v-for="item in addFoodBulkStore.getItemsInShelf(timeShelf.id)" :name="(item.name as string).slice(0, 400)" :draggable="true" @dragstart="dragStart($event, item)" />
-                </template>
-            </TimeShelfCard>
-        </Stack>
-        <Stack gap="xs" align="stretch">
-            <Group>
-                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(-1)" :name="'<'" />
-                <Calendar :style="{ width: '100%' }" id="calendar-24h" v-model="addFoodBulkStore.time" hour-format="24" show-icon icon-display="input" dateFormat="dd/mm/yy" />
-                <StyledButton :style="{ width: '3rem' }" @click="adjustDay(1)" :name="'>'" />
-            </Group>
-            <Group>
-                {{ addFoodBulkStore.getTotalsInCurrentShelf() }}
-            </Group>
-            <Group>
-                <StyledButton @click="addFoodBulkStore.addToDatabase()" :name="i18n.t('AddFoodView.addToDatabase')" />
-            </Group>
-
-            <ScrollableStack gap="xs" height="80vh">
-                <div v-for="item in addFoodBulkStore.getItemsInCurrentShelf()">
-                    <BulkFoodItem v-if="item.type == 'food'" :food-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
-                    <MealItem v-if="item.type == 'meal'" :meal-item="item" :name="item.name?.toString()" @submit="addFoodBulkStore.deselectItem(item)" />
-                </div>
-            </ScrollableStack>
-        </Stack>
-        <Stack gap="xs" align="flex-start">
-            <CardInput v-model="addFoodBulkStore.query" />
-            <div class="zefir-foodtypes-container">
-                <MealOrFoodSearchCard
-                    v-for="foodtype in addFoodBulkStore.getItemsForQueryList()"
-                    :key="foodtype.id + foodtype.type"
-                    :visible="foodtype.name?.toLowerCase().includes(addFoodBulkStore.query.toLowerCase())"
-                    :name="foodtype.name?.toString()"
-                    :type="foodtype.type"
-                    :item_id="foodtype.id"
-                    :metadata="
-                        foodtype.type == 'food'
-                            ? addFoodBulkStore.getFoodMetadata(foodtype.id)
-                                ? Object.values(JSON.parse(addFoodBulkStore.getFoodMetadata(foodtype.id))).join(',')
-                                : undefined
-                            : undefined
-                    "
-                    @click="addFoodBulkStore.selectItem(foodtype)"
-                />
-            </div>
-        </Stack>
-    </Group>
-</template>
 
 <style scoped>
 .zefir-foodtypes-container {
@@ -110,14 +111,26 @@ function adjustDay(deltaDays: number) {
     flex-direction: row;
     flex-wrap: wrap;
     overflow-y: auto;
-    max-height: 70vh;
+    max-height: 40rem;
     align-items: stretch;
-    max-width: 25.5rem;
+    max-width: 24.8rem;
 }
 
-.tab-head {
+.bulk-layout {
+    padding-top: 2px;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 0.4rem; /* optional */
+}
+
+.column {
+    width: 360px;
+}
+
+@media (max-width: 1200px) {
+    .bulk-layout {
+        flex-direction: column;
+        align-items: center; /* center the 360px columns */
+    }
 }
 </style>

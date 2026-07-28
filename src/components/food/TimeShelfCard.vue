@@ -35,11 +35,9 @@ const props = defineProps<{
     cursor: pointer;
 }
 .highlight {
-    background-color: rgba(137, 43, 226, 0.05);
+    background-color: var(--color-time-shelf-card);
     border-width: 1px;
     border-color: rgba(22, 0, 31, 0.233);
     border-style: solid;
-}
-.absolute-text {
 }
 </style>

@@ -11,7 +11,7 @@ const props = defineProps<{
     width: 60px;
     height: 30px;
     border-width: 1px;
-    background-color: rgb(87, 30, 95);
+    background-color: var(--color-time-shelf-item);
     border-radius: 3px;
     border-style: solid;
     border-color: black;
