@@ -18,7 +18,7 @@ export default defineConfig({
         svgLoader(),
         vue(),
         VitePWA({
-            registerType: "prompt",
+            registerType: "autoUpdate",
             workbox: {
                 skipWaiting: true,
                 clientsClaim: true,

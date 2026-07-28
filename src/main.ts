@@ -13,6 +13,14 @@ import { VueQueryPlugin } from "@tanstack/vue-query";
 const pinia = createPinia();
 const app = createApp(App);
 
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+            registration.unregister();
+        });
+    });
+}
+
 app.use(VueQueryPlugin);
 app.use(ToastService);
 app.use(router);
