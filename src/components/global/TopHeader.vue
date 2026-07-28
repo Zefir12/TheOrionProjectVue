@@ -28,7 +28,7 @@ const openSettings = () => {
     settingsOpen.value = true;
 };
 
-const themes = ["dark-original", "dark", "light", "communist-red"];
+const themes = ["dark-original", "dark", "light", "communist-red", "catppuccin-mocha"];
 let currentTheme = 0;
 
 const loadTheme = () => {

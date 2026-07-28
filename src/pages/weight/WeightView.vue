@@ -96,8 +96,6 @@ function curateData(data: Tables<"weight">[]) {
 
 const setChartData = async () => {
     const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
     const lineColor = documentStyle.getPropertyValue("--color-weight-graph-line");
     console.log(lineColor);
     // const x: (number | null)[] = [];

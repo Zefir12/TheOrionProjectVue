@@ -465,3 +465,96 @@
 
     --color-focus-ring: var(--color-crimson-400);
 }
+
+[data-theme="catppuccin-mocha"] {
+    color-scheme: dark;
+
+    /* Surfaces */
+    --color-bg: #1e1e2e; /* Base */
+    --color-scrollbar: #6c7086;
+
+    --container-gradient: linear-gradient(135deg, #313244 0%, #181825 100%);
+
+    --color-bg-subtle: #181825; /* Mantle */
+    --color-surface: #313244; /* Surface0 */
+    --color-surface-hover: #45475a; /* Surface1 */
+
+    --color-dark-border: #11111b;
+    --button-icon-background: #181825;
+
+    --graph-weight-line: #cba6f7;
+    --color-weight-background: #11111b;
+
+    /* Borders */
+    --color-border: #45475a;
+    --color-border-strong: #585b70;
+
+    /* Dashboard */
+    --color-food-item-dashboard: rgb(40, 42, 54);
+    --color-progressbar-background: #45475a;
+    --color-progressbar-text: var(--color-text);
+
+    --color-arrow-disabled: #45475a;
+    --color-arrow: #cba6f7;
+    --color-arrow-active: #89b4fa;
+
+    /* Buttons */
+    --color-styled-button: #cba6f722;
+    --color-styled-button-text: #cba6f7;
+    --color-styled-button-hover: #cba6f733;
+
+    --color-settings-modal: #1e1e2eee;
+    --color-time-shelf-card: rgba(203, 166, 247, 0.05);
+    --color-time-shelf-item: rgba(203, 166, 247, 0.18);
+    --color-meal-search-card-highlight: rgba(203, 166, 247, 0.15);
+    --color-meal-search-icon: #cba6f7;
+
+    --color-meal-item-row: rgba(203, 166, 247, 0.1);
+    --color-weight-graph-line: #cba6f7;
+
+    /* Text */
+    --color-text: #cdd6f4; /* Text */
+    --color-text-secondary: #bac2de; /* Subtext1 */
+    --color-text-muted: #9399b2; /* Overlay1 */
+    --color-text-inverse: #11111b;
+
+    /* Primary (Mauve) */
+    --color-primary: #cba6f7;
+    --color-primary-hover: #d4b8fa;
+    --color-primary-active: #e0caff;
+    --color-primary-subtle: #313244;
+    --color-primary-text: #cba6f7;
+    --color-on-primary: #11111b;
+
+    /* Secondary (Blue) */
+    --color-secondary: #89b4fa;
+    --color-secondary-hover: #a6c8ff;
+    --color-secondary-subtle: #313244;
+    --color-on-secondary: #11111b;
+
+    /* Accent (Peach) */
+    --color-accent: #fab387;
+    --color-accent-fill: #fab387;
+    --color-accent-hover: #f9c29d;
+    --color-accent-subtle: #313244;
+    --color-on-accent: #11111b;
+
+    /* Status */
+    --color-success: #a6e3a1;
+    --color-success-subtle: #313244;
+    --color-on-success: #11111b;
+
+    --color-warning: #f9e2af;
+    --color-warning-subtle: #313244;
+    --color-on-warning: #11111b;
+
+    --color-error: #f38ba8;
+    --color-error-subtle: #313244;
+    --color-on-error: #11111b;
+
+    --color-info: #89dceb;
+    --color-info-subtle: #313244;
+    --color-on-info: #11111b;
+
+    --color-focus-ring: #cba6f7;
+}
