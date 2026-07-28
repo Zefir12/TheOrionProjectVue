@@ -14,7 +14,16 @@ export default defineConfig({
             "@components": path.resolve(__dirname, "./src/components")
         }
     },
-    plugins: [svgLoader(), vue(), VitePWA({ registerType: "autoUpdate" })],
+    plugins: [
+        svgLoader(),
+        vue(),
+        VitePWA({
+            registerType: "autoUpdate",
+            workbox: {
+                cleanupOutdatedCaches: true
+            }
+        })
+    ],
     base: "/",
     preview: {
         port: 3999
