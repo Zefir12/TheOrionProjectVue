@@ -36,7 +36,7 @@ onMounted(() => {});
     text-align: center;
 }
 .zefir-select {
-    height: 100%;
+    height: 50%;
     max-width: 6rem;
 }
 .right-side {
